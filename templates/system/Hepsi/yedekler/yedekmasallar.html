@@ -1,0 +1,68 @@
+                        {% if sayfa_Turu == "Masal" %}
+                            <!-- Popüler Kategoriler Masal -->
+                            <div class="col-sm-6">
+                                <!-- post -->
+                                <div class="post post-grid rounded bordered">
+                                    <div class="thumb top-rounded">
+                                        <a href="{% url 'MasallarHome' %}" class="category-badge position-absolute">En
+                                            Çok
+                                            Okunan Masallar</a>
+                                        <a href="{% url 'MasallarHome' %}">
+                                            <div class="inner">
+                                                <img src="{% static 'images/masal/Çok Okunan Masallar.webp' %}"
+                                                     alt="post-title"/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="details">
+                                        <ul class="meta list-inline mb-0">
+                                            <li class="list-inline-item">Sürekli Güncel içerik</li>
+                                        </ul>
+                                        <h5 class="post-title mb-3 mt-3"><a href="{% url 'MasallarHome' %}">En Çok
+                                            Okunan
+                                            Masallar</a></h5>
+
+                                    </div>
+                                    <div class="post-bottom clearfix d-flex align-items-center">
+                                        <a href="{% url 'MasallarHome' %}" class="btn btn-default">En Çok Okunan
+                                            Masalları
+                                            Gör</a>
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- Popüler Kategoriler Masal -->
+                        {% elif sayfa_Turu == "Hikaye" %}
+
+                            <!-- Popüler Hikaye Masal -->
+                            <div class="col-sm-6">
+                                <!-- post -->
+                                <div class="post post-grid rounded bordered">
+                                    <div class="thumb top-rounded">
+                                        <a href="{% url 'MasallarHome' %}" class="category-badge position-absolute">En
+                                            Çok
+                                            Okunan Hikayeler</a>
+                                        <a href="{% url 'MasallarHome' %}">
+                                            <div class="inner">
+                                                <img src="{% static 'images/hikaye/en-cok-okunan-hikayeler.webp' %}"
+                                                     alt="post-title"/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="details">
+                                        <ul class="meta list-inline mb-0">
+                                            <li class="list-inline-item">Sürekli Güncel içerik</li>
+                                        </ul>
+                                        <h5 class="post-title mb-3 mt-3"><a href="{% url 'MasallarHome' %}">En Çok
+                                            Okunan
+                                            Hikayeler</a></h5>
+
+                                    </div>
+                                    <div class="post-bottom clearfix d-flex align-items-center">
+                                        <a href="{% url 'MasallarHome' %}" class="btn btn-default">En Çok Okunan
+                                            Hikayeler
+                                            Gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Popüler Hikaye Masal -->
+                        {% endif %}

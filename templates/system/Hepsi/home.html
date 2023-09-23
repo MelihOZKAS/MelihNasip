@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container-xl">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+
+                    <div class="row gy-4">
+
+                        <div class="section-header">
+                            <h2 class="section-title">Popüler Masal Kategorileri</h2>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
+                        </div>
+
+                        <!-- Tüm Masal Kategorileri -->
+                        <div class="col-sm-6">
+                            <!-- post -->
+                            <div class="post post-grid rounded bordered">
+                                <div class="thumb top-rounded">
+                                    <a href="{% url 'MasallarHome' %}" class="category-badge position-absolute">Tüm
+                                        Kategoriler</a>
+                                    <a href="{% url 'MasallarHome' %}">
+                                        <div class="inner">
+                                            <img src="{% static 'images/masal/Tüm Kategoriler.webp' %}"
+                                                 alt="post-title"/>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="details">
+                                    <ul class="meta list-inline mb-0">
+                                        <li class="list-inline-item">Sürekli Güncel içerik</li>
+                                    </ul>
+                                    <h5 class="post-title mb-3 mt-3"><a href="{% url 'MasallarHome' %}">Tüm Masal
+                                        Kategorileri</a></h5>
+
+                                </div>
+                                <div class="post-bottom clearfix d-flex align-items-center">
+                                    <a href="{% url 'MasallarHome' %}" class="btn btn-default">Tüm Kategorileri Gör</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Home Yedek Masal -->
+                        <!-- Popüler Kategoriler Masal -->
+                        <!-- Home Yedek Masal -->
+
+
+
+
+                        {% for masal in masal_banner %}
+                            <div class="col-sm-6">
+                                <!-- post -->
+                                <div class="post post-grid rounded bordered">
+                                    <div class="thumb top-rounded">
+                                        <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}"
+                                           class="category-badge position-absolute">{{ masal.MasalKategoriAdi }}</a>
+
+                                        <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">
+                                            <div class="inner">
+                                                <img src="{% static 'images/masal/'|add:masal.MasalSlug|add:'.webp' %}"
+                                                     alt="{{ masal.MasalKategoriAdi }}"/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="details">
+                                        <ul class="meta list-inline mb-0">
+                                            <li class="list-inline-item">Eklenme
+                                                Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+                                        </ul>
+                                        <h5 class="post-title mb-3 mt-3"><a
+                                                href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">{{ masal.MasalKategoriAdi }}</a>
+                                        </h5>
+
+                                    </div>
+                                    <div class="post-bottom clearfix d-flex align-items-center">
+                                        <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}"
+                                           class="btn btn-default">Kategorideki Tüm Masalları
+                                            Gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+
+                        <div class="section-header">
+                            <h3 class="section-title">Popüler Hikaye Kategorileri</h3>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
+                        </div>
+
+                        {% for hikaye in hikaye_banner %}
+                            <div class="col-sm-6">
+                                <!-- post -->
+                                <div class="post post-grid rounded bordered">
+                                    <div class="thumb top-rounded">
+                                        <a href="{% url 'hikayeAltKategori' alt_kategori_slug=hikaye.HikayeSlug %}"
+                                           class="category-badge position-absolute">{{ hikaye.HikayeSlug }}</a>
+
+                                        <a href="{% url 'hikayeAltKategori' alt_kategori_slug=hikaye.HikayeSlug %}">
+                                            <div class="inner">
+                                                <img src="{% static 'images/hikaye/'|add:hikaye.HikayeSlug|add:'.webp' %}"
+                                                     alt="{{ hikaye.HikayeKategoriAdi }}"/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="details">
+                                        <ul class="meta list-inline mb-0">
+                                            <li class="list-inline-item">Eklenme
+                                                Tarihi: {{ hikaye.olusturma_tarihi|date:"d F Y" }}</li>
+                                        </ul>
+                                        <h5 class="post-title mb-3 mt-3"><a
+                                                href="{% url 'hikayeAltKategori' alt_kategori_slug=hikaye.HikayeSlug %}">{{ hikaye.HikayeKategoriAdi }}</a>
+                                        </h5>
+
+                                    </div>
+                                    <div class="post-bottom clearfix d-flex align-items-center">
+                                        <a href="{% url 'hikayeAltKategori' alt_kategori_slug=hikaye.HikayeSlug %}"
+                                           class="btn btn-default">Kategorideki Tüm Hikayeleri
+                                            Gör</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+
+
+
+
+
+                        <!-- Aşası düzeltilecek -->
+
+                        <div class="section-header">
+                            <h3 class="section-title">Popüler Masallar & Hikayeler</h3>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
+                        </div>
+
+
+                        <div class="padding-30 rounded bordered">
+                            <div class="row gy-5">
+
+                                <div class="col-sm-6">
+                                <h4 class="post-title mb-3 mt-3 text-center">Masallar</h4>
+
+                                    <!-- post -->
+                                    {% for smallMasal in SmallMasal %}
+                                        <div class="post post-list-sm square before-seperator">
+                                            <div class="thumb rounded">
+                                                <a href="{% url 'masal-getir' masal_slug=smallMasal.slug %}">
+                                                    <div class="inner">
+                                                        <img src="{% static 'images/masal/masal-oku.webp' %}"
+                                                             alt="post-title">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="details clearfix">
+                                                <h6 class="post-title my-0"><a
+                                                        href="{% url 'masal-getir' masal_slug=smallMasal.slug %}">{{ smallMasal.title }}</a>
+                                                </h6>
+                                                <ul class="meta list-inline mt-1 mb-0">
+                                                    <li class="list-inline-item">Eklenme
+                                                        Tarihi: {{ smallMasal.olusturma_tarihi|date:"d F Y" }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <!-- post -->
+                                </div>
+                                <div class="col-sm-6">
+                                     <h4 class="post-title mb-3 mt-3 text-center">Hikayeler</h4>
+                                    <!-- post large -->
+                                    <!-- post -->
+                                    {% for smallHikaye in SmallHikaye %}
+                                        <div class="post post-list-sm square before-seperator">
+                                            <div class="thumb rounded">
+                                                <a href="{% url 'hikaye-getir' hikaye_slug=smallHikaye.slug %}">
+                                                    <div class="inner">
+                                                        <img src="{% static 'images/hikaye/hikaye-oku.webp' %}"
+                                                             alt="post-title">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="details clearfix">
+                                                <h6 class="post-title my-0"><a
+                                                        href="{% url 'hikaye-getir' hikaye_slug=smallHikaye.slug %}">{{ smallHikaye.title }}</a>
+                                                </h6>
+                                                <ul class="meta list-inline mt-1 mb-0">
+                                                    <li class="list-inline-item">Eklenme
+                                                        Tarihi: {{ smallHikaye.olusturma_tarihi|date:"d F Y" }}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+                                    <!-- post -->
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+
+            </div>
+
+        </div>
+    </section>
+
+
+
+{% endblock content %}

@@ -1,0 +1,97 @@
+from django.db import models
+
+
+from django.conf import settings
+from ckeditor.fields import RichTextField
+
+HELP_TEXTS = {
+    "title": "Şiirin başlığını girin.",
+    "Model": "Modele göre sılanma ve konumlandırılma olacaktır.",
+    "yazar": "Şiiri yazan kullanıcıyı seçin.",
+    "slug": "Şiirin URL'de görünecek kısmını girin.",
+    "kategorisi": "Şiirin kategorisini seçin.",
+    "sair": "Şiirin şairini seçin.",
+    "icerik": "Şiirin içeriğini girin.",
+    "kapak_resmi": "Anasayfa Resim",
+    "status": "Şiirin durumunu seçin.",
+    "aktif": "Şiirin aktif olup olmadığını belirtin.",
+    "meta_title": "Sayfanın meta başlığını girin.",
+    "meta_description": "Sayfanın meta açıklamasını girin.",
+    "keywords": "Sayfanın anahtar kelimelerini \" Virgül '  ' \" ile ayrınız. ",
+    "banner": "Ana Sayfadaki büyük resim alanında ögrünür",
+    "small_banner": "Ana sayfada küçük resimlerde görünür.",
+    "hakkinda": "Şiir hakkında anlatılmak istenen.",
+    "Acikalama": "Kullanıcının işlem durumunu gösterir.",
+}
+status_cho = (
+    ("Taslak", "Taslak"),
+    ("Hazir", "Hazir"),
+    ("Yayinda", "Yayinda"),
+)
+
+model_tipi = (
+    ("Hikaye", "Hikaye"),
+    ("Masal", "Masal"),
+)
+
+class HikayeKategorileri(models.Model):
+    HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
+    HikayeSlug = models.SlugField(max_length=255, blank=True)
+    Hikaye_meta_description = models.TextField( blank=True, null=True, help_text=HELP_TEXTS["meta_description"])
+    Hikaye_keywords = models.CharField(max_length=255,blank=True,null=True,help_text=HELP_TEXTS["keywords"])
+    sirasi = models.IntegerField(default=100)
+    Aktif = models.BooleanField(default=False)
+    Banner = models.BooleanField(default=False)
+    olusturma_tarihi = models.DateTimeField(auto_now_add=True)
+    guncelleme_tarihi = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Hikayeler Kategorileri"
+    def __str__(self):
+        return self.HikayeKategoriAdi
+
+
+class MasalKategorileri(models.Model):
+    MasalKategoriAdi = models.CharField(max_length=30, unique=True)
+    MasalSlug = models.SlugField(max_length=255, unique=True, blank=True)
+    Masal_meta_description = models.TextField( blank=True, help_text=HELP_TEXTS["meta_description"])
+    Masal_keywords = models.CharField( max_length=255, blank=True,  help_text=HELP_TEXTS["keywords"])
+    sirasi = models.IntegerField(default=100)
+    Aktif = models.BooleanField(default=False)
+    Banner = models.BooleanField(default=False)
+    olusturma_tarihi = models.DateTimeField(auto_now_add=True)
+    guncelleme_tarihi = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Masallar Kategorileri"
+    def __str__(self):
+        return self.MasalKategoriAdi
+
+
+
+# Create your models here.
+class SiirMasal(models.Model):
+    title = models.CharField(max_length=255, help_text=HELP_TEXTS["title"])
+    slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
+    Model = models.CharField(max_length=40, choices=model_tipi, help_text=HELP_TEXTS["Model"])
+    masalKategorisi = models.ManyToManyField(MasalKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
+    hikayeKategorisi = models.ManyToManyField(HikayeKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
+
+    icerik = RichTextField(null=True, blank=True,help_text=HELP_TEXTS["icerik"])
+    youtube = models.URLField(blank=True)
+    meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
+    keywords = models.CharField(max_length=255,blank=True,verbose_name="Anahtar Kelimeler",help_text=HELP_TEXTS["keywords"])
+
+    status = models.CharField(max_length=10, choices=status_cho, default="Taslak", help_text=HELP_TEXTS["status"])
+    aktif = models.BooleanField(default=False, help_text=HELP_TEXTS["aktif"])
+    banner = models.BooleanField(default=False, help_text=HELP_TEXTS["banner"])
+    small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
+    okunma_sayisi = models.PositiveBigIntegerField(default=0)
+    olusturma_tarihi = models.DateTimeField(auto_now_add=True)
+    guncelleme_tarihi = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        verbose_name_plural = "Post"
+    def __str__(self):
+        return self.title

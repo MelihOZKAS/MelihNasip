@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  postgresmasal:
+    container_name: postgresmasal
+    hostname: postgresmasal
+    image: postgres:latest
+    env_file:
+      - Masallar/docker.env
+    ports:
+      - "5438:5432"
+    volumes:
+      - "postgresql-data-masal:/var/lib/postgresql/data"
+    networks:
+      - main_masal
+    command: -p 5438
+  app_masal:
+    container_name: app_masal
+    hostname: app_masal
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - Masallar/docker.env
+    volumes:
+      - static-data-masal:/srv/public
+      - .:/srv/app_masal
+    expose:
+      - 8008
+    depends_on:
+      - postgresmasal
+    command: gunicorn Masallar.wsgi:application --bind 0.0.0.0:8008
+    networks:
+      - main_masal
+      - bridge_network
+
+networks:
+  main_masal:
+  bridge_network:
+    name: nginx_network
+    driver: bridge
+
+volumes:
+  postgresql-data-masal:
+  static-data-masal:
