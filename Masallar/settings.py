@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'Hepsi.apps.HepsiConfig',
     "ckeditor",
     "django.contrib.sitemaps",
-    "django.contrib.sitemaps",
     "whitenoise.runserver_nostatic",
     "storages",
 
