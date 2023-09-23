@@ -37,6 +37,7 @@ model_tipi = (
 class HikayeKategorileri(models.Model):
     HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
     HikayeSlug = models.SlugField(max_length=255, blank=True)
+    Hikaye_Title = models.TextField( blank=True, null=True)
     Hikaye_meta_description = models.TextField( blank=True, null=True, help_text=HELP_TEXTS["meta_description"])
     Hikaye_keywords = models.CharField(max_length=255,blank=True,null=True,help_text=HELP_TEXTS["keywords"])
     sirasi = models.IntegerField(default=100)
@@ -54,6 +55,7 @@ class HikayeKategorileri(models.Model):
 class MasalKategorileri(models.Model):
     MasalKategoriAdi = models.CharField(max_length=30, unique=True)
     MasalSlug = models.SlugField(max_length=255, unique=True, blank=True)
+    Masal_Title = models.TextField(blank=True, null=True)
     Masal_meta_description = models.TextField( blank=True, help_text=HELP_TEXTS["meta_description"])
     Masal_keywords = models.CharField( max_length=255, blank=True,  help_text=HELP_TEXTS["keywords"])
     sirasi = models.IntegerField(default=100)
