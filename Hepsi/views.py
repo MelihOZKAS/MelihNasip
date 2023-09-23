@@ -102,7 +102,7 @@ def masalAltKategori(request, alt_kategori_slug):
     icerik = paginator.get_page(page_number)
 
     context = {
-        'title': alt_kategori.MasalKategoriAdi,
+        'title': alt_kategori.Masal_Title,
         'description': alt_kategori.Masal_meta_description,
         'keywords': alt_kategori.Masal_keywords,
         'alt_kategori': alt_kategori,
@@ -127,7 +127,7 @@ def hikayeAltKategori(request,  alt_kategori_slug):
 
 
     context = {
-        'title': alt_kategori.HikayeKategoriAdi,
+        'title': alt_kategori.Hikaye_Title,
         'description': alt_kategori.Hikaye_meta_description,
         'keywords': alt_kategori.Hikaye_keywords,
         'alt_kategori': alt_kategori,
