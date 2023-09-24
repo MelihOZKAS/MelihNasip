@@ -101,9 +101,18 @@ def masalAltKategori(request, alt_kategori_slug):
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
+    if page_number is None:
+        title = f"{alt_kategori.Masal_Title}"
+        description = f"{alt_kategori.Masal_meta_description}"
+    else:
+        title = f"{alt_kategori.Masal_Title} - {page_number}"
+        description = f"{alt_kategori.Masal_meta_description} - Sayfa {page_number}"
+
+
+
     context = {
-        'title': alt_kategori.Masal_Title,
-        'description': alt_kategori.Masal_meta_description,
+        'title': title,
+        'description': description,
         'keywords': alt_kategori.Masal_keywords,
         'alt_kategori': alt_kategori,
         'icerik': icerik,
@@ -125,10 +134,18 @@ def hikayeAltKategori(request,  alt_kategori_slug):
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
+    if page_number is None:
+        title = f"{alt_kategori.Hikaye_Title}"
+        description = f"{alt_kategori.Hikaye_meta_description}"
+    else:
+        title = f"{alt_kategori.Hikaye_Title} - {page_number}"
+        description = f"{alt_kategori.Hikaye_meta_description} - Sayfa {page_number}"
+
+
 
     context = {
-        'title': alt_kategori.Hikaye_Title,
-        'description': alt_kategori.Hikaye_meta_description,
+        'title': title,
+        'description': description,
         'keywords': alt_kategori.Hikaye_keywords,
         'alt_kategori': alt_kategori,
         'icerik': icerik,
@@ -201,6 +218,8 @@ def iletisim(request):
 
 def enderunMasal(request,masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug)
+    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
+    EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
 
@@ -211,13 +230,14 @@ def enderunMasal(request,masal_slug):
         'title': EnDerun.title,
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
-
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
 def enderunHikaye(request,hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug)
+    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
+    EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
 
