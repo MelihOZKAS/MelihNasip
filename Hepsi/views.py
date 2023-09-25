@@ -4,6 +4,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
+
+
 
 def turkish_slugify(input):
     tr_map = {
@@ -267,3 +271,13 @@ Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
 """
 
 
+def Oto_Paylas(request):
+    try:
+        post = SiirMasal.objects.filter(status="Zamanlanmış").order_by('yayin_tarihi').first()
+        if post and (post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now()):
+            post.status = "Yayinda"
+            post.aktif = True
+            post.save()
+            return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
+    except ObjectDoesNotExist:
+        return HttpResponse('Paylaşılacak Post Bulunamadı.')

@@ -24,7 +24,8 @@ urlpatterns = [
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
-    #path("en-cok-okunan-cocuk-masallari/", views.Masallar, name="en-cok-okunan-cocuk-masallari"),
+    path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
+
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
     #path("en-cok-okunan-cocuk-hikayeleri/", views.Hikayeler, name="en-cok-okunan-cocuk-hikayeleri"),
