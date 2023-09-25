@@ -45,8 +45,8 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{ masal.title }}</h5>
                                                         <p class="card-text">{{ masal.icerik|safe|truncatechars:50 }}</p>
-                                                        <a href="{% url sayfa_Turu|lower|add:'-getir' masal_slug=masal.slug %}"
-                                                           class="btn btn-primary">Okuyalım</a>
+                                                        <a href="{% url 'masal-getir' masal_slug=masal.slug %}"
+                                                           class="btn btn-default">Okuyalım</a>
                                                     </div>
                                                     <div class="card-footer text-muted">
                                                         Eklenme Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}
