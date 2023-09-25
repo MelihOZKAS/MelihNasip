@@ -279,5 +279,5 @@ def Oto_Paylas(request):
             post.aktif = True
             post.save()
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
-    except ObjectDoesNotExist:
+    except:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')

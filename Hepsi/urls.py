@@ -28,11 +28,6 @@ urlpatterns = [
 
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
-    #path("en-cok-okunan-cocuk-hikayeleri/", views.Hikayeler, name="en-cok-okunan-cocuk-hikayeleri"),
-    #path("en-cok-okunan-cocuk-hikayeleri-ingilizce/", views.Hikayeler, name="en-cok-okunan-cocuk-hikayeleri-ingilizce"),
-
-
-
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("gizlilik-politikasi/", views.iletisim, name="gizlilik-politikasi"),
