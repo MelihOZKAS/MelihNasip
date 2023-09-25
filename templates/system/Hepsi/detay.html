@@ -21,7 +21,7 @@
             <div class="row gy-4">
 
                 <div class="col-lg-8">
-                    <div class="row gy-4">
+
                         <div class="section-header">
                             <h1 class="section-title">{{ sayfa_adi }}</h1>
                             <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
@@ -69,33 +69,7 @@
                                     {% endfor %}
 
                                     <!-- sayfa ileri geri -->
-                                    <nav>
-                                        <ul class="pagination justify-content-center">
-                                            {% if icerik.has_previous %}
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
-                                                </li>
-                                            {% endif %}
 
-                                            {% for num in icerik.paginator.page_range %}
-                                                {% if icerik.number == num %}
-                                                    <li class="page-item active"><span
-                                                            class="page-link">{{ num }}</span>
-                                                    </li>
-                                                {% else %}
-                                                    <li class="page-item"><a class="page-link"
-                                                                             href="?sayfa={{ num }}">{{ num }}</a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-
-                                            {% if icerik.has_next %}
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                                </li>
-                                            {% endif %}
-                                        </ul>
-                                    </nav>
 
 
 
@@ -139,40 +113,41 @@
                                     {% endfor %}
 
                                     <!-- sayfa ileri geri -->
-                                    <nav>
-                                        <ul class="pagination justify-content-center">
-                                            {% if icerik.has_previous %}
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
-                                                </li>
-                                            {% endif %}
 
-                                            {% for num in icerik.paginator.page_range %}
-                                                {% if icerik.number == num %}
-                                                    <li class="page-item active"><span
-                                                            class="page-link">{{ num }}</span>
-                                                    </li>
-                                                {% else %}
-                                                    <li class="page-item"><a class="page-link"
-                                                                             href="?sayfa={{ num }}">{{ num }}</a></li>
-                                                {% endif %}
-                                            {% endfor %}
-
-                                            {% if icerik.has_next %}
-                                                <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                                </li>
-                                            {% endif %}
-                                        </ul>
-                                    </nav>
 
                                     <!-- Hikaye Kategori içerik -->
                                 {% endif %}
 
+                                <nav>
+                                    <ul class="pagination justify-content-center">
+                                        {% if icerik.has_previous %}
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% for num in icerik.paginator.page_range %}
+                                            {% if icerik.number == num %}
+                                                <li class="page-item active"><span
+                                                        class="page-link">{{ num }}</span>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?sayfa={{ num }}">{{ num }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if icerik.has_next %}
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
 
                             </div>
                         </div>
-                    </div>
+
 
                 </div>
 
