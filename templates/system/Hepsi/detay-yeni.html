@@ -33,8 +33,10 @@
         <div class="card mb-3">
             <div class="row no-gutters d-flex align-items-start">
                 <div class="col-md-4">
-                    <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                         class="card-img" alt="{{ masal.title }}">
+                    <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
+                        <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                             class="card-img" alt="{{ masal.title }}">
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
