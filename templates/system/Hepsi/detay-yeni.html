@@ -42,7 +42,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a></h5>
-                        <p class="card-text">{{ masal.icerik|safe|truncatechars:50 }}</p>
+
                         <a href="{% url 'masal-getir' masal_slug=masal.slug %}" class="btn btn-default">Masalı Okuyalım</a>
                     </div>
                     <div class="card-footer text-muted">
