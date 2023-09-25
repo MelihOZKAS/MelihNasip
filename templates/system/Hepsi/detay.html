@@ -26,12 +26,12 @@
                             <h1 class="section-title">{{ sayfa_adi }}</h1>
                             <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
                         </div>
+                        <div class="padding-30 rounded bordered">
 
-                        {% if sayfa_Turu == "Masal" %}
-                            <!-- Masalar Kategori içerik -->
-                            <div class="padding-30 rounded bordered">
+                            <div class="row">
 
-                                <div class="row">
+                                {% if sayfa_Turu == "Masal" %}
+                                    <!-- Masalar Kategori içerik -->
 
                                     {% for masal in icerik %}
                                         <div class="col-md-12 col-sm-6">
@@ -51,12 +51,15 @@
                                                             Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                                     </ul>
                                                     <h2 class="post-title"><a
-                                                            href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a></h2>
+                                                            href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
+                                                    </h2>
                                                     <p class="excerpt mb-0">{{ masal.icerik|safe|truncatechars:50 }}</p>
                                                     <div class="post-bottom clearfix d-flex align-items-center">
-                                                        <div class="post-bottom clearfix d-flex align-items-center"><a
-                                                                href="{% url 'masal-getir' masal_slug=masal.slug %}" class="btn btn-default">Masalı
-                                                            Okuyalım</a>
+                                                        <div class="post-bottom clearfix d-flex align-items-center">
+                                                            <a
+                                                                    href="{% url 'masal-getir' masal_slug=masal.slug %}"
+                                                                    class="btn btn-default">Masalı
+                                                                Okuyalım</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,43 +67,43 @@
                                         </div>
 
                                     {% endfor %}
-                                </div>
-                                <!-- sayfa ileri geri -->
-                                <nav>
-                                    <ul class="pagination justify-content-center">
-                                        {% if icerik.has_previous %}
-                                            <li class="page-item"><a class="page-link"
-                                                                     href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
-                                            </li>
-                                        {% endif %}
 
-                                        {% for num in icerik.paginator.page_range %}
-                                            {% if icerik.number == num %}
-                                                <li class="page-item active"><span class="page-link">{{ num }}</span>
-                                                </li>
-                                            {% else %}
+                                    <!-- sayfa ileri geri -->
+                                    <nav>
+                                        <ul class="pagination justify-content-center">
+                                            {% if icerik.has_previous %}
                                                 <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ num }}">{{ num }}</a></li>
+                                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                                </li>
                                             {% endif %}
-                                        {% endfor %}
 
-                                        {% if icerik.has_next %}
-                                            <li class="page-item"><a class="page-link"
-                                                                     href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
+                                            {% for num in icerik.paginator.page_range %}
+                                                {% if icerik.number == num %}
+                                                    <li class="page-item active"><span
+                                                            class="page-link">{{ num }}</span>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link"
+                                                                             href="?sayfa={{ num }}">{{ num }}</a>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% if icerik.has_next %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
 
 
-                            </div>
-                            <!-- Masalar Kategori içerik -->
-                        {% elif sayfa_Turu == "Hikaye" %}
 
-                            <!-- Hikaye Kategori içerik -->
-                            <div class="padding-30 rounded bordered">
+                                    <!-- Masalar Kategori içerik -->
+                                {% elif sayfa_Turu == "Hikaye" %}
 
-                                <div class="row">
+                                    <!-- Hikaye Kategori içerik -->
+
 
                                     {% for masal in icerik %}
                                         <div class="col-md-12 col-sm-6">
@@ -120,53 +123,55 @@
                                                             Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                                     </ul>
                                                     <h2 class="post-title"><a
-                                                            href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">{{ masal.title }}</a></h2>
+                                                            href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">{{ masal.title }}</a>
+                                                    </h2>
                                                     <p class="excerpt mb-0">{{ masal.icerik|safe|truncatechars:50 }}</p>
                                                     <div class="post-bottom clearfix d-flex align-items-center">
                                                         <div class="post-bottom clearfix d-flex align-items-center"><a
-                                                                href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}" class="btn btn-default">Hikayeyi
+                                                                href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
+                                                                class="btn btn-default">Hikayeyi
                                                             Okuyalım</a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     {% endfor %}
-                                </div>
-                                <!-- sayfa ileri geri -->
-                                <nav>
-                                    <ul class="pagination justify-content-center">
-                                        {% if icerik.has_previous %}
-                                            <li class="page-item"><a class="page-link"
-                                                                     href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
-                                            </li>
-                                        {% endif %}
 
-                                        {% for num in icerik.paginator.page_range %}
-                                            {% if icerik.number == num %}
-                                                <li class="page-item active"><span class="page-link">{{ num }}</span>
-                                                </li>
-                                            {% else %}
+                                    <!-- sayfa ileri geri -->
+                                    <nav>
+                                        <ul class="pagination justify-content-center">
+                                            {% if icerik.has_previous %}
                                                 <li class="page-item"><a class="page-link"
-                                                                         href="?sayfa={{ num }}">{{ num }}</a></li>
+                                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                                </li>
                                             {% endif %}
-                                        {% endfor %}
 
-                                        {% if icerik.has_next %}
-                                            <li class="page-item"><a class="page-link"
-                                                                     href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </nav>
+                                            {% for num in icerik.paginator.page_range %}
+                                                {% if icerik.number == num %}
+                                                    <li class="page-item active"><span
+                                                            class="page-link">{{ num }}</span>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="page-item"><a class="page-link"
+                                                                             href="?sayfa={{ num }}">{{ num }}</a></li>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% if icerik.has_next %}
+                                                <li class="page-item"><a class="page-link"
+                                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+
+                                    <!-- Hikaye Kategori içerik -->
+                                {% endif %}
 
 
                             </div>
-                            <!-- Hikaye Kategori içerik -->
-                        {% endif %}
-
-
+                        </div>
                     </div>
 
                 </div>
@@ -177,7 +182,6 @@
                 <!-- Sağ Sidebar -->
 
             </div>
-
         </div>
     </section>
 
