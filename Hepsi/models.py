@@ -27,7 +27,7 @@ status_cho = (
     ("Taslak", "Taslak"),
     ("Hazir", "Hazir"),
     ("Yayinda", "Yayinda"),
-    ("Zamanlanmış", "Zamanlanmış"),
+    ("oto", "oto"),
 )
 
 model_tipi = (

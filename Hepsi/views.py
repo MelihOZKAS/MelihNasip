@@ -273,7 +273,7 @@ Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
 
 def Oto_Paylas(request):
     try:
-        post = SiirMasal.objects.filter(status="Zamanlanmış").order_by('yayin_tarihi').first()
+        post = SiirMasal.objects.filter(status="oto").order_by('yayin_tarihi').first()
         if post and (post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now()):
             post.status = "Yayinda"
             post.aktif = True
