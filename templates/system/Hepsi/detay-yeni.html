@@ -33,7 +33,7 @@
                             {% if sayfa_Turu == "Masal" %}
 
     {% for masal in icerik %}
-        <div class="padding-30 rounded bordered">
+
         <div class="card mb-3">
             <div class="row no-gutters d-flex align-items-center">
                 <div class="col-md-4">
@@ -57,7 +57,6 @@
                 </div>
             </div>
         </div>
-        </div>
     {% endfor %}
 
 
@@ -74,8 +73,8 @@
                                                          style="border-radius: 10px;">
                                                 </a>
                                             </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
+                                            <div class="col-md-8 d-flex align-items-center">
+                                                <div class="card-body text-center">
                                                     <h5 class="card-title"><a
                                                             href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
                                                             class="text-decoration-none text-dark">{{ masal.title }}</a>
