@@ -123,7 +123,7 @@ def masalAltKategori(request, alt_kategori_slug):
         'sayfa_adi': sayfa_adi,
         'sayfa_Turu': sayfa_Turu,
     }
-    return render(request, 'system/Hepsi/detay.html', context)
+    return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
 

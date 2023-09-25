@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container-xl">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="row gy-4">
+                        <div class="section-header">
+                            <h1 class="section-title">{{ sayfa_adi }}</h1>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
+                        </div>
+
+
+                        <div class="col-sm-6">
+                            <!-- post -->
+                            <div class="row">
+                                {% for masal in icerik %}
+                                    <div class="col-12">
+                                        <div class="card mb-4">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4">
+                                                    <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                                                         class="card-img-top" alt="{{ masal.title }}">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ masal.title }}</h5>
+                                                        <p class="card-text">{{ masal.icerik|safe|truncatechars:50 }}</p>
+                                                        <a href="{% url sayfa_Turu|lower|add:'-getir' masal_slug=masal.slug %}"
+                                                           class="btn btn-primary">Okuyalım</a>
+                                                    </div>
+                                                    <div class="card-footer text-muted">
+                                                        Eklenme Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}
