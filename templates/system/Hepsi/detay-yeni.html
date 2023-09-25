@@ -34,7 +34,7 @@
 {% if sayfa_Turu == "Masal" %}
 
 {% for masal in icerik %}
-        <div class="card mb-3">
+        <div class="card mb-3" style="display: flex; justify-content: center; align-items: center; border-radius: 10px; margin: 0 auto;">
             <div class="row no-gutters">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
@@ -58,11 +58,11 @@
 
 
     {% for masal in icerik %}
-        <div class="card mb-3">
+        <div class="card mb-3" style="display: flex; justify-content: center; align-items: center; border-radius: 10px; margin: 0 auto;">
             <div class="row no-gutters">
                 <div class="col-md-4 d-flex justify-content-center align-items-center">
                     <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
-                        <img src="{% static 'images/hikaye/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                        <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}"
                              class="card-img" alt="{{ masal.title }}" style="border-radius: 10px;">
                     </a>
                 </div>
