@@ -31,22 +31,26 @@
 <div class="row">
     {% for masal in icerik %}
         <div class="card mb-3">
-            <div class="row no-gutters">
+            <div class="row no-gutters d-flex align-items-start">
                 <div class="col-md-4">
-                    <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                         class="card-img" alt="{{ masal.title }}">
+                    <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
+                        <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                             class="card-img" alt="{{ masal.title }}">
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{% url 'masal-getir' masal_slug=masal.slug %}" class="text-decoration-none text-dark">{{ masal.title }}</a></h5>
                         <p class="card-text"><small class="text-muted">Eklenme Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</small></p>
-                        <a href="{% url 'masal-getir' masal_slug=masal.slug %}" class="btn btn-primary">Masalı Okuyalım</a>
+                        <a href="{% url 'masal-getir' masal_slug=masal.slug %}" class="btn btn-default">Masalı Okuyalım</a>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
 </div>
+
+
 
 
 
