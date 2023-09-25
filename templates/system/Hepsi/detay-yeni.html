@@ -32,14 +32,12 @@
     {% for masal in icerik %}
         <div class="card mb-3">
             <div class="row no-gutters d-flex align-items-start">
-                <div class="thumb rounded">
-                                            <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
-                                                <div class="inner">
-                                                    <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                                                         alt="post-title">
-                                                </div>
-                                            </a>
-                                        </div>
+                <div class="col-md-4 inner">
+                    <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
+                        <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                             class="card-img" style="max-height: 200px;" alt="{{ masal.title }}">
+                    </a>
+                </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{% url 'masal-getir' masal_slug=masal.slug %}" class="text-decoration-none text-dark">{{ masal.title }}</a></h5>
