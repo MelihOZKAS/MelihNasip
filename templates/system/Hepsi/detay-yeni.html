@@ -34,7 +34,7 @@
                 <div class="col-md-4 text-center">
                     <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
                         <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                             class="card-img" alt="{{ masal.title }}">
+                             class="card-img rounded-circle" alt="{{ masal.title }}">
                     </a>
                 </div>
                 <div class="col-md-8">
@@ -48,6 +48,7 @@
         </div>
     {% endfor %}
 </div>
+
 
 
 
