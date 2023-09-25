@@ -29,15 +29,17 @@
 
 
                         <div class="col-sm-6">
-                            <!-- post -->
                             <div class="row">
                                 {% for masal in icerik %}
-                                    <div class="col-12">
-                                        <div class="card mb-4">
+                                    <div class="col-12 mb-4">
+                                        <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-md-4">
-                                                    <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                                                         class="card-img-top" alt="{{ masal.title }}">
+                                                    <div class="card-img-wrapper">
+                                                        <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                                                             class="card-img-top card-img-square"
+                                                             alt="{{ masal.title }}">
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div class="card-body">
@@ -55,8 +57,8 @@
                                     </div>
                                 {% endfor %}
                             </div>
-
                         </div>
+
 
                     </div>
 
