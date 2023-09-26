@@ -27,9 +27,9 @@
                             <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave">
                         </div>
 
-<!-- Yedek Masal buraya eklenebilir istersen -->
-                    <!-- Yedek Masal buraya eklenebilir istersen -->
-<!-- Yedek Masal buraya eklenebilir istersen -->
+                        <!-- Yedek Masal buraya eklenebilir istersen -->
+                        <!-- Yedek Masal buraya eklenebilir istersen -->
+                        <!-- Yedek Masal buraya eklenebilir istersen -->
 
 
 
@@ -45,9 +45,11 @@
                                             <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">
                                                 <div class="inner">
                                                     <img src="{% static 'images/masal/'|add:masal.MasalSlug|add:'.webp' %}"
-                                                         alt="{{ masal.MasalKategoriAdi }}"/>
+                                                         alt="{{ masal.MasalKategoriAdi }}"
+                                                         width="356" height="178"/>
                                                 </div>
                                             </a>
+
                                         {% elif sayfa_Turu == "Hikaye" %}
                                             <a href="{% url 'hikayeAltKategori' alt_kategori_slug=masal.HikayeSlug %}"
                                                class="category-badge position-absolute">{{ masal.HikayeKategoriAdi }}</a>
