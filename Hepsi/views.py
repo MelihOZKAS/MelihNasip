@@ -272,7 +272,8 @@ Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
 
 
 def Oto_Paylas(request):
-    post = SiirMasal.objects.filter(status="oto", aktif=False).order_by('yayin_tarihi').first()
+    post = SiirMasal.objects.filter(status="oto").order_by('id').first()
+
     if post is not None:
         if post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now():
             post.status = "Yayinda"
