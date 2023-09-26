@@ -38,7 +38,7 @@
                                             <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
                                                 <div class="inner">
                                                     <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                                                         alt="post-title">
+                                                         loading="lazy" alt="post-title">
                                                 </div>
                                             </a>
                                         </div>
@@ -74,7 +74,7 @@
                                             <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
                                                 <div class="inner">
                                                     <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}"
-                                                         alt="post-title">
+                                                         loading="lazy" alt="post-title">
                                                 </div>
                                             </a>
                                         </div>

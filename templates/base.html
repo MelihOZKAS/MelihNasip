@@ -6,7 +6,7 @@
     <title>{% block title %}Site Başlığı{% endblock %}</title>
     <meta name="description" content="{% block description %}Site description{% endblock %}">
     <meta name="keywords" content="{% block keywords %}Site keywords{% endblock %}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/hikaye-masal.webp' %}">
     <!-- Robots Etiketi -->
     <meta name="robots" content="index, follow">
@@ -83,7 +83,7 @@
 
     <!-- logo -->
     <div class="logo">
-        <img src="{% static 'images/hikaye-masal.webp' %}" alt="En Güzel Masalları Oku"/>
+        <img src="{% static 'images/hikaye-masal.webp' %}" loading="lazy" alt="En Güzel Masalları Oku"/>
     </div>
 
     <!-- menu -->

@@ -45,7 +45,7 @@
                                             <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">
                                                 <div class="inner">
                                                     <img src="{% static 'images/masal/'|add:masal.MasalSlug|add:'.webp' %}"
-                                                         alt="{{ masal.MasalKategoriAdi }}"
+                                                         loading="lazy" alt="{{ masal.MasalKategoriAdi }}"
                                                          width="356" height="178"/>
                                                 </div>
                                             </a>
@@ -57,7 +57,7 @@
                                             <a href="{% url 'hikayeAltKategori' alt_kategori_slug=masal.HikayeSlug %}">
                                                 <div class="inner">
                                                     <img src="{% static 'images/hikaye/'|add:masal.HikayeSlug|add:'.webp' %}"
-                                                         alt="{{ masal.HikayeKategoriAdi }}"/>
+                                                         loading="lazy" alt="{{ masal.HikayeKategoriAdi }}"/>
                                                 </div>
                                             </a>
 

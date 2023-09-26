@@ -48,8 +48,8 @@
                                     <ul class="meta list-inline mb-0">
                                         <li class="list-inline-item">Sürekli Güncel içerik</li>
                                     </ul>
-                                    <h5 class="post-title mb-3 mt-3"><a href="{% url 'MasallarHome' %}">Tüm Masal
-                                        Kategorileri</a></h5>
+                                    <h3 class="post-title mb-3 mt-3"><a href="{% url 'MasallarHome' %}">Tüm Masal
+                                        Kategorileri</a></h3>
 
                                 </div>
                                 <div class="post-bottom clearfix d-flex align-items-center">
@@ -86,9 +86,9 @@
                                             <li class="list-inline-item">Eklenme
                                                 Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                         </ul>
-                                        <h5 class="post-title mb-3 mt-3"><a
+                                        <h3 class="post-title mb-3 mt-3"><a
                                                 href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">{{ masal.MasalKategoriAdi }}</a>
-                                        </h5>
+                                        </h3>
 
                                     </div>
                                     <div class="post-bottom clearfix d-flex align-items-center">
@@ -103,7 +103,7 @@
 
 
                         <div class="section-header">
-                            <h3 class="section-title">Popüler Hikaye Kategorileri</h3>
+                            <h2 class="section-title">Popüler Hikaye Kategorileri</h2>
                             {% include 'system/parcali/vave.html' %}
                         </div>
 
@@ -127,9 +127,9 @@
                                             <li class="list-inline-item">Eklenme
                                                 Tarihi: {{ hikaye.olusturma_tarihi|date:"d F Y" }}</li>
                                         </ul>
-                                        <h5 class="post-title mb-3 mt-3"><a
+                                        <h3 class="post-title mb-3 mt-3"><a
                                                 href="{% url 'hikayeAltKategori' alt_kategori_slug=hikaye.HikayeSlug %}">{{ hikaye.HikayeKategoriAdi }}</a>
-                                        </h5>
+                                        </h3>
 
                                     </div>
                                     <div class="post-bottom clearfix d-flex align-items-center">
@@ -150,7 +150,7 @@
                         <!-- Aşası düzeltilecek -->
 
                         <div class="section-header">
-                            <h3 class="section-title">Popüler Masallar & Hikayeler</h3>
+                            <h2 class="section-title">Popüler Masallar & Hikayeler</h2>
                             {% include 'system/parcali/vave.html' %}
                         </div>
 
@@ -168,14 +168,14 @@
                                                 <a href="{% url 'masal-getir' masal_slug=smallMasal.slug %}">
                                                     <div class="inner">
                                                         <img src="{% static 'images/masal/masal-oku.webp' %}"
-                                                             alt="post-title">
+                                                             alt="{{ smallMasal.title }}">
                                                     </div>
                                                 </a>
                                             </div>
                                             <div class="details clearfix">
-                                                <h6 class="post-title my-0"><a
+                                                <h5 class="post-title my-0"><a
                                                         href="{% url 'masal-getir' masal_slug=smallMasal.slug %}">{{ smallMasal.title }}</a>
-                                                </h6>
+                                                </h5>
                                                 <ul class="meta list-inline mt-1 mb-0">
                                                     <li class="list-inline-item">Eklenme
                                                         Tarihi: {{ smallMasal.olusturma_tarihi|date:"d F Y" }}</li>
@@ -195,14 +195,14 @@
                                                 <a href="{% url 'hikaye-getir' hikaye_slug=smallHikaye.slug %}">
                                                     <div class="inner">
                                                         <img src="{% static 'images/hikaye/hikaye-oku.webp' %}"
-                                                             alt="post-title">
+                                                             alt="{{ smallHikaye.title }}">
                                                     </div>
                                                 </a>
                                             </div>
                                             <div class="details clearfix">
-                                                <h6 class="post-title my-0"><a
+                                                <h5 class="post-title my-0"><a
                                                         href="{% url 'hikaye-getir' hikaye_slug=smallHikaye.slug %}">{{ smallHikaye.title }}</a>
-                                                </h6>
+                                                </h5>
                                                 <ul class="meta list-inline mt-1 mb-0">
                                                     <li class="list-inline-item">Eklenme
                                                         Tarihi: {{ smallHikaye.olusturma_tarihi|date:"d F Y" }}</li>
