@@ -10,7 +10,8 @@
         <div class="widget no-container rounded text-md-center">
             <span class="ads-title">- Sponsor Reklam Alanı -</span>
             <a href="https://www.enguzelsiirler.com/" target="_blank" class="widget-ads">
-                <img src="{% static 'images/masal/aşk-şiirleri.webp' %}" alt="En Güzel Şiirler" style="border-radius: 15px;"/>
+                <img src="{% static 'images/masal/aşk-şiirleri.webp' %}" alt="En Güzel Şiirler" width="356" height="356"
+                     style="border-radius: 15px;"/>
             </a>
         </div>
 
@@ -19,33 +20,43 @@
         <div class="widget rounded">
             <div class="widget-header text-center">
                 <h3 class="widget-title">Popüler Masal Kategoriler</h3>
-                <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave"/>
+                {% include 'system/parcali/vave.html' %}
             </div>
             <div class="widget-content">
                 <ul class="list">
-                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="prens-masallari" %}">En Güzel Prens Masalları</a></li>
-                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="dini-masallar" %}">En Güzel Dini Masallar</a></li>
-                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="kardeslik-masallari" %}">En Güzel Kardeş Masalları</a></li>
-                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="iyilik-masallari" %}">En Güzel iyilik Masalları</a></li>
-                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="keloglan-masallari" %}">En Güzel Keloğlan Masalları</a></li>
+                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="prens-masallari" %}">En Güzel Prens
+                        Masalları</a></li>
+                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="dini-masallar" %}">En Güzel Dini
+                        Masallar</a></li>
+                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="kardeslik-masallari" %}">En Güzel Kardeş
+                        Masalları</a></li>
+                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="iyilik-masallari" %}">En Güzel iyilik
+                        Masalları</a></li>
+                    <li><a href="{% url 'masalAltKategori' alt_kategori_slug="keloglan-masallari" %}">En Güzel Keloğlan
+                        Masalları</a></li>
                 </ul>
             </div>
 
         </div>
 
-                <!-- widget categories -->
+        <!-- widget categories -->
         <div class="widget rounded">
             <div class="widget-header text-center">
                 <h3 class="widget-title">Popüler Hikaye Kategoriler</h3>
-                <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave"/>
+                {% include 'system/parcali/vave.html' %}
             </div>
             <div class="widget-content">
                 <ul class="list">
-                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="ingilizce-hikayeler" %}">En Güzel ingilizce Hikayeler</a></li>
-                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="dini-hikayeler" %}">En Güzel Dini Hikayeler</a></li>
-                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="mutlu-aile-hikayeleri" %}">En Güzel Aile Hikayeler</a></li>
-                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="dostluk-hikayeleri" %}">En Güzel Dostluk Hikayeleri</a></li>
-                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="gezi-maceralari-hikayeleri" %}">En Güzel Gezi Maceraları Hikayeleri</a></li>
+                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="ingilizce-hikayeler" %}">En Güzel
+                        ingilizce Hikayeler</a></li>
+                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="dini-hikayeler" %}">En Güzel Dini
+                        Hikayeler</a></li>
+                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="mutlu-aile-hikayeleri" %}">En Güzel Aile
+                        Hikayeler</a></li>
+                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="dostluk-hikayeleri" %}">En Güzel Dostluk
+                        Hikayeleri</a></li>
+                    <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="gezi-maceralari-hikayeleri" %}">En Güzel
+                        Gezi Maceraları Hikayeleri</a></li>
 
 
                 </ul>
@@ -58,7 +69,8 @@
         <div class="widget no-container rounded text-md-center">
             <span class="ads-title">- Sponsor Reklam Alanı -</span>
             <a href="https://www.enguzelsiirler.com/siir/kategori/ask-siirleri/" target="_blank" class="widget-ads">
-                <img src="{% static 'images/masal/aşk-şiirleri-yeni.webp' %}" alt="Aşk Şiirleri" style="border-radius: 15px;" />
+                <img src="{% static 'images/masal/aşk-şiirleri-yeni.webp' %}" alt="Aşk Şiirleri"
+                     style="border-radius: 15px;" width="356" height="356"/>
             </a>
         </div>
 
