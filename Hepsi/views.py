@@ -245,8 +245,6 @@ def enderunHikaye(request,hikaye_slug):
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
 
-
-
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
