@@ -30,26 +30,26 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-xl">
 
-            <div class="collapse navbar-collapse justify-content-center centered-nav">
-                <!-- menus -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Ana Sayfa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'MasallarHome' %}">Masallar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'HikayelerHome' %}">Hikayeler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'hikayeAltKategori' alt_kategori_slug="ingilizce-hikayeler" %}">İngilizce Hikayeler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'iletisim' %}">İletişim</a>
-                    </li>
-                </ul>
-            </div>
+<div class="collapse navbar-collapse justify-content-center centered-nav">
+    <!-- menus -->
+    <ul class="navbar-nav">
+        <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'home' %}">Ana Sayfa</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.url_name == 'MasallarHome' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'MasallarHome' %}">Masallar</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.url_name == 'HikayelerHome' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'HikayelerHome' %}">Hikayeler</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.url_name == 'hikayeAltKategori' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'hikayeAltKategori' alt_kategori_slug='ingilizce-hikayeler' %}">İngilizce Hikayeler</a>
+        </li>
+        <li class="nav-item {% if request.resolver_match.url_name == 'iletisim' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'iletisim' %}">İletişim</a>
+        </li>
+    </ul>
+</div>
 
         </div>
     </nav>
