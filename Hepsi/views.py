@@ -228,7 +228,8 @@ def ekle(request):
         siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, status="manuel")
         siir_masal.save()
         # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
-        return HttpResponse('Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(reverse('masal-hikaye-ekle')))  # Başarılı bir şekilde kaydedildiğinde gösterilecek sayfa
+        return HttpResponse('Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}" class="btn btn-primary">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(reverse('masal-hikaye-ekle')))
+
 
     else:
         return render(request, 'system/Hepsi/masal-ekle.html',context)  # Formun bulunduğu sayfa
