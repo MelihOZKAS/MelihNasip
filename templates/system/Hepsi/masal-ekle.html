@@ -25,20 +25,20 @@
                         <form method="post">
                             {% csrf_token %}
                             <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
+                                <label for="title" class="form-label">Başlık</label>
                                 <input type="text" class="form-control" id="title" name="title">
                             </div>
                             <div class="mb-3">
-                                <label for="model" class="form-label">Model</label>
+                                <label for="model" class="form-label">Lütfen Model Seçin</label>
                                 <select class="form-select" id="model" name="model">
-                                    <option selected>Select...</option>
+                                    <option selected>Kategori Seçin</option>
                                     <option value="Masal">Masal</option>
                                     <option value="Hikaye">Hikaye</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="icerik" class="form-label">İçerik</label>
-                                <textarea class="form-control" id="icerik" name="icerik" rows="3"></textarea>
+                                <textarea class="form-control" id="icerik" name="icerik" rows="31"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Gönder</button>
                         </form>
