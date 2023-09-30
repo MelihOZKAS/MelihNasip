@@ -1,4 +1,4 @@
-from django.shortcuts import render,HttpResponse,get_object_or_404
+from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
 from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+
+
 
 
 
@@ -226,12 +228,7 @@ def ekle(request):
         siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, status="manuel")
         siir_masal.save()
         # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
-        return HttpResponse("Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır.")  # Başarılı bir şekilde kaydedildiğinde gösterilecek sayfa
-
-
-
-
-
+        return HttpResponse('Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(reverse('hikaye_ekle')))  # Başarılı bir şekilde kaydedildiğinde gösterilecek sayfa
 
     else:
         return render(request, 'system/Hepsi/masal-ekle.html',context)  # Formun bulunduğu sayfa
