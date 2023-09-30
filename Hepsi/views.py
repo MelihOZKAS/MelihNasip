@@ -8,7 +8,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
 
-
+def create_unique_title_slug(title):
+    slug = turkish_slugify(title)
+    unique_slug = slug
+    unique_title = title
+    num = 1
+    while SiirMasal.objects.filter(slug=unique_slug).exists() or SiirMasal.objects.filter(title=unique_title).exists():
+        unique_slug = '{}-{}'.format(slug, num)
+        unique_title = '{} {}'.format(title, num)
+        num += 1
+    return unique_title, unique_slug
 
 
 def turkish_slugify(input):
@@ -225,7 +234,7 @@ def ekle(request):
         model = request.POST.get('model')
         icerik = request.POST.get('icerik')
 
-        slug = turkish_slugify(title)
+        title, slug = create_unique_title_slug(title)
         siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="manuel")
         siir_masal.save()
         # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
