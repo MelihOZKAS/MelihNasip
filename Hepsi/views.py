@@ -209,6 +209,35 @@ def Hikayeler(request):
 
 
 
+
+
+def ekle(request):
+    context = {
+        'title': "Uyku Masalları, Uyku Hikayeleri Ekle",
+        'description': "Çocuk hiyakeleri ve Masallarını bizlere gönderebilir sizin yazdıklarınızı da bizlerle ve tüm türkiye ile paylaşabilirisiniz.",
+        'keywords': "çocuk masalları yaz, uyku masalları yaz, uyku hikayeleri yaz, çocuk hikayeleri yaz, uzun çocuklara özel hikaye,zeka geliştirin hikayeler",
+
+    }
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        model = request.POST.get('model')
+        icerik = request.POST.get('icerik')
+
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, status="manuel")
+        siir_masal.save()
+        # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
+        return HttpResponse("Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır.")  # Başarılı bir şekilde kaydedildiğinde gösterilecek sayfa
+
+
+
+
+
+
+    else:
+        return render(request, 'system/Hepsi/masal-ekle.html',context)  # Formun bulunduğu sayfa
+
+
+
 def iletisim(request):
     context = {
         'title': "Çocuk Masalları Oku İletişim",

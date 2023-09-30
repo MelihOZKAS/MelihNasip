@@ -8,7 +8,7 @@ class HepsiAdmin(admin.ModelAdmin):
     list_display = ("title","Model","okunma_sayisi","youtube","status","yayin_tarihi","small_banner","banner","aktif")
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
-    list_filter = ("status","aktif","banner","small_banner",)
+    list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
 
 admin.site.register(SiirMasal, HepsiAdmin)

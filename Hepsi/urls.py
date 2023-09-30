@@ -25,6 +25,7 @@ urlpatterns = [
 
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
     path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
+    path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
 
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),

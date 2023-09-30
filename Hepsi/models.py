@@ -28,6 +28,7 @@ status_cho = (
     ("Hazir", "Hazir"),
     ("Yayinda", "Yayinda"),
     ("oto", "oto"),
+    ("manuel", "manuel"),
 )
 
 model_tipi = (

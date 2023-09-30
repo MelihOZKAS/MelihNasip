@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container-xl">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="row gy-4">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" name="title">
+                            </div>
+                            <div class="mb-3">
+                                <label for="model" class="form-label">Model</label>
+                                <select class="form-select" id="model" name="model">
+                                    <option selected>Select...</option>
+                                    <option value="Masal">Masal</option>
+                                    <option value="Hikaye">Hikaye</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="icerik" class="form-label">İçerik</label>
+                                <textarea class="form-control" id="icerik" name="icerik" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Gönder</button>
+                        </form>
+                    </div>
+
+
+                </div>
+
+
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}
