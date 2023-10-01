@@ -233,9 +233,10 @@ def ekle(request):
         title = request.POST.get('title')
         model = request.POST.get('model')
         icerik = request.POST.get('icerik')
+        aciklama = request.POST.get('aciklama')
 
         title, slug = create_unique_title_slug(title)
-        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="manuel")
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, meta_description=aciklama , status="manuel")
         siir_masal.save()
         # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
         return HttpResponse('Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}" class="btn btn-primary">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(reverse('masal-hikaye-ekle')))
