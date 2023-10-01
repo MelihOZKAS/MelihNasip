@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.utils.safestring import mark_safe
+
 
 
 def create_unique_title_slug(title):
@@ -232,7 +234,7 @@ def ekle(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         model = request.POST.get('model')
-        icerik = request.POST.get('icerik')
+        icerik = mark_safe(request.POST.get('icerik'))
         aciklama = request.POST.get('aciklama')
 
         title, slug = create_unique_title_slug(title)
