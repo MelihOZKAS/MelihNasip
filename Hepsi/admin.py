@@ -32,3 +32,10 @@ class HikayeAdmin(admin.ModelAdmin):
     list_editable = ("Aktif","Banner","sirasi")
 
 admin.site.register(HikayeKategorileri, HikayeAdmin)
+
+
+class iletisimAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+
+
+admin.site.register(iletisimmodel, iletisimAdmin)
