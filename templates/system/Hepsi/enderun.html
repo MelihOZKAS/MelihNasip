@@ -39,12 +39,11 @@
                         <!-- post header -->
                         <div class="post-header">
                         {% if EnDerun.Model == "Masal" %}
-                            <h1 class="title mt-0 mb-3">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin<</h1>
+                            <h1 class="title mt-0 mb-3">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
                         {% elif EnDerun.Model == "Hikaye" %}
                             <h1 class="title mt-0 mb-3">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
                         {% endif %}
 
-                            <h1 class="title mt-0 mb-3">{{ EnDerun.title }}</h1>
                             <ul class="meta list-inline mb-0">
                                 {% if EnDerun.Model == "Masal" %}
                                     <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a></li>
