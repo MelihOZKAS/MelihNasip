@@ -6,22 +6,22 @@ from .models import *
 
 
 
-
-class MasalKategorileriInline(admin.TabularInline):
-    model = SiirMasal.masalKategorisi.through
-
-class HikayeKategorileriInline(admin.TabularInline):
-    model = SiirMasal.hikayeKategorisi.through
 class HepsiAdmin(admin.ModelAdmin):
-    list_display = ("title","Model","okunma_sayisi","status","yayin_tarihi","small_banner","banner","aktif",)
+    list_display = ("title","Model","okunma_sayisi",'get_masal_kategorisi', 'get_hikaye_kategorisi',"status","yayin_tarihi","small_banner","banner","aktif",)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
-    inlines = [MasalKategorileriInline, HikayeKategorileriInline]
-    exclude = ('masalKategorisi', 'hikayeKategorisi',)
 
+    def get_masal_kategorisi(self, obj):
+        return list(obj.masalKategorisi.values_list('name', flat=True))
 
+    get_masal_kategorisi.short_description = 'Masal Kategorileri'
+
+    def get_hikaye_kategorisi(self, obj):
+        return list(obj.hikayeKategorisi.values_list('name', flat=True))
+
+    get_hikaye_kategorisi.short_description = 'Hikaye Kategorileri'
 admin.site.register(SiirMasal, HepsiAdmin)
 
 
