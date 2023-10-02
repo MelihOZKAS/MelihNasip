@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
-from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri
+from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri,iletisimmodel
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -256,6 +256,18 @@ def iletisim(request):
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, ingilizce hikayeler, çocuk hikayeleri, çocuklara özel hikayeler, keloğlan masalları",
 
     }
+
+    if request.method == 'POST':
+        name = request.POST.get('InputName')
+        email = request.POST.get('InputEmail')
+        title = request.POST.get('InputSubject')
+        icerik = request.POST.get('InputMessage')
+
+        iletisim_obj = iletisimmodel(name=name, email=email, title=title, icerik=icerik)
+        iletisim_obj.save()
+
+        return HttpResponse('İletişim istediğinizi Kaydettik. <a href="{}" class="btn btn-primary">Ana Sayfaya Dönmek için Tıklayın.</a>'.format(reverse('home')))
+
 
     return render(request, 'system/Hepsi/iletisim.html', context)
 
