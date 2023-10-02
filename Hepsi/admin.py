@@ -5,11 +5,21 @@ from django.contrib import admin
 from .models import *
 
 class HepsiAdmin(admin.ModelAdmin):
-    list_display = ("title","Model","okunma_sayisi","masalKategorisi","hikayeKategorisi","status","yayin_tarihi","small_banner","banner","aktif")
+    list_display = ("title","Model","okunma_sayisi","get_masal_kategorisi","get_hikaye_kategorisi","status","yayin_tarihi","small_banner","banner","aktif")
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
+
+    def get_masal_kategorisi(self, obj):
+        return ", ".join([k.name for k in obj.masalKategorisi.all()])
+
+    get_masal_kategorisi.short_description = 'Masal Kategorileri'
+
+    def get_hikaye_kategorisi(self, obj):
+        return ", ".join([k.name for k in obj.hikayeKategorisi.all()])
+
+    get_hikaye_kategorisi.short_description = 'Hikaye Kategorileri'
 
 admin.site.register(SiirMasal, HepsiAdmin)
 
