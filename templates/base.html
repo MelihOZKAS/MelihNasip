@@ -141,6 +141,45 @@
 
 </div>
 
+
+
+
+
+
+
+<!-- Çerez Bildirimi Pop-up -->
+<div id="cookie-popup" style="display: none; position: fixed; bottom: 0; width: 100%; background-color: #f9edbe; padding: 20px; text-align: center;">
+    <p>Web sitemiz, kullanıcı deneyiminizi iyileştirmek için çerezler kullanır. Web sitemizi kullanarak çerez politikamızı kabul etmiş olursunuz.
+    <button onclick="closeCookiePopup()">Kabul Ediyorum</button></p>
+</div>
+
+<script>
+// Çerez bildirimi pop-up'ını kapatma fonksiyonu
+function closeCookiePopup() {
+    document.getElementById('cookie-popup').style.display = 'none';
+
+    // Çerez bildiriminin kabul edildiğini bir çerezde sakla
+    document.cookie = "cookiePopupAccepted=true; max-age=31536000"; // 1 yıl süreyle sakla
+}
+
+// Sayfa yüklendiğinde çerez bildirimi pop-up'ını gösterme fonksiyonu
+window.onload = function() {
+    // Eğer çerez bildirimi daha önce kabul edilmişse, pop-up'ı gösterme
+    if (document.cookie.split(';').some((item) => item.trim().startsWith('cookiePopupAccepted='))) {
+        return;
+    }
+
+    // Aksi takdirde, çerez bildirimi pop-up'ını göster
+    document.getElementById('cookie-popup').style.display = 'block';
+}
+</script>
+
+
+
+
+
+
+
 <!-- JAVA SCRIPTS -->
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
@@ -148,6 +187,8 @@
 <script src="{% static 'js/slick.min.js' %}"></script>
 <script src="{% static 'js/jquery.sticky-sidebar.min.js' %}"></script>
 <script src="{% static 'js/custom.js' %}"></script>
+
+
 
 <!--
 <div class="ads-horizontal text-md-center">
