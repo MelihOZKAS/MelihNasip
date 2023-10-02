@@ -259,6 +259,16 @@ def iletisim(request):
 
     return render(request, 'system/Hepsi/iletisim.html', context)
 
+def hakkimizda(request):
+    context = {
+        'title': "Çocuk Masalları Oku Hakkımızda",
+        'description': "Çocuk hiyakeleri ve Masalları sitemizin hakkımızda bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
+        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
+
+    }
+
+    return render(request, 'system/Hepsi/hakkimizda.html', context)
+
 
 def enderunMasal(request,masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug)

@@ -31,6 +31,7 @@ urlpatterns = [
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
+    path("hakkimizda/", views.hakkimizda, name="hakkimizda"),
     path("gizlilik-politikasi/", views.iletisim, name="gizlilik-politikasi"),
 
 
