@@ -32,7 +32,8 @@ urlpatterns = [
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("hakkimizda/", views.hakkimizda, name="hakkimizda"),
-    path("gizlilik-politikasi/", views.iletisim, name="gizlilik-politikasi"),
+    path("gizlilik-politikasi/", views.gizlilik, name="gizlilik-politikasi"),
+    path("kullanim-sartlari/", views.kullanim, name="kullanim-sartlari"),
 
 
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),

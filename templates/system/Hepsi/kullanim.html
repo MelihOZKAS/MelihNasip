@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+
+    <section class="main-content">
+		<div class="container-xl">
+
+<h1>Kullanım Şartları</h1>
+
+<p>cocukmasallarioku.com ("Web Sitesi")'u ziyaret ederek, aşağıdaki kullanım şartlarını kabul etmiş olursunuz:</p>
+
+<h2>İçerik</h2>
+
+<p>Web Sitesi'nde bulunan tüm içerikler bilgilendirme amaçlıdır. İçeriklerin doğruluğunu, güncelliğini veya eksiksizliğini garanti etmiyoruz.</p>
+
+<h2>Fikri Mülkiyet</h2>
+
+<p>Web Sitesi'nde bulunan tüm içerikler bizim mülkiyetimizdir veya lisanslıdır ve telif hakkı yasaları tarafından korunmaktadır. İçeriği izinsiz kullanmak yasaktır.</p>
+
+<h2>Sorumluluk Reddi</h2>
+
+<p>Web Sitesi'ni kullanmanın riski tamamen size aittir. Web Sitesi "olduğu gibi" sunulur ve herhangi bir garantisi yoktur.</p>
+
+<h2>Değişiklikler</h2>
+
+<p>Bu Kullanım Şartlarını zaman zaman güncelleyebiliriz. Değişiklikler yürürlüğe girdiğinde bu sayfayı güncelleyeceğiz.</p>
+
+<h2>İletişim</h2>
+
+<p>Bu Kullanım Şartları hakkında herhangi bir sorunuz varsa, lütfen bizimle iletişime geçin.</p>
+
+		</div>
+	</section>
+
+
+
+{% endblock content %}

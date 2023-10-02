@@ -269,6 +269,25 @@ def hakkimizda(request):
 
     return render(request, 'system/Hepsi/hakkimizda.html', context)
 
+def gizlilik(request):
+    context = {
+        'title': "Çocuk Masalları Oku Gizlilik Politikası",
+        'description': "Çocuk hiyakeleri ve Masalları sitemizin Gizlilik Politikası bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
+        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
+
+    }
+
+    return render(request, 'system/Hepsi/gilzlilik.html', context)
+
+def kullanim(request):
+    context = {
+        'title': "Çocuk Masalları Oku Kullanım Şartları",
+        'description': "Çocuk hiyakeleri ve Masalları sitemizin Kullanım Şartları bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
+        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, keloğlan masalları, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
+
+    }
+
+    return render(request, 'system/Hepsi/kullanim.html', context)
 
 def enderunMasal(request,masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug)
