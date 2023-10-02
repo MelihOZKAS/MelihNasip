@@ -5,7 +5,7 @@ from django.contrib import admin
 from .models import *
 
 class HepsiAdmin(admin.ModelAdmin):
-    list_display = ("title","Model","okunma_sayisi","youtube","status","yayin_tarihi","small_banner","banner","aktif")
+    list_display = ("title","Model","okunma_sayisi","masalKategorisi","hikayeKategorisi","status","yayin_tarihi","small_banner","banner","aktif")
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
