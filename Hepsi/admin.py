@@ -14,7 +14,7 @@ class HepsiAdmin(admin.ModelAdmin):
     list_editable = ("status","aktif","banner","small_banner",)
 
     def description_length(self, obj):
-        return len(obj.description)
+        return len(obj.meta_description)
 
     description_length.short_description = 'Desc-Len'
 
@@ -28,7 +28,7 @@ class MasalAdmin(admin.ModelAdmin):
     list_filter = ("Aktif","Banner",)
     list_editable = ("Aktif","Banner","sirasi",)
     def description_length(self, obj):
-        return len(obj.description)
+        return len(obj.Masal_meta_description)
 
     description_length.short_description = 'Desc-Len'
 
@@ -43,7 +43,7 @@ class HikayeAdmin(admin.ModelAdmin):
     list_editable = ("Aktif","Banner","sirasi")
 
     def description_length(self, obj):
-        return len(obj.description)
+        return len(obj.Hikaye_meta_description)
 
     description_length.short_description = 'Desc-Len'
 
