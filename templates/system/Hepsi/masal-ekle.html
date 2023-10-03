@@ -20,6 +20,22 @@
 
             <div class="row gy-4">
 
+                <script>
+window.onload = function () {
+    var titleField = document.getElementById('title');
+    var descriptionField = document.getElementById('aciklama');
+
+    titleField.onkeyup = function () {
+        console.log("Title length: " + this.value.length);
+    };
+
+    descriptionField.onkeyup = function () {
+        console.log("Description length: " + this.value.length);
+    };
+};
+</script>
+
+
                 <div class="col-lg-8">
                     <div class="row gy-4">
                         <form method="post">
