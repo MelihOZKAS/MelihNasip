@@ -20,20 +20,7 @@
 
             <div class="row gy-4">
 
-                <script>
-window.onload = function () {
-    var titleField = document.getElementById('title');
-    var descriptionField = document.getElementById('aciklama');
 
-    titleField.onkeyup = function () {
-        console.log("Title length: " + this.value.length);
-    };
-
-    descriptionField.onkeyup = function () {
-        console.log("Description length: " + this.value.length);
-    };
-};
-</script>
 
 
                 <div class="col-lg-8">
@@ -43,6 +30,8 @@ window.onload = function () {
                             <div class="mb-3">
                                 <label for="title" class="form-label">Başlık</label>
                                 <input type="text" class="form-control" id="title" name="title">
+                                    <p id="titleCount"></p>
+
                             </div>
                             <div class="mb-3">
                                 <label for="model" class="form-label">Lütfen Model Seçin</label>
@@ -60,6 +49,7 @@ window.onload = function () {
                             <div class="mb-3">
                                 <label for="aciklama" class="form-label">Aciklama</label>
                                 <textarea class="form-control" id="aciklama" name="aciklama" rows="10"></textarea>
+                                <p id="descriptionCount"></p>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Gönder</button>
@@ -68,7 +58,20 @@ window.onload = function () {
 
 
                 </div>
+                <script>
+window.onload = function () {
+    var titleField = document.getElementById('title');
+    var descriptionField = document.getElementById('aciklama');
 
+    titleField.onkeyup = function () {
+        console.log("Title length: " + this.value.length);
+    };
+
+    descriptionField.onkeyup = function () {
+        console.log("Description length: " + this.value.length);
+    };
+};
+</script>
 
                 <!-- Sağ Sidebar -->
                 {% include 'system/parcali/sagSidebar.html' %}
