@@ -78,7 +78,7 @@ class MasalKategorileri(models.Model):
 class SiirMasal(models.Model):
     title = models.CharField(max_length=255, help_text=HELP_TEXTS["title"])
     slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
-    h1 = models.CharField(max_length=255, help_text=HELP_TEXTS["h1"])
+    h1 = models.CharField(max_length=255,blank=True, help_text=HELP_TEXTS["h1"])
     Model = models.CharField(max_length=40, choices=model_tipi, help_text=HELP_TEXTS["Model"])
     masalKategorisi = models.ManyToManyField(MasalKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
     hikayeKategorisi = models.ManyToManyField(HikayeKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
