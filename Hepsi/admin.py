@@ -15,14 +15,54 @@ class HepsiAdmin(admin.ModelAdmin):
     list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
 
-    def description_length(self, obj):
-        length = len(obj.meta_description)
-        if 130 < length <= 155:
-            return format_html('<span style="color: green;">{}/155</span>', length)
-        else:
-            return format_html('<span style="color: red;">{}/155</span>', length)
+    def seo_check(self, obj):
+        checks = []
 
-    description_length.short_description = 'Desc-Len'
+        # Title check
+        title_length = len(obj.title)
+        if 50 <= title_length <= 60:
+            checks.append(format_html('<span style="color: green;">Title: {}/60</span>', title_length))
+        else:
+            checks.append(format_html('<span style="color: red;">Title: {}/60</span>', title_length))
+
+        # H1 check
+        h1_length = len(obj.h1)  # Replace 'h1' with the actual field name for your H1
+        if 20 <= h1_length <= 70:
+            checks.append(format_html('<span style="color: green;">H1: {}/70</span>', h1_length))
+        else:
+            checks.append(format_html('<span style="color: red;">H1: {}/70</span>', h1_length))
+
+        # Keywords check
+        keywords_length = len(obj.keywords)
+        if 130 < keywords_length <= 155:
+            checks.append(format_html('<span style="color: green;">Keywords: {}/155</span>', keywords_length))
+        else:
+            checks.append(format_html('<span style="color: red;">Keywords: {}/155</span>', keywords_length))
+
+        # Meta description check
+        meta_description_length = len(obj.meta_description)
+        if 130 < meta_description_length <= 155:
+            checks.append(
+                format_html('<span style="color: green;">Meta Description: {}/155</span>', meta_description_length))
+        else:
+            checks.append(
+                format_html('<span style="color: red;">Meta Description: {}/155</span>', meta_description_length))
+
+        return format_html("<br>".join(checks))
+
+    seo_check.short_description = 'SEO'
+
+
+
+
+    #def description_length(self, obj):
+    #    length = len(obj.meta_description)
+    #    if 130 < length <= 155:
+    #        return format_html('<span style="color: green;">{}/155</span>', length)
+    #    else:
+    #        return format_html('<span style="color: red;">{}/155</span>', length)
+#
+    #description_length.short_description = 'Desc-Len'
 
 admin.site.register(SiirMasal, HepsiAdmin)
 
