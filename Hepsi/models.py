@@ -75,7 +75,7 @@ class MasalKategorileri(models.Model):
 
 
 # Create your models here.
-class MasalHikaye(models.Model):
+class SiirMasal(models.Model):
     title = models.CharField(max_length=255, help_text=HELP_TEXTS["title"])
     slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
     h1 = models.CharField(max_length=255, help_text=HELP_TEXTS["h1"])
