@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+
 
 # Register your models here.
 
@@ -14,8 +16,11 @@ class HepsiAdmin(admin.ModelAdmin):
     list_editable = ("status","aktif","banner","small_banner",)
 
     def description_length(self, obj):
-        return len(obj.meta_description)
-
+        length = len(obj.meta_description)
+        if length <= 155:
+            return format_html('<span style="color: green;">{}/155</span>', length)
+        else:
+            return format_html('<span style="color: red;">{}/155</span>', length)
     description_length.short_description = 'Desc-Len'
 
 admin.site.register(SiirMasal, HepsiAdmin)
@@ -28,8 +33,11 @@ class MasalAdmin(admin.ModelAdmin):
     list_filter = ("Aktif","Banner",)
     list_editable = ("Aktif","Banner","sirasi",)
     def description_length(self, obj):
-        return len(obj.Masal_meta_description)
-
+        length = len(obj.Masal_meta_description)
+        if length <= 155:
+            return format_html('<span style="color: green;">{}/155</span>', length)
+        else:
+            return format_html('<span style="color: red;">{}/155</span>', length)
     description_length.short_description = 'Desc-Len'
 
 admin.site.register(MasalKategorileri, MasalAdmin)
@@ -43,8 +51,11 @@ class HikayeAdmin(admin.ModelAdmin):
     list_editable = ("Aktif","Banner","sirasi")
 
     def description_length(self, obj):
-        return len(obj.Hikaye_meta_description)
-
+        length = len(obj.Hikaye_meta_description)
+        if length <= 155:
+            return format_html('<span style="color: green;">{}/155</span>', length)
+        else:
+            return format_html('<span style="color: red;">{}/155</span>', length)
     description_length.short_description = 'Desc-Len'
 
 admin.site.register(HikayeKategorileri, HikayeAdmin)
