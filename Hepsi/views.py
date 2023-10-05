@@ -49,9 +49,9 @@ def home(request):
     SmallMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",small_banner=True,Model="Masal").order_by('?')[:8]
     SmallHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",small_banner=True,Model="Hikaye").order_by('?')[:8]
 
-    title = "Çocuk Masalları & Çocuk Hikayeleri"
-    description = "Sitemizde çocuklar için en sevilen masalları ve hikayeleri bulabilirsiniz. Klasik masallardan, öğretici hikayelere kadar geniş bir yelpazede içerik sunuyoruz. Çocuğunuzun hayal dünyasını zenginleştirecek bu özenle seçilmiş masalları ve hikayeleri keşfedin."
-    keywords = "Çocuk Masalları, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları "
+    title = "Çocuk Masalları & Çocuklara Hikayeler"
+    description = "Çocuklar için en sevilen masalları ve hikayeleri bulabilirsiniz. Klasik masallardan öğretici hikayelere kadar geniş bir yelpazede içerik sunuyoruz."
+    keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
 
 
     context = {
@@ -181,10 +181,10 @@ def hikayeAltKategori(request,  alt_kategori_slug):
 def Masallar(request):
     Tum_Masallar = MasalKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
-    title = "En Çok Okunan Çocuk Masalları | Uyku Masalları"
-    description = "En popüler çocuk masallarını keşfedin. Klasiklerden modern masallara kadar çeşitli masallarla çocuğunuzun hayal dünyasını genişletin."
-    keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
-    sayfa_adiH1 = "Tüm Masal Kategorileri"
+    title = "Çocuk Masallı, Çocuklara Uyku Masalları | Masal Oku"
+    description = "En çok okunan masalları keşfedin. Çocuklara özel eğitici öğretici uyku masalı ve fazlası için masal sitemizi takip edin. En güzel masallar"
+    keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Masal Oku, Masal Dinle, Masal Dinle, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
+    sayfa_adiH1 = "Masallar Oku: Çocuklar İçin Eğitici Uyku Masalları, Kısa Hikayeler ve Daha Fazlası"
     sayfa_Turu = "Masal"
 
 
@@ -201,9 +201,9 @@ def Masallar(request):
 def Hikayeler(request):
     Tum_Hikayeler = HikayeKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
-    title = "Çocuklar İçin Eğitici Hikayeler | Çocuk Hikayeleri"
+    title = "Çocuklar için Eğitici Hikayeler | Çocuk Hikayeleri"
     description = "Çocuklar için özenle seçilmiş ilham verici hikayeler. Bu eğlenceli ve öğretici hikayelerle çocuğunuzun okuma sevgisini ve hayal gücünü geliştirin."
-    keywords = "Çocuk Hikayeleri, İlham Verici Hikayeler, Eğitici Hikayeler, Çocuklar için Hikayeler, Öğretici Hikayeler, ingilizce hikayeler, dini hikayeler"
+    keywords = "Çocuk Hikayeleri, Hikaye, Hikayeler, İlham Verici Hikayeler, Eğitici Hikayeler, Çocuklar için Hikayeler, Öğretici Hikayeler, ingilizce hikayeler, Dini hikayeler, Uyku hikayeleri, Hikaye dinle"
     sayfa_adiH1 = "Tüm Hikaye Kategorileri"
     sayfa_Turu = "Hikaye"
 
@@ -251,7 +251,7 @@ def ekle(request):
 
 def iletisim(request):
     context = {
-        'title': "Çocuk Masalları Oku İletişim",
+        'title': "Uyku Çocuk Masallarını Dinle - İletişim Sayfası | Masal Oku",
         'description': "Çocuk hiyakeleri ve Masalları sitemizin iletişim bölümüdür bizimle irtibata geçebilirisiniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, ingilizce hikayeler, çocuk hikayeleri, çocuklara özel hikayeler, keloğlan masalları",
 
@@ -273,7 +273,7 @@ def iletisim(request):
 
 def hakkimizda(request):
     context = {
-        'title': "Çocuk Masalları Oku Hakkımızda",
+        'title': "Uyku Çocuk Hikayeleri Dinle - Hakkımızda | Hikaye Oku",
         'description': "Çocuk hiyakeleri ve Masalları sitemizin hakkımızda bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
 
@@ -283,7 +283,7 @@ def hakkimizda(request):
 
 def gizlilik(request):
     context = {
-        'title': "Çocuk Masalları Oku Gizlilik Politikası",
+        'title': "Çocuk Hikayeleri ve Masalları Oku - Gizlilik Politikası",
         'description': "Çocuk hiyakeleri ve Masalları sitemizin Gizlilik Politikası bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
 
@@ -293,7 +293,7 @@ def gizlilik(request):
 
 def kullanim(request):
     context = {
-        'title': "Çocuk Masalları Oku Kullanım Şartları",
+        'title': "Çocuk Masallarını Dinle - Kullanım Şartları | Masal Oku",
         'description': "Çocuk hiyakeleri ve Masalları sitemizin Kullanım Şartları bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, keloğlan masalları, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
 
