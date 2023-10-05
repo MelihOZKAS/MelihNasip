@@ -56,7 +56,7 @@ class HikayeKategorileri(models.Model):
 
 
 class MasalKategorileri(models.Model):
-    MasalKategoriAdi = models.CharField(max_length=30, unique=True)
+    MasalKategoriAdi = models.CharField(max_length=255, unique=True)
     MasalSlug = models.SlugField(max_length=255, unique=True, blank=True)
     Masal_Title = models.TextField(blank=True, null=True)
     Masal_meta_description = models.TextField( blank=True, help_text=HELP_TEXTS["meta_description"])
