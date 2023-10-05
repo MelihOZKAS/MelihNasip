@@ -38,11 +38,14 @@
                     <div class="post post-single">
                         <!-- post header -->
                         <div class="post-header">
-                        {% if EnDerun.Model == "Masal" %}
+
+                        <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
+
+                       <!-- {% if EnDerun.Model == "Masal" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
                         {% elif EnDerun.Model == "Hikaye" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
-                        {% endif %}
+                        {% endif %} -->
 
                             <ul class="meta list-inline mb-0">
                                 {% if EnDerun.Model == "Masal" %}
