@@ -28,14 +28,6 @@ class MasallarSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
-
-    def video(self, obj):
-        return {
-            'url': obj.youtube,
-            # Diğer video meta verilerini buraya ekleyin
-        }
-
-
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 
