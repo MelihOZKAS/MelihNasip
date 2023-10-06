@@ -32,6 +32,13 @@ class MasallarSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 
+    def video(self, obj):
+        return {
+            'url': obj.youtube,
+            # Diğer video meta verilerini buraya ekleyin
+        }
+
+
 class HikayeAltKategoriSitemap(Sitemap):
     changefreq = "daily"
     priority = 0.3
