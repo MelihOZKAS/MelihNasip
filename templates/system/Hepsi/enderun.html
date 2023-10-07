@@ -61,9 +61,6 @@
                         </div>
 
                         <div class="post-content clearfix">
-                            {{ EnDerun.icerik|safe }}
-
-
                             {% if EnDerun.youtube %}
                                 <br/>
                                 {% if EnDerun.Model == "Masal" %}
@@ -84,6 +81,13 @@
                                 </div>
 
                             {% endif %}
+
+
+                            <!-- İçerik -->
+                            {{ EnDerun.icerik|safe }}
+
+
+
                         </div>
                         <!-- post bottom section -->
                         <div class="post-bottom">
