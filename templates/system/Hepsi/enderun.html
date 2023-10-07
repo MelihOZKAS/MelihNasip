@@ -64,9 +64,9 @@
                             {% if EnDerun.youtube %}
                                 <br/>
                                 {% if EnDerun.Model == "Masal" %}
-                                    <h2>YouTube' dan Masal Dinleyebilirsiniz - Abone Olmayı Unutmayın! </h2>
+                                    <h2>YouTube' dan Masal Dinleyebilirsiniz - Abone Olmayı Unutmayın! &#128519;</h2>
                                 {% elif EnDerun.Model == "Hikaye" %}
-                                    <h2>YouTube' dan Hikaye Dinleyebilirsiniz - Abone Olmayı Unutmayın! </h2>
+                                    <h2>YouTube' dan Hikaye Dinleyebilirsiniz - Abone Olmayı Unutmayın! &#128519;</h2>
                                 {% endif %}
 
 
@@ -79,14 +79,22 @@
                                             frameborder="0"
                                             allowfullscreen></iframe>
                                 </div>
+                                <br/>
 
                             {% endif %}
 
 
                             <br/>
+
+                            {% if EnDerun.Model == "Masal" %}
+                                <h3>Haydi, büyülü dünyamıza adım atalım. Masalımız şimdi başlıyor...</h3>
+                            {% elif EnDerun.Model == "Hikaye" %}
+                                <h3>Birlikte yeni bir maceraya atılalım. Hikayemiz başlıyor...</h3>
+                            {% endif %}
+                            <br/>
+
                             <!-- İçerik -->
                             {{ EnDerun.icerik|safe }}
-
 
 
                         </div>
