@@ -69,7 +69,7 @@
                                             <li class="list-inline-item">Eklenme
                                                 Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                         </ul>
-                                        <h2 class="post-title mb-3 mt-3">
+                                        <h2 class="post-title mb-3 mt-3" style="font-size: 22px;">
                                             {% if sayfa_Turu == "Masal" %}
                                                 <a href="{% url 'masalAltKategori' alt_kategori_slug=masal.MasalSlug %}">{{ masal.MasalKategoriAdi }}</a>
                                             {% elif sayfa_Turu == "Hikaye" %}
