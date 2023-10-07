@@ -50,7 +50,7 @@ def home(request):
     SmallHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",small_banner=True,Model="Hikaye").order_by('?')[:8]
 
     title = "Çocuk Masalları & Çocuklara Hikayeler"
-    description = "Çocuklar için en sevilen masalları ve hikayeleri bulabilirsiniz. Klasik masallardan öğretici hikayelere kadar geniş bir yelpazede içerik sunuyoruz."
+    description = "Çocuk masalları ve çocuk hikayeleri sitemizde masal okuyabilir masal dinleyebilir, uyku masallarına bakabilirsiniz. Masallar, hikayeler hepsi eğitici sitemizde"
     keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
 
 
