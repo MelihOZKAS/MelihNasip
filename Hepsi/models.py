@@ -104,6 +104,33 @@ class SiirMasal(models.Model):
 
 
 
+class Blog(models.Model):
+    title = models.CharField(max_length=255, help_text=HELP_TEXTS["title"])
+    slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
+    h1 = models.CharField(max_length=255,blank=True, help_text=HELP_TEXTS["h1"])
+    Model = models.CharField(max_length=40, choices=model_tipi, help_text=HELP_TEXTS["Model"])
+    masalKategorisi = models.ManyToManyField(MasalKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
+    hikayeKategorisi = models.ManyToManyField(HikayeKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
+
+    icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    youtube = models.URLField(blank=True)
+    meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
+    keywords = models.CharField(max_length=255,blank=True,verbose_name="Anahtar Kelimeler",help_text=HELP_TEXTS["keywords"])
+    yayin_tarihi = models.DateTimeField(null=True, blank=True, help_text="Postanın yayınlanacağı tarih ve saat")
+    status = models.CharField(max_length=10, choices=status_cho, default="Taslak", help_text=HELP_TEXTS["status"])
+    aktif = models.BooleanField(default=False, help_text=HELP_TEXTS["aktif"])
+    banner = models.BooleanField(default=False, help_text=HELP_TEXTS["banner"])
+    small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
+    okunma_sayisi = models.PositiveBigIntegerField(default=0)
+    olusturma_tarihi = models.DateTimeField(auto_now_add=True)
+    guncelleme_tarihi = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        verbose_name_plural = "Post"
+    def __str__(self):
+        return self.title
+
 
 
 

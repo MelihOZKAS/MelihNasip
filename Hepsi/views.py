@@ -252,7 +252,7 @@ def ekle(request):
 def iletisim(request):
     context = {
         'title': "Uyku Çocuk Masallarını Dinle - İletişim Sayfası | Masal Oku",
-        'description': "Çocuk hiyakeleri ve Masalları sitemizin iletişim bölümüdür bizimle irtibata geçebilirisiniz.",
+        'description': "Çocuk hiyakeleri ve Çocuk Masalları sitemizin iletişim bölümüdür bizimle irtibata geçebilirisiniz. Masal okuya bilir gönderebilir siniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, ingilizce hikayeler, çocuk hikayeleri, çocuklara özel hikayeler, keloğlan masalları",
 
     }
