@@ -63,7 +63,10 @@ class HikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
     def youtube(self, obj):
-        return obj.youtube if obj.youtube else None
+        if obj.youtube:
+            return obj.youtube
+        else:
+            return ''
 
 
 class CocukSitemap(Sitemap):
