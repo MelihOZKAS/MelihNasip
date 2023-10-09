@@ -41,7 +41,7 @@
                                 <li class="list-inline-item">Eklenme Tarihi: {{ blog.olusturma_tarihi|date:"d F Y" }}</li>
                             </ul>
                             <h2 class="post-title mb-3 mt-3"><a href="{% url 'blog-getir' blog_slug=blog.slug %}">{{ blog.title }}</a></h2>
-                            <p class="excerpt mb-0">{{ blog.icerik|truncatechars:50 }}</p>
+                            <p class="excerpt mb-0">{{ blog.icerik|safe|truncatechars:50 }}</p>
                         </div>
                         <div class="post-bottom clearfix d-flex align-items-center">
                             <a href="{% url 'blog-getir' blog_slug=blog.slug %}"
