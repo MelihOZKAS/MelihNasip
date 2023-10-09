@@ -176,7 +176,7 @@ def hikayeAltKategori(request,  alt_kategori_slug):
 def BlogHome(request):
     icerik_list = Blog.objects.filter(aktif=True, status="Yayinda")
     keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
-
+    sayfa_adi = f"Çocuk Gelişimi: Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
 
     paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
@@ -195,6 +195,7 @@ def BlogHome(request):
         'description': description,
         'keywords': keywords,
         'icerik': icerik,
+        'sayfa_adi': sayfa_adi,
     }
     return render(request, 'system/Hepsi/bloghome.html', context)
 
@@ -207,7 +208,7 @@ def Masallar(request):
     title = "Çocuk Masallı, Çocuklara Uyku Masalları | Masal Oku"
     description = "En çok okunan masalları keşfedin. Çocuklara özel eğitici öğretici uyku masalı ve fazlası için masal sitemizi takip edin. En güzel masallar"
     keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Masal Oku, Masal Dinle, Masal Dinle, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
-    sayfa_adiH1 = "Masallar Oku: Çocuklar İçin Eğitici Uyku Masalları, Kısa Hikayeler ve Daha Fazlası"
+    sayfa_adiH1 = "Masallar Oku - Çocuklar İçin Eğitici Uyku Masalları, Kısa Hikayeler ve Daha Fazlası"
     sayfa_Turu = "Masal"
 
 
