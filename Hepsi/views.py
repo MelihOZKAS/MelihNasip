@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
-from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri,iletisimmodel
+from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri,iletisimmodel,Blog
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -173,7 +173,32 @@ def hikayeAltKategori(request,  alt_kategori_slug):
 
 
 
+def BlogHome(request):
+    icerik_list = Blog.objects.filter(aktif=True, status="Yayinda")
+#    sayfa_adi = f"En Güzel Çocuk Gelişim Bilgileri"
+#    sayfa_Turu = "Blog"
+    keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
 
+
+    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    page_number = request.GET.get('sayfa')
+    icerik = paginator.get_page(page_number)
+
+    if page_number is None:
+        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+    else:
+        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi - {page_number}"
+        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler. - Sayfa {page_number}"
+
+
+    context = {
+        'title': title,
+        'description': description,
+        'keywords': keywords,
+        'icerik': icerik,
+    }
+    return render(request, 'system/Hepsi/bloghome.html', context)
 
 
 
@@ -317,6 +342,27 @@ def enderunMasal(request,masal_slug):
         'keywords': EnDerun.keywords,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
+
+
+
+
+def enderunBlog(request,blog_slug):
+    EnDerun = get_object_or_404(Blog, slug=blog_slug)
+    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
+    EnDerun.save()  # değişiklikleri kaydet
+    BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+
+    context = {
+        'EnDerun': EnDerun,
+        'BaskaMasal': BaskaMasal,
+        'BaskaHikaye': BaskaHikaye,
+        'title': EnDerun.title,
+        'description': EnDerun.meta_description,
+        'keywords': EnDerun.keywords,
+    }
+    return render(request, 'system/Hepsi/blog-Enderun.html', context)
+
 
 
 def enderunHikaye(request,hikaye_slug):

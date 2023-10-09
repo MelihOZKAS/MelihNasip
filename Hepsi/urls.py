@@ -29,6 +29,7 @@ urlpatterns = [
 
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
+    path("cocuk/", views.BlogHome, name="cocuk"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("hakkimizda/", views.hakkimizda, name="hakkimizda"),
@@ -36,6 +37,7 @@ urlpatterns = [
     path("kullanim-sartlari/", views.kullanim, name="kullanim-sartlari"),
 
 
+    path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),
     path('hikaye-oku/<str:hikaye_slug>/', views.enderunHikaye, name='hikaye-getir'),
 
@@ -43,8 +45,5 @@ urlpatterns = [
 
     path('masal-kategori/<str:alt_kategori_slug>/', views.masalAltKategori, name='masalAltKategori'),
     path('hikaye-kategori/<str:alt_kategori_slug>/', views.hikayeAltKategori, name='hikayeAltKategori'),
-
-
-
 
 ]

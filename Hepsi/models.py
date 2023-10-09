@@ -108,10 +108,6 @@ class Blog(models.Model):
     title = models.CharField(max_length=255, help_text=HELP_TEXTS["title"])
     slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
     h1 = models.CharField(max_length=255,blank=True, help_text=HELP_TEXTS["h1"])
-    Model = models.CharField(max_length=40, choices=model_tipi, help_text=HELP_TEXTS["Model"])
-    masalKategorisi = models.ManyToManyField(MasalKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
-    hikayeKategorisi = models.ManyToManyField(HikayeKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
-
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
@@ -125,13 +121,10 @@ class Blog(models.Model):
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
 
-
     class Meta:
-        verbose_name_plural = "Post"
+        verbose_name_plural = "Blog"
     def __str__(self):
         return self.title
-
-
 
 
 

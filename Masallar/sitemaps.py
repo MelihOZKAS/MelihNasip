@@ -31,7 +31,8 @@ class MasallarSitemap(Sitemap):
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 
-
+    #def youtube(self, obj):
+    #    return obj.youtube if obj.youtube else None
 
 
 
@@ -61,3 +62,6 @@ class HikayelerSitemap(Sitemap):
     def location(self, obj):
         return reverse('hikaye-getir', args=[obj.slug])
 
+    #def youtube(self, obj):
+    #    return obj.youtube if obj.youtube else None
+#
