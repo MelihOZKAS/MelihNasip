@@ -68,6 +68,64 @@ class HepsiAdmin(admin.ModelAdmin):
 admin.site.register(SiirMasal, HepsiAdmin)
 
 
+
+
+
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ("title","youtube" ,"okunma_sayisi","seo_check","status","yayin_tarihi","guncelleme_tarihi","small_banner","banner","aktif",)
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ("title",)
+    list_filter = ("status","aktif","banner","small_banner",)
+    list_editable = ("status","aktif","banner","small_banner",)
+
+    def seo_check(self, obj):
+        checks = []
+
+        # Title check
+        title_length = len(obj.title)
+        if 50 <= title_length <= 60:
+            checks.append(format_html('<span style="color: green;">Title: {}/50-60</span>', title_length))
+        else:
+            checks.append(format_html('<span style="color: red;">Title: {}/50-60</span>', title_length))
+
+        # H1 check
+        h1_length = len(obj.h1)  # Replace 'h1' with the actual field name for your H1
+        if 20 <= h1_length <= 70:
+            checks.append(format_html('<span style="color: green;">H1: {}/20-70</span>', h1_length))
+        else:
+            checks.append(format_html('<span style="color: red;">H1: {}/20-70</span>', h1_length))
+
+        # Keywords check
+        keywords = obj.keywords.split(",")
+        keywords_length = len(keywords)
+        if 5 <= keywords_length <= 15:  # Assuming you want between 1 and 10 keywords
+            checks.append(format_html('<span style="color: green;">Keywords: {}/5-15</span>', keywords_length))
+        else:
+            checks.append(format_html('<span style="color: red;">Keywords: {}/5-15</span>', keywords_length))
+
+        # Meta description check
+        meta_description_length = len(obj.meta_description)
+        if 130 < meta_description_length <= 155:
+            checks.append(
+                format_html('<span style="color: green;">Meta Description: {}/130-155</span>', meta_description_length))
+        else:
+            checks.append(
+                format_html('<span style="color: red;">Meta Description: {}/130-155</span>', meta_description_length))
+
+        return format_html("<br>".join(checks))
+
+    seo_check.short_description = 'SEO'
+
+admin.site.register(Blog, BlogAdmin)
+
+
+
+
+
+
+
+
+
 class MasalAdmin(admin.ModelAdmin):
     list_display = ("MasalKategoriAdi","MasalSlug","sirasi","Masal_meta_description","description_length","Masal_keywords","Aktif","Banner",)
     prepopulated_fields = {'MasalSlug': ('MasalKategoriAdi',)}
