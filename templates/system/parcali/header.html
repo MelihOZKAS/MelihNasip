@@ -57,6 +57,11 @@
                            href="{% url 'hikayeAltKategori' alt_kategori_slug='ingilizce-hikayeler' %}">İngilizce
                             Hikayeler</a>
                     </li>
+
+                    <li class="nav-item {% if request.resolver_match.url_name == 'HikayelerHome' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'cocuk' %}"><i class="fas fa-star"></i> Çocuk Gelişimi</a>
+                    </li>
+
                     <li class="nav-item {% if request.resolver_match.url_name == 'iletisim' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'iletisim' %}">İletişim</a>
                     </li>
