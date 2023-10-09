@@ -29,6 +29,7 @@ sitemaps = {
     'masallar': MasallarSitemap,
     'hikaye-kategorileri': HikayeAltKategoriSitemap,
     'hikayeler': HikayelerSitemap,
+    'cocuk-gelisimi': HikayelerSitemap,
 }
 
 def handler404(request, *args, **argv):
