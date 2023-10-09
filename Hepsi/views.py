@@ -166,11 +166,8 @@ def hikayeAltKategori(request,  alt_kategori_slug):
         'icerik': icerik,
         'sayfa_adi': sayfa_adi,
         'sayfa_Turu': sayfa_Turu,
-
     }
     return render(request, 'system/Hepsi/detay-yeni.html', context)
-
-
 
 
 def BlogHome(request):
