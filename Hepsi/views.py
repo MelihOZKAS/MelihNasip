@@ -175,8 +175,6 @@ def hikayeAltKategori(request,  alt_kategori_slug):
 
 def BlogHome(request):
     icerik_list = Blog.objects.filter(aktif=True, status="Yayinda")
-#    sayfa_adi = f"En Güzel Çocuk Gelişim Bilgileri"
-#    sayfa_Turu = "Blog"
     keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
 
 

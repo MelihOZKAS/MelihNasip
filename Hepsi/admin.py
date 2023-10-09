@@ -53,18 +53,6 @@ class HepsiAdmin(admin.ModelAdmin):
 
     seo_check.short_description = 'SEO'
 
-
-
-
-    #def description_length(self, obj):
-    #    length = len(obj.meta_description)
-    #    if 130 < length <= 155:
-    #        return format_html('<span style="color: green;">{}/155</span>', length)
-    #    else:
-    #        return format_html('<span style="color: red;">{}/155</span>', length)
-#
-    #description_length.short_description = 'Desc-Len'
-
 admin.site.register(SiirMasal, HepsiAdmin)
 
 
