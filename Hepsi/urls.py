@@ -29,7 +29,8 @@ urlpatterns = [
 
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
-    path("cocuk/", views.BlogHome, name="cocuk"),
+    #path("cocuk/", views.BlogHome, name="cocuk"),
+    path("cocuk-gelisimi/", views.BlogHome, name="cocuk"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("hakkimizda/", views.hakkimizda, name="hakkimizda"),
