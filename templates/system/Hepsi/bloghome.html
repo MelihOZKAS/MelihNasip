@@ -26,9 +26,8 @@
 
                      post -->
 
-
+                    {% for blog in icerik %}
                         <div class="post post-classic rounded bordered">
-                            {% for blog in icerik %}
                             <div class="thumb top-rounded">
                                 <a href="{% url 'blog-getir' blog_slug=blog.slug %}">
                                     <div class="inner">
@@ -48,15 +47,9 @@
                                         href="{% url 'blog-getir' blog_slug=blog.slug %}">{{ blog.title }}</a></h2>
                                 <p class="excerpt mb-0">{{ blog.icerik|safe|truncatechars:80 }}</p>
                             </div>
-                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
-                                <a href="{% url 'blog-getir' blog_slug=blog.slug %}"
-                                   class="btn btn-default">Devamını Oku...</a>
-                            </div>
 
-
-                             {% endfor %}
                         </div>
-
+                    {% endfor %}
 
                     <nav>
                         <ul class="pagination justify-content-center">
