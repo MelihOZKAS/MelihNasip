@@ -19,7 +19,7 @@
         <div class="container-xl">
             <div class="row gy-4">
                 <div class="col-lg-8">
-                  <!--  <div class="section-header">
+                    <!--  <div class="section-header">
                         <h1 class="section-title">{{ sayfa_adi }}</h1>
                         {% include 'system/parcali/vave.html' %}
                     </div>
@@ -52,36 +52,36 @@
                                    class="btn btn-default">Devamını Oku...</a>
                             </div>
                         </div>
-                        </div>
+
                     {% endfor %}
 
-                    <nav>
-                        <ul class="pagination justify-content-center">
-                            {% if icerik.has_previous %}
-                                <li class="page-item"><a class="page-link"
-                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if icerik.has_previous %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                            </li>
+                        {% endif %}
+
+                        {% for num in icerik.paginator.page_range %}
+                            {% if icerik.number == num %}
+                                <li class="page-item active"><span
+                                        class="page-link">{{ num }}</span>
                                 </li>
-                            {% endif %}
-
-                            {% for num in icerik.paginator.page_range %}
-                                {% if icerik.number == num %}
-                                    <li class="page-item active"><span
-                                            class="page-link">{{ num }}</span>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item"><a class="page-link"
-                                                             href="?sayfa={{ num }}">{{ num }}</a></li>
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if icerik.has_next %}
+                            {% else %}
                                 <li class="page-item"><a class="page-link"
-                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                </li>
+                                                         href="?sayfa={{ num }}">{{ num }}</a></li>
                             {% endif %}
-                        </ul>
-                    </nav>
+                        {% endfor %}
 
+                        {% if icerik.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                </div>
 
 
                 <!-- Sağ Sidebar -->
