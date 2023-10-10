@@ -22,12 +22,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
-                    {% if EnDerun.Model == "Masal" %}
-                        <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
-                    {% elif EnDerun.Model == "Hikaye" %}
-                        <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
-                    {% endif %}
-
+                    <li class="breadcrumb-item"><a href="{% url 'cocuk' %}">Çocuk Gelişimi</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
                 </ol>
             </nav>
