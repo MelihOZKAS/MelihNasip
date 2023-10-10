@@ -28,27 +28,27 @@
 
                     {% for blog in icerik %}
                         <!-- post -->
-                        <div class="post post-classic rounded bordered">
-                    <div class="thumb top-rounded">
-                        <a href="{% url 'blog-getir' blog_slug=blog.slug %}">
-                            <div class="inner">
-                                <img src="{% static 'images/cocuk-gelisimi/'|add:blog.slug|add:'.webp' %}"
-                                     alt="{{ blog.title }}" class="img-fluid">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="details">
-                        <ul class="meta list-inline mb-0">
-                            <li class="list-inline-item">Eklenme Tarihi: {{ blog.olusturma_tarihi|date:"d F Y" }}</li>
-                            <li class="list-inline-item">Güncelleme Tarihi: {{ blog.guncelleme_tarihi|date:"d F Y" }}</li>
-                        </ul>
-                        <h2 class="post-title mb-3 mt-3"><a href="{% url 'blog-getir' blog_slug=blog.slug %}">{{ blog.title }}</a></h2>
-                        <p class="excerpt mb-0">{{ blog.icerik|safe|truncatechars:80 }}</p>
-                    </div>
-                    <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
-                        <a href="{% url 'blog-getir' blog_slug=blog.slug %}" class="btn btn-default">Devamını Oku...</a>
+                        <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mb-4">
+                <a href="{% url 'blog-getir' blog_slug=blog.slug %}">
+                    <img src="{% static 'images/cocuk-gelisimi/'|add:blog.slug|add:'.webp' %}"
+                         alt="{{ blog.title }}" class="card-img-top" style="border-radius: 0;">
+                </a>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1"><small>Eklenme Tarihi: {{ blog.olusturma_tarihi|date:"d F Y" }}</small></li>
+                        <li><small>Güncelleme Tarihi: {{ blog.guncelleme_tarihi|date:"d F Y" }}</small></li>
+                    </ul>
+                    <h2 class="card-title mt-3"><a href="{% url 'blog-getir' blog_slug=blog.slug %}">{{ blog.title }}</a></h2>
+                    <p class="card-text">{{ blog.icerik|safe|truncatechars:80 }}</p>
+                    <div class="text-center">
+                        <a href="{% url 'blog-getir' blog_slug=blog.slug %}" class="btn btn-primary">Devamını Oku...</a>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
                     {% endfor %}
 
                     <nav>
