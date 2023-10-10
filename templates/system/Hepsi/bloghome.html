@@ -19,39 +19,41 @@
         <div class="container-xl">
             <div class="row gy-4">
                 <div class="col-lg-8">
-                    <!--
+                    <!--  <div class="section-header">
+                        <h1 class="section-title">{{ sayfa_adi }}</h1>
+                        {% include 'system/parcali/vave.html' %}
+                    </div>
 
                      post -->
 
-                    {% for blog in icerik %}
-                        <div class="post post-classic rounded bordered">
-                            <div class="thumb top-rounded">
-                                <a href="{% url 'blog-getir' blog_slug=blog.slug %}">
-                                    <div class="inner">
-                                        <img src="{% static 'images/cocuk-gelisimi/'|add:blog.slug|add:'.webp' %}"
-                                             alt="{{ blog.title }}">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="details">
-                                <ul class="meta list-inline mb-0">
-                                    <li class="list-inline-item">Eklenme
-                                        Tarihi: {{ blog.olusturma_tarihi|date:"d F Y" }}</li>
-                                    <li class="list-inline-item">Güncelleme
-                                        Tarihi: {{ blog.guncelleme_tarihi|date:"d F Y" }}</li>
-                                </ul>
-                                <h2 class="post-title mb-3 mt-3"><a
-                                        href="{% url 'blog-getir' blog_slug=blog.slug %}">{{ blog.title }}</a></h2>
-                                <p class="excerpt mb-0">{{ blog.icerik|safe|truncatechars:80 }}</p>
-                            </div>
-                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
-                                <a href="{% url 'blog-getir' blog_slug=blog.slug %}"
-                                   class="btn btn-default">Devamını Oku...</a>
-                            </div>
-                        </div>
-                    {% endfor %}
 
 
+                    <nav>
+                        <ul class="pagination justify-content-center">
+                            {% if icerik.has_previous %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in icerik.paginator.page_range %}
+                                {% if icerik.number == num %}
+                                    <li class="page-item active"><span
+                                            class="page-link">{{ num }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?sayfa={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if icerik.has_next %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
                 </div>
 
 
