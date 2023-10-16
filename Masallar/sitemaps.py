@@ -103,4 +103,4 @@ class YouTubeSitemapMasal(Sitemap):
     def items(self):
         return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal", youtube__isnull=False)
     def location(self, obj):
-        return obj.youtube
+        return reverse(obj.youtube)
