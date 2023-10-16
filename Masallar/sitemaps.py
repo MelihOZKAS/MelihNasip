@@ -81,25 +81,23 @@ class CocukSitemap(Sitemap):
     #    return obj.youtube if obj.youtube else None
 
 
-from django.contrib.sitemaps import Sitemap
-from django.urls import reverse
-
-class YouTubeSitemapHikaye(Sitemap):
-    def items(self):
-        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").exclude(youtube__isnull=True).exclude(youtube__exact='')
-
-    def location(self, obj):
-        site_url = 'http://www.cocukmasallarioku.com'
-        youtube_url = obj.youtube
-        return site_url + youtube_url
-
-
-class YouTubeSitemapMasal(Sitemap):
-    changefreq = "daily"
-    priority = 0.9
-    protocol = 'https'
-
-    def items(self):
-        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal", youtube__isnull=False)
-    def location(self, obj):
-        return reverse(obj.youtube)
+#class YouTubeSitemapHikaye(Sitemap):
+#    def items(self):
+#        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").exclude(youtube__isnull=True).exclude(youtube__exact='')
+#
+#    def location(self, obj):
+#        site_url = 'http://www.cocukmasallarioku.com'
+#        youtube_url = obj.youtube
+#        return site_url + youtube_url
+#
+#
+#class YouTubeSitemapMasal(Sitemap):
+#    changefreq = "daily"
+#    priority = 0.9
+#    protocol = 'https'
+#
+#    def items(self):
+#        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal", youtube__isnull=False)
+#    def location(self, obj):
+#        return reverse(obj.youtube)
+#
