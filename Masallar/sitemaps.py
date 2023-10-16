@@ -62,8 +62,6 @@ class HikayelerSitemap(Sitemap):
     def location(self, obj):
         return reverse('hikaye-getir', args=[obj.slug])
 
-    def video(self, obj):
-        return obj.youtube if obj.youtube else None
 
 
 class CocukSitemap(Sitemap):
@@ -81,3 +79,27 @@ class CocukSitemap(Sitemap):
 
     #def youtube(self, obj):
     #    return obj.youtube if obj.youtube else None
+
+
+from django.contrib.sitemaps import Sitemap
+from django.urls import reverse
+
+class YouTubeSitemapHikaye(Sitemap):
+    changefreq = "daily"
+    priority = 0.9
+    protocol = 'https'
+
+    def items(self):
+        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye", youtube__isnull=False)
+    def location(self, obj):
+        return obj.youtube
+
+class YouTubeSitemapMasal(Sitemap):
+    changefreq = "daily"
+    priority = 0.9
+    protocol = 'https'
+
+    def items(self):
+        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal", youtube__isnull=False)
+    def location(self, obj):
+        return obj.youtube
