@@ -91,6 +91,7 @@ class YouTubeSitemapHikaye(Sitemap):
 
     def items(self):
         return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye", youtube__isnull=False)
+
     def location(self, obj):
         return obj.youtube
 
