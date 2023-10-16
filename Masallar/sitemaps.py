@@ -85,15 +85,11 @@ from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
 class YouTubeSitemapHikaye(Sitemap):
-    changefreq = "daily"
-    priority = 0.9
-    protocol = 'https'
-
     def items(self):
-        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye", youtube__isnull=False)
+        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").exclude(youtube__isnull=True).exclude(youtube__exact='')
 
     def location(self, obj):
-        return obj.youtube
+        return 'https://www.youtube.com/embed/' + obj.youtube
 
 class YouTubeSitemapMasal(Sitemap):
     changefreq = "daily"
