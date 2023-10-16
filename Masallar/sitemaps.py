@@ -89,7 +89,10 @@ class YouTubeSitemapHikaye(Sitemap):
         return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").exclude(youtube__isnull=True).exclude(youtube__exact='')
 
     def location(self, obj):
-        return 'https://www.youtube.com/embed/' + obj.youtube
+        site_url = 'http://www.cocukmasallarioku.com'
+        youtube_url = obj.youtube
+        return site_url + youtube_url
+
 
 class YouTubeSitemapMasal(Sitemap):
     changefreq = "daily"
