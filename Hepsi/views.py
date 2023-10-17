@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.core.exceptions import ValidationError
+
 
 
 def create_unique_title_slug(title):
@@ -415,6 +417,13 @@ def apiyle_ekle(request):
 
         title, slug = create_unique_title_slug(title)
         siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="manuel")
-        siir_masal.save()
 
-    return HttpResponse("Şükürler olsun içerik eklendi.")
+        try:
+            siir_masal.save()
+            return HttpResponse("Şükürler olsun içerik eklendi. ID: " + str(siir_masal.id))
+        except ValidationError as e:
+            return HttpResponse("İçerik kaydedilemedi. Hata: " + str(e))
+        except Exception as e:
+            return HttpResponse("Beklenmeyen bir hata oluştu: " + str(e))
+
+    return HttpResponse("POST isteği bekleniyor.")
