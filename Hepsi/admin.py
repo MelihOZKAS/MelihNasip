@@ -5,6 +5,38 @@ from django.utils.html import format_html
 # Register your models here.
 
 from .models import *
+from django.utils.text import slugify
+
+def turkish_slugify(input):
+    tr_map = {
+        'ş':'s',
+        'Ş':'S',
+        'ı':'i',
+        'İ':'i',
+        'I':'i',
+        'ğ':'g',
+        'Ğ':'G',
+        'ü':'u',
+        'Ü':'U',
+        'ö':'o',
+        'Ö':'O',
+        'Ç':'C',
+        'ç':'c'
+    }
+    for key, value in tr_map.items():
+        input = input.replace(key, value)
+    return slugify(input)
+
+def create_unique_title_slug(title):
+    slug = turkish_slugify(title)
+    unique_slug = slug
+    unique_title = title
+    num = 1
+    while SiirMasal.objects.filter(slug=unique_slug).exists() or SiirMasal.objects.filter(title=unique_title).exists():
+        unique_slug = '{}-{}'.format(slug, num)
+        unique_title = '{} {}'.format(title, num)
+        num += 1
+    return unique_title, unique_slug
 
 
 
@@ -14,6 +46,15 @@ class HepsiAdmin(admin.ModelAdmin):
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
+
+    actions = ['update_slug']
+
+    def update_slug(self, request, queryset):
+        for obj in queryset:
+            obj.title, obj.slug = create_unique_title_slug(obj.title)
+            obj.save()
+
+    update_slug.short_description = 'Slug değerlerini ve başlıkları title\'a göre güncelle'
 
     def seo_check(self, obj):
         checks = []
@@ -78,6 +119,8 @@ class BlogAdmin(admin.ModelAdmin):
     search_fields = ("title",)
     list_filter = ("status","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
+
+
 
     def seo_check(self, obj):
         checks = []
