@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.utils import timezone
 
 
 # Register your models here.
@@ -41,13 +42,13 @@ def create_unique_title_slug(title):
 
 
 class HepsiAdmin(admin.ModelAdmin):
-    list_display = ("title","Model", "youtube" ,"okunma_sayisi","seo_check","status","yayin_tarihi","guncelleme_tarihi","small_banner","banner","aktif",)
+    list_display = ("title","Model", "youtube" ,"okunma_sayisi","seo_check","status","yayin_tarihi","olusturma_tarihi" ,"guncelleme_tarihi","small_banner","banner","aktif",)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
     list_editable = ("status","aktif","banner","small_banner",)
 
-    actions = ['update_slug']
+    actions = ['update_slug','update_creation_date']
 
     def update_slug(self, request, queryset):
         for obj in queryset:
@@ -55,6 +56,12 @@ class HepsiAdmin(admin.ModelAdmin):
             obj.save()
 
     update_slug.short_description = 'Slug değerlerini ve başlıkları title\'a göre güncelle'
+
+    def update_creation_date(self, request, queryset):
+        for obj in queryset:
+            obj.olusturma_tarihi = timezone.now()
+            obj.save()
+    update_creation_date.short_description = 'Oluşturma tarihlerini güncelledin.'
 
     def seo_check(self, obj):
         checks = []
