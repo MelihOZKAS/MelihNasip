@@ -414,7 +414,7 @@ def apiyle_ekle(request):
         model = request.POST.get('model')
 
         title, slug = create_unique_title_slug(title)
-        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="manuel")
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="Taslak")
         siir_masal.save()
         if siir_masal.id is None:
             return HttpResponse("Model kaydedilemedi.")
