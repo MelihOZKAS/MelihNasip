@@ -403,3 +403,18 @@ def Oto_Paylas(request):
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
+
+
+@csrf_exempt
+def apiyle_ekle(request):
+    if request.method == 'POST':
+        # Gelen POST isteğindeki değerleri alın
+        title = request.POST.get('title')
+        icerik = request.POST.get('icerik')
+        model = request.POST.get('model')
+
+        title, slug = create_unique_title_slug(title)
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, status="manuel")
+        siir_masal.save()
+
+    return HttpResponse("Şükürler olsun içerik eklendi.")

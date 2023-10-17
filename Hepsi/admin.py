@@ -51,14 +51,14 @@ class HepsiAdmin(admin.ModelAdmin):
 
         title_words = obj.title.split(" ")
         if len(title_words) != len(set(title_words)):
-            checks.append(format_html('<span style="color: red;">Title: Yinelenen kelimeler bulundu</span>'))
+            checks.append(format_html('<span style="color: red;">Title: Mükkerer kelimeler var</span>'))
         else:
             checks.append(format_html('<span style="color: green;">Title: Süpersin Hepsi Uniq</span>'))
 
         # H1 duplicate words check
         h1_words = obj.h1.split(" ")  # Replace 'h1' with the actual field name for your H1
         if len(h1_words) != len(set(h1_words)):
-            checks.append(format_html('<span style="color: red;">H1: Yinelenen kelimeler bulundu</span>'))
+            checks.append(format_html('<span style="color: red;">H1: Mükkerer kelimeler var</span>'))
         else:
             checks.append(format_html('<span style="color: green;">H1: Süpersin Hepsi Uniq</span>'))
 
@@ -115,14 +115,14 @@ class BlogAdmin(admin.ModelAdmin):
 
         title_words = obj.title.split(" ")
         if len(title_words) != len(set(title_words)):
-            checks.append(format_html('<span style="color: red;">Title: Yinelenen kelimeler bulundu</span>'))
+            checks.append(format_html('<span style="color: red;">Title: Mükkerer kelimeler var</span>'))
         else:
             checks.append(format_html('<span style="color: green;">Title: Süpersin Hepsi Uniq</span>'))
 
         # H1 duplicate words check
         h1_words = obj.h1.split(" ")  # Replace 'h1' with the actual field name for your H1
         if len(h1_words) != len(set(h1_words)):
-            checks.append(format_html('<span style="color: red;">H1: Yinelenen kelimeler bulundu</span>'))
+            checks.append(format_html('<span style="color: red;">H1: Mükkerer kelimeler var</span>'))
         else:
             checks.append(format_html('<span style="color: green;">H1: Süpersin Hepsi Uniq</span>'))
 
