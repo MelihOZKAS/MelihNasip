@@ -42,7 +42,7 @@ def create_unique_title_slug(title):
 
 
 class HepsiAdmin(admin.ModelAdmin):
-    list_display = ("title","Model", "youtube" ,"okunma_sayisi","seo_check","status","yayin_tarihi","olusturma_tarihi" ,"guncelleme_tarihi","small_banner","banner","aktif","get_hikayeKategorisi", "get_masalKategorisi",)
+    list_display = ("title","Model", "youtube" ,"okunma_sayisi","seo_check","status","yayin_tarihi","olusturma_tarihi" ,"guncelleme_tarihi","small_banner","banner","aktif",)#"get_hikayeKategorisi", "get_masalKategorisi",
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ("title",)
     list_filter = ("status","Model","aktif","banner","small_banner",)
@@ -52,13 +52,13 @@ class HepsiAdmin(admin.ModelAdmin):
 
 
 
-    def get_hikayeKategorisi(self, obj):
-        return ", ".join([hikaye.HikayeKategoriAdi for hikaye in obj.hikayeKategorisi.all()])
-    get_hikayeKategorisi.short_description = 'Hikaye Kategorileri'
-
-    def get_masalKategorisi(self, obj):
-        return ", ".join([masal.MasalKategoriAdi for masal in obj.masalKategorisi.all()])
-    get_masalKategorisi.short_description = 'Masal Kategorileri'
+    #def get_hikayeKategorisi(self, obj):
+    #    return ", ".join([hikaye.HikayeKategoriAdi for hikaye in obj.hikayeKategorisi.all()])
+    #get_hikayeKategorisi.short_description = 'Hikaye Kategorileri'
+#
+    #def get_masalKategorisi(self, obj):
+    #    return ", ".join([masal.MasalKategoriAdi for masal in obj.masalKategorisi.all()])
+    #get_masalKategorisi.short_description = 'Masal Kategorileri'
 
     def update_slug(self, request, queryset):
         for obj in queryset:
