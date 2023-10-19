@@ -61,7 +61,7 @@ class HepsiAdmin(admin.ModelAdmin):
         for obj in queryset:
             obj.olusturma_tarihi = timezone.now()
             obj.save()
-    update_creation_date.short_description = 'Oluşturma tarihlerini güncelledin.'
+    update_creation_date.short_description = 'Oluşturma tarihlerini güncelle.'
 
     def seo_check(self, obj):
         checks = []
