@@ -140,7 +140,7 @@ def masalAltKategori(request, alt_kategori_slug):
 
 def hikayeAltKategori(request,  alt_kategori_slug):
     alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
-    icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye")
+    icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     sayfa_adi = f"En Güzel {alt_kategori.HikayeKategoriAdi}"
     sayfa_Turu = "Hikaye"
 
