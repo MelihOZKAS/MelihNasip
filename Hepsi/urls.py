@@ -43,8 +43,6 @@ urlpatterns = [
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),
     path('hikaye-oku/<str:hikaye_slug>/', views.enderunHikaye, name='hikaye-getir'),
 
-
-
     path('masal-kategori/<str:alt_kategori_slug>/', views.masalAltKategori, name='masalAltKategori'),
     path('hikaye-kategori/<str:alt_kategori_slug>/', views.hikayeAltKategori, name='hikayeAltKategori'),
 
