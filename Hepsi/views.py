@@ -387,7 +387,7 @@ def enderunHikaye(request,hikaye_slug):
     elif EnDerun.Model == 'Hikaye':
         categories = EnDerun.hikayeKategorisi.all()
 
-    category_names = [category.MasalKategoriAdi for category in categories]
+    category_names = [category.HikayeKategoriAdi for category in categories]
 
     if not category_names:
         category_names = [EnDerun.Model]
