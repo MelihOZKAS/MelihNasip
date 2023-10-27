@@ -329,6 +329,17 @@ def enderunMasal(request,masal_slug):
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
 
+
+    if EnDerun.Model == 'Masal':
+        categories = EnDerun.masalKategorisi.all()
+    elif EnDerun.Model == 'Hikaye':
+        categories = EnDerun.hikayeKategorisi.all()
+
+    category_names = [category.name for category in categories]
+
+    if not category_names:
+        category_names = [EnDerun.Model]
+
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
@@ -336,6 +347,7 @@ def enderunMasal(request,masal_slug):
         'title': EnDerun.title,
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
+        'TumKategori': category_names,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
@@ -368,6 +380,17 @@ def enderunHikaye(request,hikaye_slug):
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
 
+
+    if EnDerun.Model == 'Masal':
+        categories = EnDerun.masalKategorisi.all()
+    elif EnDerun.Model == 'Hikaye':
+        categories = EnDerun.hikayeKategorisi.all()
+
+    category_names = [category.name for category in categories]
+
+    if not category_names:
+        category_names = [EnDerun.Model]
+
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
@@ -375,6 +398,7 @@ def enderunHikaye(request,hikaye_slug):
         'title': EnDerun.title,
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
+        'TumKategori': category_names,
 
     }
     return render(request, 'system/Hepsi/enderun.html', context)

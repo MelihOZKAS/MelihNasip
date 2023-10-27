@@ -52,13 +52,13 @@ class HepsiAdmin(admin.ModelAdmin):
 
 
 
-    #def get_hikayeKategorisi(self, obj):
-    #    return ", ".join([hikaye.HikayeKategoriAdi for hikaye in obj.hikayeKategorisi.all()])
-    #get_hikayeKategorisi.short_description = 'Hikaye Kategorileri'
-#
-    #def get_masalKategorisi(self, obj):
-    #    return ", ".join([masal.MasalKategoriAdi for masal in obj.masalKategorisi.all()])
-    #get_masalKategorisi.short_description = 'Masal Kategorileri'
+    def get_hikayeKategorisi(self, obj):
+        return ", ".join([hikaye.HikayeKategoriAdi for hikaye in obj.hikayeKategorisi.all()])
+    get_hikayeKategorisi.short_description = 'Hikaye Kategorileri'
+
+    def get_masalKategorisi(self, obj):
+        return ", ".join([masal.MasalKategoriAdi for masal in obj.masalKategorisi.all()])
+    get_masalKategorisi.short_description = 'Masal Kategorileri'
 
     def update_slug(self, request, queryset):
         for obj in queryset:
