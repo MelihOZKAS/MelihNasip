@@ -13,6 +13,46 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
+
+
+
+
+
+
+{% block extra_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  },
+  "headline": "{{ EnDerun.title }}",
+  "description": "{{ EnDerun.meta_description }}",
+  "datePublished": "{{ EnDerun.olusturma_tarihi }}",
+  "dateModified": "{{ EnDerun.guncelleme_tarihi }}",
+  "video": {
+    "@type": "VideoObject",
+    "embedUrl": "{{ EnDerun.youtube|default:'' }}"
+  },
+  "keywords": "{{ EnDerun.keywords }}",
+  // Ek özellikler
+  "articleSection": "{{ EnDerun.Model }}", // Bölüm veya kategori
+  "isFamilyFriendly": "True", // Aile dostu olup olmadığı
+  "interactionStatistic": { // Etkileşim istatistikleri
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "http://schema.org/ReadAction" },
+    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}" // Görüntülenme sayısı
+  },
+}
+</script>
+{% endblock %}
+
+
+
+
+
 {% block content %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -80,19 +120,14 @@
                                             allowfullscreen></iframe>
                                 </div>
                                 <br/>
-<script src="https://apis.google.com/js/platform.js"></script>
+                                <script src="https://apis.google.com/js/platform.js"></script>
 
-<div style="display: flex; align-items: center;">
-  <div class="g-ytsubscribe" data-channelid="UCm8n38Sg8uVYCRjs3faSAuQ" data-layout="full" data-count="default"></div>
-  <p style="margin-left: 20px; font-weight: bold; position: relative; top: 10px;">Lütfen abone olup bize <br> destek olun! 😇</p>
-</div>
-
-
-
-
-
-
-
+                                <div style="display: flex; align-items: center;">
+                                    <div class="g-ytsubscribe" data-channelid="UCm8n38Sg8uVYCRjs3faSAuQ"
+                                         data-layout="full" data-count="default"></div>
+                                    <p style="margin-left: 20px; font-weight: bold; position: relative; top: 10px;">
+                                        Lütfen abone olup bize <br> destek olun! 😇</p>
+                                </div>
 
                             {% endif %}
 
