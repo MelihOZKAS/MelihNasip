@@ -30,8 +30,8 @@
   },
   "headline": "{{ EnDerun.title }}",
   "description": "{{ EnDerun.meta_description }}",
-  "datePublished": "{{ EnDerun.olusturma_tarihi }}",
-  "dateModified": "{{ EnDerun.guncelleme_tarihi }}",
+  "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
+  "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
   "video": {
     "@type": "VideoObject",
     "embedUrl": "{{ EnDerun.youtube|default:'' }}"
