@@ -399,7 +399,7 @@ def enderunHikaye(request,hikaye_slug):
     EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
-    youtube_id = None
+    thumbnail_url = None
 
 
     if EnDerun.Model == 'Masal':
@@ -411,6 +411,7 @@ def enderunHikaye(request,hikaye_slug):
     category_names_str = ', '.join(category_names)
     if EnDerun.youtube:
         youtube_id = get_youtube_id(EnDerun.youtube)
+        thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
     if not category_names:
         category_names_str = EnDerun.Model
@@ -423,7 +424,7 @@ def enderunHikaye(request,hikaye_slug):
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
-        'youtube_id': youtube_id,
+        'thumbnail_url': thumbnail_url,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
