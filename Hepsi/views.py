@@ -339,7 +339,7 @@ def enderunMasal(request,masal_slug):
     category_names_str = ', '.join(category_names)
 
     if not category_names:
-        category_names_str = [EnDerun.Model]
+        category_names_str = EnDerun.Model
 
     context = {
         'EnDerun': EnDerun,
@@ -388,9 +388,10 @@ def enderunHikaye(request,hikaye_slug):
         categories = EnDerun.hikayeKategorisi.all()
 
     category_names = [category.HikayeKategoriAdi for category in categories]
+    category_names_str = ', '.join(category_names)
 
     if not category_names:
-        category_names = [EnDerun.Model]
+        category_names_str = EnDerun.Model
 
     context = {
         'EnDerun': EnDerun,
@@ -399,7 +400,7 @@ def enderunHikaye(request,hikaye_slug):
         'title': EnDerun.title,
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
-        'TumKategori': category_names,
+        'TumKategori': category_names_str,
 
     }
     return render(request, 'system/Hepsi/enderun.html', context)
