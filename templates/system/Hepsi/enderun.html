@@ -32,14 +32,22 @@
   "description": "{{ EnDerun.meta_description }}",
   "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
   "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
+
+  {% if EnDerun.youtube %}
   "video": {
     "@type": "VideoObject",
-    "embedUrl": "{{ EnDerun.youtube|default:'' }}"
+    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
+    "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
+    "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
+    "embedUrl": "{{ EnDerun.youtube }}"
+    // Diğer video bilgilerini buraya ekleyin
   },
+  {% endif %}
+
   "keywords": "{{ EnDerun.keywords }}",
   // Ek özellikler
   "articleSection": "{{ TumKategori }}", // Bölüm veya kategori
-  "isFamilyFriendly": "True", // Aile dostu olup olmadığı
+  "isFamilyFriendly": "true", // Aile dostu olup olmadığı
   "interactionStatistic": { // Etkileşim istatistikleri
     "@type": "InteractionCounter",
     "interactionType": { "@type": "http://schema.org/ReadAction" },
