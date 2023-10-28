@@ -46,8 +46,8 @@ def turkish_slugify(input):
 
 def get_youtube_id(url):
     # YouTube video URL'sinden video ID'sini çıkaran bir regex deseni
-    pattern = r"(?<=v=|/videos/|embed/|\?vi=)[^#\&\?]*"
-    youtube_id = re.findall(pattern, url)
+    link = url.replace("https://www.youtube.com/embed/","")
+    youtube_id = link.split("?")
     return youtube_id[0] if youtube_id else None
 
 
