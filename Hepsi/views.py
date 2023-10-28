@@ -6,6 +6,8 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+import re
+
 
 
 def create_unique_title_slug(title):
@@ -39,6 +41,18 @@ def turkish_slugify(input):
     for key, value in tr_map.items():
         input = input.replace(key, value)
     return slugify(input)
+
+
+
+def get_youtube_id(url):
+    # YouTube video URL'sinden video ID'sini çıkaran bir regex deseni
+    pattern = r"(?<=v=|/videos/|embed/|\?vi=)[^#\&\?]*"
+    youtube_id = re.findall(pattern, url)
+    return youtube_id[0] if youtube_id else None
+
+
+
+
 
 
 # Create your views here.
@@ -328,6 +342,7 @@ def enderunMasal(request,masal_slug):
     EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    youtube_id = None
 
 
     if EnDerun.Model == 'Masal':
@@ -337,6 +352,9 @@ def enderunMasal(request,masal_slug):
 
     category_names = [category.MasalKategoriAdi for category in categories]
     category_names_str = ', '.join(category_names)
+
+    if EnDerun.youtube:
+        youtube_id = get_youtube_id(EnDerun.youtube)
 
     if not category_names:
         category_names_str = EnDerun.Model
@@ -349,6 +367,7 @@ def enderunMasal(request,masal_slug):
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
+        'youtube_id': youtube_id,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
@@ -380,6 +399,7 @@ def enderunHikaye(request,hikaye_slug):
     EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    youtube_id = None
 
 
     if EnDerun.Model == 'Masal':
@@ -389,6 +409,8 @@ def enderunHikaye(request,hikaye_slug):
 
     category_names = [category.HikayeKategoriAdi for category in categories]
     category_names_str = ', '.join(category_names)
+    if EnDerun.youtube:
+        youtube_id = get_youtube_id(EnDerun.youtube)
 
     if not category_names:
         category_names_str = EnDerun.Model
@@ -401,7 +423,7 @@ def enderunHikaye(request,hikaye_slug):
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
-
+        'youtube_id': youtube_id,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
