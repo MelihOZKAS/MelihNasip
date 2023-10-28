@@ -354,7 +354,7 @@ def enderunMasal(request,masal_slug):
     category_names_str = ', '.join(category_names)
 
     if EnDerun.youtube:
-        youtube_id = get_youtube_id(EnDerun.youtube)
+        youtube_id = get_youtube_id(str(EnDerun.youtube))
         thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
     if not category_names:
