@@ -34,6 +34,7 @@ urlpatterns = [
     path("cocuk-gelisimi/", views.BlogHome, name="cocuk"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
+    path("cerez-politikasi/", views.cerez, name="cerez"),
     path("hakkimizda/", views.hakkimizda, name="hakkimizda"),
     path("gizlilik-politikasi/", views.gizlilik, name="gizlilik-politikasi"),
     path("kullanim-sartlari/", views.kullanim, name="kullanim-sartlari"),

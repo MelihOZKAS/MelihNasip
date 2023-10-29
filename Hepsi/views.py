@@ -326,6 +326,15 @@ def gizlilik(request):
 
     return render(request, 'system/Hepsi/gilzlilik.html', context)
 
+def cerez(request):
+    context = {
+        'title': "Çocuk Hikayeleri ve Masalları Oku - Çerez Politikası",
+        'description': "Çocuk hiyakeleri ve Masalları sitemizin Çerez Politikası bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
+        'keywords': "Çocuk masalları, uyku masalları, uzun uyku hikayeleri, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları, 6 yaş çocuk masalları",
+    }
+
+    return render(request, 'system/Hepsi/cerez.html', context)
+
 def kullanim(request):
     context = {
         'title': "Çocuk Masallarını Dinle - Kullanım Şartları | Masal Oku",

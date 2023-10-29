@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container-xl">
+            <h1>Çerez Politikası</h1>
+
+            <h2>Çerezlerin Kullanımı</h2>
+            <p>https://www.cocukmasallarioku.com olarak, web sitemizin düzgün çalışmasını sağlamak ve kullanıcı
+                deneyiminizi geliştirmek için çerezler kullanıyoruz. Çerezler, web tarayıcınız tarafından
+                bilgisayarınıza yerleştirilen küçük dosyalardır. Çerezler, web sitemizi nasıl kullandığınız konusunda
+                bize bilgi verir.</p>
+
+            <h2>Google AdSense ve Çerezler</h2>
+            <p>Web sitemizde Google AdSense kullanıyoruz. Google AdSense, kullanıcıların ilgi alanlarına göre
+                hedeflenmiş reklamlar sunar. Google AdSense, çerezleri kullanarak kullanıcıların ilgi alanlarını
+                belirler.</p>
+            <p>Google AdSense'in çerezleri nasıl kullandığı hakkında daha fazla bilgi edinmek için <a
+                    href="https://policies.google.com/technologies/ads">Google Gizlilik Politikası</a>'nı ziyaret
+                edebilirsiniz.</p>
+
+            <h2>Çerezleri Nasıl Kontrol Edebilirsiniz</h2>
+            <p>Çoğu web tarayıcısı, çerezleri otomatik olarak kabul eder ancak çerez ayarlarınızı değiştirerek bunları
+                reddedebilir veya her bir çerezi kabul etmeden önce size bildirimde bulunmasını sağlayabilirsiniz.</p>
+            <p>Lütfen unutmayın, çerezleri devre dışı bırakmanız veya reddetmeniz durumunda web sitemizin bazı
+                özelliklerini tam olarak kullanamayabilirsiniz.</p>
+
+            <h2>Değişiklikler</h2>
+            <p>Bu Çerez Politikası'nı zaman zaman güncelleyebiliriz. Değişiklikler yapıldığında bu sayfayı
+                güncelleyeceğiz. Bu Çerez Politikası'nın düzenli olarak gözden geçirilmesini öneririz.</p>
+
+            <h2>İletişim</h2>
+            <p>Çerez Politikamız hakkında herhangi bir sorunuz varsa, lütfen bizimle <a href="{% url 'iletisim' %}">iletişime
+                geçin</a>.</p>
+
+
+        </div>
+    </section>
+
+
+
+{% endblock content %}
