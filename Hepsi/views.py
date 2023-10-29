@@ -442,6 +442,13 @@ Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
 """
 
 
+
+@require_GET
+def ads(request):
+    return HttpResponse(ads_content, content_type="text/plain")
+
+ads_content = """google.com, pub-7065951693101615, DIRECT, f08c47fec0942fa0"""
+
 def Oto_Paylas(request):
     post = SiirMasal.objects.filter(status="oto").order_by('id').first()
 

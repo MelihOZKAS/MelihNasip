@@ -43,6 +43,8 @@ urlpatterns = [
     path("yonetici/", admin.site.urls),
     path("", include("Hepsi.urls")),
     path("robots.txt/",robots_txt, name="robots"),
+    path("Ads.txt/",ads, name="ads"),
+
     path('sitemap.xml/', index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
