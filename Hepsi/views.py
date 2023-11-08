@@ -465,7 +465,7 @@ def Oto_Paylas(request):
         if post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now():
             post.status = "Yayinda"
             post.aktif = True
-            post.yayin_tarihi = timezone.now()  # eklenme tarihini güncelle
+            post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
