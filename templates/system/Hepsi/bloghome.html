@@ -13,6 +13,35 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+
+  "name": "Çocuk Gelişimi",
+
+
+  "description": "{{ description }}",
+  "keywords": "{{ keywords }}",
+  "url": "{{ request.build_absolute_uri }}",
+  "hasPart": [
+    {% for storyx in icerik %}
+    {
+      "@type": "BlogPosting",
+      "headline": "{{ storyx.title }}",
+
+      "url": "{{ request.scheme }}://{{ request.get_host }}/cocuk-gelisimi/{{ storyx.slug }}"
+
+
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
 
     <section class="main-content">
