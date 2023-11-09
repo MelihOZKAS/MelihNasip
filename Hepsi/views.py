@@ -390,6 +390,12 @@ def enderunBlog(request,blog_slug):
     EnDerun.save()  # değişiklikleri kaydet
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    category_names_str = "Çocuk Gelişimi"
+    thumbnail_url = None
+
+    if EnDerun.youtube:
+        youtube_id = get_youtube_id(EnDerun.youtube)
+        thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
     context = {
         'EnDerun': EnDerun,
@@ -398,6 +404,8 @@ def enderunBlog(request,blog_slug):
         'title': EnDerun.title,
         'description': EnDerun.meta_description,
         'keywords': EnDerun.keywords,
+        'TumKategori': category_names_str,
+        'thumbnail_url': thumbnail_url,
     }
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 

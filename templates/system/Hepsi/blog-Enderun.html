@@ -13,6 +13,46 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
+
+{% block extra_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ request.build_absolute_uri }}"
+  },
+  "headline": "{{ EnDerun.title }}",
+  "description": "{{ EnDerun.meta_description }}",
+  "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
+  "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
+
+  {% if EnDerun.youtube %}
+  "video": {
+    "@type": "VideoObject",
+    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
+    "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
+    "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
+    "thumbnailUrl": "{{ thumbnail_url }}", // Video küçük resim URL'sini
+    "embedUrl": "{{ EnDerun.youtube }}"
+    // Diğer video bilgilerini buraya ekleyin
+  },
+  {% endif %}
+
+  "keywords": "{{ EnDerun.keywords }}",
+  // Ek özellikler
+  "articleSection": "{{ TumKategori }}", // Bölüm veya kategori
+  "isFamilyFriendly": "true", // Aile dostu olup olmadığı
+  "interactionStatistic": { // Etkileşim istatistikleri
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "http://schema.org/ReadAction" },
+    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}" // Görüntülenme sayısı
+  }
+}
+</script>
+{% endblock %}
+
 {% block content %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
