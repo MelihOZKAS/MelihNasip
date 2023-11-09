@@ -13,6 +13,37 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+  "name": "Tüm Kategoriler",
+  "description": "{{ description }}",
+  "url": "{{ request.build_absolute_uri }}",
+  "hasPart": [
+    {% for category in masal_banner %}
+    {
+      "@type": "CollectionPage",
+      {% if sayfa_Turu == "Masal" %}
+        "name": "{{ category.MasalKategoriAdi }}",
+        "description": "{{ category.Hikaye_meta_description }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/masal-kategori/{{ category.MasalSlug }}"
+      {% elif sayfa_Turu == "Hikaye" %}
+        "name": "{{ category.HikayeKategoriAdi }}",
+        "description": "{{ category.Hikaye_meta_description }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}/hikaye-kategori/{{ category.HikayeSlug }}"
+      {% endif %}
+
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+
+
 {% block content %}
 
     <section class="main-content">
