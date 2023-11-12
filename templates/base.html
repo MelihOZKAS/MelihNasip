@@ -12,8 +12,8 @@
     <!-- Robots Etiketi -->
     <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
-       <!-- <meta name="author" content="https://www.melihozkas.com"> -->
+    <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"/>
+    <!-- <meta name="author" content="https://www.melihozkas.com"> -->
 
     <!-- Open Graph Etiketleri (Facebook, LinkedIn) -->
     <meta property="og:title" content="{% block ogtitle %}OG TITLE{% endblock %}">
@@ -53,8 +53,6 @@
     </script>
 
 
-
-    <!-- Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7065951693101615"
             crossorigin="anonymous"></script>
 
@@ -69,7 +67,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 
 
     <!-- schema.org -->
@@ -130,7 +127,8 @@
             <li><a href="{% url 'home' %}">Ana Sayfa</a></li>
             <li><a href="{% url 'MasallarHome' %}">Masallar</a></li>
             <li><a href="{% url 'HikayelerHome' %}">Hikayeler</a></li>
-            <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="ingilizce-hikayeler" %}">İngilizce Hikayeler</a></li>
+            <li><a href="{% url 'hikayeAltKategori' alt_kategori_slug="ingilizce-hikayeler" %}">İngilizce Hikayeler</a>
+            </li>
             <li><a href="{% url 'cocuk' %}">Çocuk Gelişimi</a></li>
             <li><a href="{% url 'iletisim' %}">İletişim</a></li>
         </ul>
