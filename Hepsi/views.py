@@ -60,8 +60,8 @@ def home(request):
     masal_banner = MasalKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
     hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
 
-    #SmallMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",small_banner=True,Model="Masal").order_by('?')[:8]
-    #SmallHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",small_banner=True,Model="Hikaye").order_by('?')[:8]
+
+
 
     title = "Çocuk Masalları & Çocuklara Hikayeler"
     description = "Çocuk masalları ve çocuk hikayeleri sitemizde masal okuyabilir masal dinleyebilir, uyku masallarına bakabilirsiniz. Masallar, hikayeler hepsi eğitici sitemizde"
@@ -74,9 +74,6 @@ def home(request):
         'keywords': keywords,
         'masal_banner': masal_banner,
         'hikaye_banner': hikaye_banner,
-
-        #'SmallMasal': SmallMasal,
-        #'SmallHikaye': SmallHikaye,
     }
     return render(request, 'system/Hepsi/home.html', context)
 
