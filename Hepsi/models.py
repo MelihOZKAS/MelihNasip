@@ -94,6 +94,8 @@ class SiirMasal(models.Model):
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
+    def kelime_sayisi(self):
+        return len(self.icerik.split())
     class Meta:
         verbose_name_plural = "Post"
     def __str__(self):
