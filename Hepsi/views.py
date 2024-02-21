@@ -63,7 +63,7 @@ def home(request):
 
 
 
-    title = "Çocuk Masalları & Çocuklara Hikayeler"
+    title = "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku"
     description = "Çocuk masalları ve çocuk hikayeleri sitemizde masal okuyabilir masal dinleyebilir, uyku masallarına bakabilirsiniz. Masallar, hikayeler hepsi eğitici sitemizde"
     keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
 
