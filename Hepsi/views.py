@@ -160,8 +160,8 @@ def MasalOkuListesi(request):
     icerik = paginator.get_page(page_number)
 
     title = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
-    description = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
-    Keys = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
+    Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
 
     if page_number is None:
         title = title
@@ -181,7 +181,7 @@ def MasalOkuListesi(request):
         'sayfa_adi': sayfa_adi,
         'sayfa_Turu': sayfa_Turu,
     }
-    return render(request, 'system/Hepsi/detay-yeni.html', context)
+    return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
 

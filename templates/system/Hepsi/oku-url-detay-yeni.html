@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "CollectionPage",
+  {% if sayfa_Turu == "Masal" %}
+    "name": "{{ alt_kategori.MasalKategoriAdi }}",
+  {% elif sayfa_Turu == "Hikaye" %}
+    "name": "{{ alt_kategori.Hikaye_Title }}",
+  {% endif %}
+
+  "description": "{{ description }}",
+  "keywords": "{{ keywords }}",
+  "url": "{{ request.build_absolute_uri }}",
+  "hasPart": [
+    {% for storyx in icerik %}
+    {
+      "@type": "BlogPosting",
+      "headline": "{{ storyx.title }}",
+      {% if sayfa_Turu == "Masal" %}
+        "url": "{{ request.scheme }}://{{ request.get_host }}/masal-oku/{{ storyx.slug }}"
+      {% elif sayfa_Turu == "Hikaye" %}
+        "url": "{{ request.scheme }}://{{ request.get_host }}/hikaye-oku/{{ storyx.slug }}"
+      {% endif %}
+
+    }{% if not forloop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="main-content">
+        <div class="container-xl">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-8">
+                    <div class="row gy-4">
+                        <div class="section-header">
+                            <h1 class="section-title">{{ sayfa_adi }}</h1>
+                            {% include 'system/parcali/vave.html' %}
+                        </div>
+
+                        <div class="row">
+
+
+                            {% if sayfa_Turu == "Masal" %}
+
+                                {% for masal in icerik %}
+                                    <div class="card mb-3">
+                                        <div class="row no-gutters d-flex align-items-center">
+                                            <div class="col-md-4">
+                                                <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
+                                                    <img src="{% static 'images/masal/'|add:masal.masalKategorisi.MasalSlug|add:'.webp' %}"
+                                                         class="card-img" loading="lazy" alt="{{ masal.title }}"
+                                                         style="border-radius: 10px;">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-8 d-flex align-items-center">
+                                                <div class="card-body text-center">
+                                                    <h2 class="card-title"><a
+                                                            href="{% url 'masal-getir' masal_slug=masal.slug %}"
+                                                            class="text-decoration-none text-dark" style="font-size: 22px;">{{ masal.title }}</a>
+                                                    </h2>
+                                                    <p class="card-text"><small class="text-muted" style="color: black">Eklenme
+                                                        Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</small></p>
+                                                    <a href="{% url 'masal-getir' masal_slug=masal.slug %}"
+                                                       class="btn btn-default">Masalı Okuyalım</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                            {% elif sayfa_Turu == "Hikaye" %}
+
+
+                                {% for masal in icerik %}
+                                    <div class="card mb-3">
+                                        <div class="row no-gutters d-flex align-items-center">
+                                            <div class="col-md-4">
+                                                <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
+                                                    <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}"
+                                                         class="card-img" loading="lazy" alt="{{ masal.title }}"
+                                                         style="border-radius: 10px;">
+                                                </a>
+                                            </div>
+                                            <div class="col-md-8 d-flex align-items-center">
+                                                <div class="card-body text-center">
+                                                    <h2 class="card-title"><a
+                                                            href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
+                                                            class="text-decoration-none text-dark" style="font-size: 22px;">{{ masal.title }}</a>
+                                                    </h2>
+                                                    <p class="card-text"><small class="text-muted">Eklenme
+                                                        Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</small></p>
+                                                    <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
+                                                       class="btn btn-default">Hikayeyi Okuyalım</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+                            {% endif %}
+
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                {% if icerik.has_previous %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                    </li>
+                                {% endif %}
+
+                                {% for num in icerik.paginator.page_range %}
+                                    {% if icerik.number == num %}
+                                        <li class="page-item active"><span
+                                                class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link"
+                                                                 href="?sayfa={{ num }}">{{ num }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if icerik.has_next %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}
