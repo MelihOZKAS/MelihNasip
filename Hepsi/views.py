@@ -151,7 +151,7 @@ def masalAltKategori(request, alt_kategori_slug):
 
 
 def MasalOkuListesi(request):
-    icerik_list = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    icerik_list = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')[:100]
     sayfa_adi = f"En Güzel Uyku Masalları"
     sayfa_Turu = "Masal"
 

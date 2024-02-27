@@ -71,7 +71,7 @@
                                         <div class="row no-gutters d-flex align-items-center">
                                             <div class="col-md-4">
                                                 <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
-                                                    <img src=""
+                                                    <img src="{% static 'images/masal/'|add:masal.masalKategorisi.first.MasalSlug|add:'.webp' %}"
                                                          class="card-img" loading="lazy" alt="{{ masal.title }}"
                                                          style="border-radius: 10px;">
                                                 </a>
