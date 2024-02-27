@@ -53,15 +53,15 @@
 
 
                     <div class="section-header">
-                        <h2 class="section-title">Tüm Masallar</h2>
+                        <h2 class="section-title">En Güzel Masallar</h2>
                         {% include 'system/parcali/vave.html' %}
                     </div>
                     <!-- thumbnail-->
                     <div class="thumb rounded">
-                        <a href="{% url 'home' %}">
+                        <a href="{% url 'masal-oku' %}">
                             <div class="inner">
                                 <img src="{% static 'images/masal-oku.webp' %}" width="800" height="400"
-                                     style="border-radius: 10px;" loading="lazy" alt="Masal Oku"/>
+                                     style="border-radius: 20px;" loading="lazy" alt="Masal Oku"/>
                             </div>
                         </a>
                     </div>
@@ -69,7 +69,7 @@
                     <!-- details-->
                     <br>
                     <div class="details">
-                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için <a href="https://www.cocukmasallarioku.com/masal-oku"><strong><span>Masal Oku</span></strong></a> sayfamızı ziyaret edin!</p>
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için <a href="{% url 'masal-oku' %}"><strong><span>Masal Oku</span></strong></a> sayfamızı ziyaret edin!</p>
                     </div>
                     <br>
 

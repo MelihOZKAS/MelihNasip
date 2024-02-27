@@ -40,6 +40,7 @@ urlpatterns = [
 
 
     path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
+    path('masal-oku/', views.MasalOkuListesi, name='masal-oku'),
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),
     path('hikaye-oku/<str:hikaye_slug>/', views.enderunHikaye, name='hikaye-getir'),
 

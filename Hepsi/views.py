@@ -149,6 +149,48 @@ def masalAltKategori(request, alt_kategori_slug):
 
 
 
+
+def MasalOkuListesi(request):
+    icerik_list = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    sayfa_adi = f"En Güzel Uyku Masalları"
+    sayfa_Turu = "Masal"
+
+    paginator = Paginator(icerik_list, 14) # 10 içerik göstermek için
+    page_number = request.GET.get('sayfa')
+    icerik = paginator.get_page(page_number)
+
+    title = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+    description = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+    Keys = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+
+    if page_number is None:
+        title = title
+        description = description
+    else:
+        title = f"{title} - {page_number}"
+        description = f"{description} - Sayfa {page_number}"
+
+
+
+    context = {
+        'title': title,
+        'description': description,
+        'keywords': Keys,
+        'alt_kategori': "YOKKKKKK",
+        'icerik': icerik,
+        'sayfa_adi': sayfa_adi,
+        'sayfa_Turu': sayfa_Turu,
+    }
+    return render(request, 'system/Hepsi/detay-yeni.html', context)
+
+
+
+
+
+
+
+
+
 def hikayeAltKategori(request,  alt_kategori_slug):
     alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
     icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
