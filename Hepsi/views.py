@@ -245,7 +245,6 @@ def hikayeOkuListesi(request):
         description = f"{description} - Sayfa {page_number}"
 
 
-
     context = {
         'title': title,
         'description': description,
