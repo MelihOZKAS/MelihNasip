@@ -61,8 +61,6 @@ def home(request):
     hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
 
 
-
-
     title = "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku"
     description = "Çocuklar için en güzel masallar, Uyku masalları, hayvan masalları, klasik masallar. Çocuğunuzun hayal gücünü geliştirecek masallarımızı keşfedin masal oku"
     keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
