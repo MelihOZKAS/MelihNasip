@@ -233,9 +233,9 @@ def hikayeOkuListesi(request):
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
-    title = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
-    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
-    Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
+    title = "Aile Hikayeleri, Dini Hikaye En Güzel Hikayeler | Hikaye Oku"
+    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Hikaye Oku sayfamızı ziyaret edin. Çocuklara özel  uzun hikaye oku ve dinle"
+    Keys = "Hikaye Oku, Çocuk Hikayeleri, Eğitici Hikayeleri, Eğlenceli Hikayeleri, Öğretici Hikayeleri, Fantastik Hikayeleri, ingilizce Hikayeler, En İyi hikayeler, En Güzel Hikayeler, Popüler Hikayeler"
 
     if page_number is None:
         title = title

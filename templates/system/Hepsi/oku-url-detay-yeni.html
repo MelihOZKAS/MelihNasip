@@ -101,7 +101,7 @@
                                         <div class="row no-gutters d-flex align-items-center">
                                             <div class="col-md-4">
                                                 <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
-                                                    <img src="{% static 'images/hikaye/'|add:masal.hikayeKategorisi.HikayeSlug|add:'.webp' %}"
+                                                    <img src="{% static 'images/hikaye/'|add:masal.hikayeKategorisi.first.HikayeSlug|add:'.webp' %}"
                                                          class="card-img" loading="lazy" alt="{{ masal.title }}"
                                                          style="border-radius: 10px;">
                                                 </a>
