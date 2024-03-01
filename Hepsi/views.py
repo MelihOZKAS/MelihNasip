@@ -222,6 +222,41 @@ def hikayeAltKategori(request,  alt_kategori_slug):
     }
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
+def hikayeOkuListesi(request):
+
+    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
+    sayfa_adi = f"En Güzel Çocuk Hikayeleri Oku"
+    sayfa_Turu = "Hikaye"
+
+
+    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    page_number = request.GET.get('sayfa')
+    icerik = paginator.get_page(page_number)
+
+    title = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
+    Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
+
+    if page_number is None:
+        title = title
+        description = description
+    else:
+        title = f"{title} - {page_number}"
+        description = f"{description} - Sayfa {page_number}"
+
+
+
+    context = {
+        'title': title,
+        'description': description,
+        'keywords': Keys,
+        'alt_kategori': "YOKKKKKK",
+        'icerik': icerik,
+        'sayfa_adi': sayfa_adi,
+        'sayfa_Turu': sayfa_Turu,
+    }
+    return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
+
 
 def BlogHome(request):
     icerik_list = Blog.objects.filter(aktif=True, status="Yayinda")
