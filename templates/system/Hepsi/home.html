@@ -66,14 +66,40 @@
                         </a>
                     </div>
 
+                    <!-- details -->
+                    <br>
+                    <div class="details">
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve
+                            onlara keyifli anlar yaşatmak için <a
+                                    href="{% url 'masal-oku' %}"><strong><span>Masal Oku</span></strong></a> sayfamızı
+                            ziyaret edin!</p>
+                    </div>
+                    <br>
+
+
+                    <div class="section-header">
+                        <h2 class="section-title">En Güzel Hikayeler</h2>
+                        {% include 'system/parcali/vave.html' %}
+                    </div>
+                    <!--   thumbnail   -->
+                    <div class="thumb rounded">
+                        <a href="{% url 'hikaye-oku' %}">
+                            <div class="inner">
+                                <img src="{% static 'images/hikaye-oku.webp' %}" width="800" height="400"
+                                     style="border-radius: 20px;" loading="lazy" alt="Masal Oku"/>
+                            </div>
+                        </a>
+                    </div>
 
                     <!-- details -->
                     <br>
                     <div class="details">
-                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için <a href="{% url 'masal-oku' %}"><strong><span>Masal Oku</span></strong></a> sayfamızı ziyaret edin!</p>
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve
+                            onlara keyifli anlar yaşatmak için <a
+                                    href="{% url 'hikaye-oku' %}"><strong><span>Hikaye Oku</span></strong></a> sayfamızı
+                            ziyaret edin!</p>
                     </div>
                     <br>
-
 
 
                     <div class="row gy-4">
