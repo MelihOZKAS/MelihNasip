@@ -37,6 +37,11 @@ model_tipi = (
     ("Masal", "Masal"),
 )
 
+boyutu = (
+    ("Kısa", "Kısa"),
+    ("Uzun", "Uzun"),
+)
+
 class HikayeKategorileri(models.Model):
     HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
     HikayeSlug = models.SlugField(max_length=255, blank=True)
@@ -83,6 +88,7 @@ class SiirMasal(models.Model):
     masalKategorisi = models.ManyToManyField(MasalKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
     hikayeKategorisi = models.ManyToManyField(HikayeKategorileri, blank=True, help_text="Şiirin alt kategorilerini seçin.")
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    uzunluk = models.CharField(max_length=25, choices=boyutu, default="Kısa", help_text=HELP_TEXTS["status"])
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
     keywords = models.CharField(max_length=255,blank=True,verbose_name="Anahtar Kelimeler",help_text=HELP_TEXTS["keywords"])
