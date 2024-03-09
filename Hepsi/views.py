@@ -290,7 +290,7 @@ def Masallar(request):
     title = "Çocuk Masallı, Çocuklara Uyku Masalları | Masal Oku"
     description = "En çok okunan masalları keşfedin. Çocuklara özel eğitici öğretici uyku masalı ve fazlası için masal sitemizi takip edin. En güzel masallar"
     keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Masal Oku, Masal Dinle, Masal Dinle, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
-    sayfa_adiH1 = "Masallar Oku - Çocuklar İçin Eğitici Uyku Masalları, Kısa Hikayeler ve Daha Fazlası"
+    sayfa_adiH1 = "Çocuk Masalları, Eğitici Masallar, Kısa Masallar ve Uyku Masalları Oku"
     sayfa_Turu = "Masal"
 
 
