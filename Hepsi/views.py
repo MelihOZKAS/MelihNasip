@@ -572,9 +572,9 @@ def apiyle_ekle(request):
 def indexing_var_mi(request):
     post = SiirMasal.objects.filter(indexing=True, aktif=True, status="Yayinda").first()
     if post is not None:
-        # post'un index_blooen değerini False yap
-        #post.indexing = False
-        #post.save()
+        # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
+        post.indexing = False
+        post.save()
         return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
     else:
         return HttpResponse({"error": "Indexlenmiş post bulunamadı."})
