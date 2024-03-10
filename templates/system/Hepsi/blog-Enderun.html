@@ -42,7 +42,22 @@
   {% endif %}
 
   "keywords": "{{ EnDerun.keywords }}",
-
+  "author": {
+  "@type": "Person",
+  "name": "Melih ÖZKAŞ"
+      },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name": "Masal Oku",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+      }
+    },
   "articleSection": "{{ TumKategori }}",
   "isFamilyFriendly": "true",
   "interactionStatistic": {

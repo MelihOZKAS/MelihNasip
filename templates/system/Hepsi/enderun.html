@@ -48,13 +48,31 @@
   {% endif %}
 
   "keywords": "{{ EnDerun.keywords }}",
-  // Ek özellikler
-  "articleSection": "{{ TumKategori }}", // Bölüm veya kategori
-  "isFamilyFriendly": "true", // Aile dostu olup olmadığı
-  "interactionStatistic": { // Etkileşim istatistikleri
+
+
+  "author": {
+  "@type": "Person",
+  "name": "Melih ÖZKAŞ"
+      },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name": "Masal Oku",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+      }
+    },
+
+  "articleSection": "{{ TumKategori }}",
+  "isFamilyFriendly": "true",
+  "interactionStatistic": {
     "@type": "InteractionCounter",
     "interactionType": { "@type": "http://schema.org/ReadAction" },
-    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}" // Görüntülenme sayısı
+    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}"
   }
 }
 </script>
