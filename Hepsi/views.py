@@ -567,3 +567,17 @@ def apiyle_ekle(request):
             return HttpResponse("Model kaydedilemedi.")
         else:
             return HttpResponse("Model başarıyla kaydedildi. ID: " + str(siir_masal.id))
+
+@csrf_exempt
+def indexing_var_mi(request):
+    post = SiirMasal.objects.filter(index_blooen=True, aktif=True, status="Yayinda").first()
+    if post is not None:
+        # post'un index_blooen değerini False yap
+        #post.index_blooen = False
+        #post.save()
+        return HttpResponse(
+            {"url": f"https://domain.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}"})
+    else:
+        return HttpResponse({"error": "Indexlenmiş post bulunamadı."})
+
+
