@@ -97,6 +97,7 @@ class SiirMasal(models.Model):
     aktif = models.BooleanField(default=False, help_text=HELP_TEXTS["aktif"])
     banner = models.BooleanField(default=False, help_text=HELP_TEXTS["banner"])
     small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
+    indexing = models.BooleanField(default=False, help_text="Indexlensin mi?")
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
