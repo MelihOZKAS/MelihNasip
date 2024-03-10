@@ -570,10 +570,10 @@ def apiyle_ekle(request):
 
 @csrf_exempt
 def indexing_var_mi(request):
-    post = SiirMasal.objects.filter(index_blooen=True, aktif=True, status="Yayinda").first()
+    post = SiirMasal.objects.filter(indexing=True, aktif=True, status="Yayinda").first()
     if post is not None:
         # post'un index_blooen değerini False yap
-        #post.index_blooen = False
+        #post.indexing = False
         #post.save()
         return HttpResponse(
             {"url": f"https://domain.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}"})
