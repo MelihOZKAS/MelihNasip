@@ -221,7 +221,6 @@ def hikayeAltKategori(request,  alt_kategori_slug):
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 def hikayeOkuListesi(request):
-
     icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')[:50]
     sayfa_adi = f"En Güzel Çocuk Hikayeleri Oku"
     sayfa_Turu = "Hikaye"
@@ -544,6 +543,7 @@ def Oto_Paylas(request):
         if post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now():
             post.status = "Yayinda"
             post.aktif = True
+            post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
