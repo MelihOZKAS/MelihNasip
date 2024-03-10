@@ -575,8 +575,7 @@ def indexing_var_mi(request):
         # post'un index_blooen değerini False yap
         #post.indexing = False
         #post.save()
-        return HttpResponse(
-            {"url": f"https://domain.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}"})
+        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}")
     else:
         return HttpResponse({"error": "Indexlenmiş post bulunamadı."})
 
