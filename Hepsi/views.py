@@ -577,6 +577,6 @@ def indexing_var_mi(request):
         post.save()
         return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
     else:
-        return HttpResponse({"error": "Indexlenmiş post bulunamadı."})
+        return HttpResponse("post bulunamadı.")
 
 
