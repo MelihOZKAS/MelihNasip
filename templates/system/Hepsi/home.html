@@ -38,7 +38,23 @@
 
 {% endblock extra_head %}
 
+{% block extra_Two_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
+      "item": "https://www.cocukmasallarioku.com/"
+    }
+  ]
 
+}
+</script>
+{% endblock %}
 
 
 
