@@ -79,6 +79,36 @@
 {% endblock %}
 
 
+{% block extra_Two_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
+      "item": "https://www.cocukmasallarioku.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ icerik.Post_Turu.H1 }}",
+      "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-kategori/{% if EnDerun.Model == 'Masal' %}{{ icerik.masalKategorisi.first.slug }}{% else %}{{ EnDerun.hikayeKategorisi.first.slug }}{% endif %}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ EnDerun.title }}",
+      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-oku/{{ EnDerun.slug }}/"
+    }
+  ]
+
+}
+</script>
+{% endblock %}
+
 
 
 
