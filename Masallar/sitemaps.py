@@ -86,7 +86,7 @@ class PeriMasallariSitemap(Sitemap):
 
     def items(self):
 
-        alt_kategori = SiirMasal.objects.filter(MasalKategorileri, MasalSlug="peri-masallari")
+        alt_kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari")
         return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
 
 
