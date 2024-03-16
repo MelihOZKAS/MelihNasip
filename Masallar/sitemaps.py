@@ -77,27 +77,21 @@ class CocukSitemap(Sitemap):
     def location(self, obj):
         return reverse('blog-getir', args=[obj.slug])
 
-    #def youtube(self, obj):
-    #    return obj.youtube if obj.youtube else None
 
 
-#class YouTubeSitemapHikaye(Sitemap):
-#    def items(self):
-#        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").exclude(youtube__isnull=True).exclude(youtube__exact='')
-#
-#    def location(self, obj):
-#        site_url = 'http://www.cocukmasallarioku.com'
-#        youtube_url = obj.youtube
-#        return site_url + youtube_url
-#
-#
-#class YouTubeSitemapMasal(Sitemap):
-#    changefreq = "daily"
-#    priority = 0.9
-#    protocol = 'https'
-#
-#    def items(self):
-#        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal", youtube__isnull=False)
-#    def location(self, obj):
-#        return reverse(obj.youtube)
-#
+class PeriMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+
+        alt_kategori = SiirMasal.objects.filter(MasalKategorileri, MasalSlug="peri-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+
+
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])

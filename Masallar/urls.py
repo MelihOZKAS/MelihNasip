@@ -30,6 +30,7 @@ sitemaps = {
     'hikaye-kategorileri': HikayeAltKategoriSitemap,
     'hikayeler': HikayelerSitemap,
     'cocuk-gelisimi': CocukSitemap,
+    'peri-masallari': PeriMasallariSitemap,
     #'video-youtube-masal': YouTubeSitemapMasal,
     #'video-youtube-hikaye': YouTubeSitemapHikaye,
 }
