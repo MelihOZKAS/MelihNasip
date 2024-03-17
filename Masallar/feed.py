@@ -482,5 +482,63 @@ class UzayHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
+class BilimHikayelerFeed(Feed):
+    title = "Muhteşem Bilim Hikayeleri"
+    link = "/feeds/muhtesem-bilim-hikayeleri/"
+    description = "En son eklenen muhteşem bilim hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="muhtesem-bilim-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
+
+class DostlukHikayelerFeed(Feed):
+    title = "Muhteşem Dostluk Hikayeleri"
+    link = "/feeds/dostluk-hikayeleri/"
+    description = "En son eklenen muhteşem dostluk hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="dostluk-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
+class CevreHikayelerFeed(Feed):
+    title = "Doğa ve Çevre Önemi Hikayeleri"
+    link = "/feeds/doga-ve-cevre-onemi-hikayeleri/"
+    description = "En son eklenen doğa ve çevre önemi hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="doga-ve-cevre-onemi-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
