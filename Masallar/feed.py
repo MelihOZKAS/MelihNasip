@@ -55,7 +55,7 @@ class UykuMasallariFeed(Feed):
     description = "En son eklenen peri masalları."
 
     def items(self):
-        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="uyku_masallari")
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="uyku-masallari")
         return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
                                         Model="Masal").order_by('-olusturma_tarihi')[:20]
     def item_title(self, item):
