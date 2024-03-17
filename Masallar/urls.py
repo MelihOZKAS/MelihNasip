@@ -86,6 +86,7 @@ urlpatterns = [
     path('feeds/hazine-avi-hikayeleri/', HazineHikayelerFeed(), name='hazine_hikayeler_feed'),
     path('feeds/eglenceli-yolculuk-hikayeleri/', YolculukHikayelerFeed(), name='yolculuk_hikayeler_feed'),
     path('feeds/gezi-maceralari-hikayeleri/', GezikHikayelerFeed(), name='gezi_hikayeler_feed'),
+    path('feeds/uzay-maceralari-hikayeleri/', UzayHikayelerFeed(), name='gezi_hikayeler_feed'),
 
 
 

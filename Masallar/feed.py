@@ -462,6 +462,25 @@ class GezikHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
+class UzayHikayelerFeed(Feed):
+    title = "Uzay Maceraları Hikayeleri"
+    link = "/feeds/uzay-maceralari-hikayeleri/"
+    description = "En son eklenen uzay maceraları hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="uzay-maceralari-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
 
