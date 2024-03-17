@@ -86,11 +86,22 @@ class PeriMasallariSitemap(Sitemap):
     protocol = 'https'
 
     def items(self):
-        #alt_kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari")
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="peri-masallari")
         return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
 
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
 
+class UykuMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="uyku-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 

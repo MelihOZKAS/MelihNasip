@@ -31,8 +31,8 @@ sitemaps = {
     'hikayeler': HikayelerSitemap,
     'cocuk-gelisimi': CocukSitemap,
     'peri-masallari': PeriMasallariSitemap,
-    #'video-youtube-masal': YouTubeSitemapMasal,
-    #'video-youtube-hikaye': YouTubeSitemapHikaye,
+    'uyku-masallari': UykuMasallariSitemap,
+
 }
 
 def handler404(request, *args, **argv):
