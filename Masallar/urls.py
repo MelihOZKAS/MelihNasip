@@ -32,6 +32,11 @@ sitemaps = {
     'cocuk-gelisimi': CocukSitemap,
     'peri-masallari': PeriMasallariSitemap,
     'uyku-masallari': UykuMasallariSitemap,
+    'hayvan-masallari': HayvanMasallariSitemap,
+    'prenses-masallari': PrensesMasallariSitemap,
+    'prens-masallari': PrensMasallariSitemap,
+    'aile-masallari': AileMasallariSitemap,
+    'macera-masallari': MaceraMasallariSitemap,
 
 }
 
