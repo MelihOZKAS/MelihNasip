@@ -318,16 +318,149 @@ class DiniHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
+class SihirliDunyaHikayelerFeed(Feed):
+    title = "Sihirli Dünya Hikayeleri"
+    link = "/feeds/sihirli-dunya-hikayeleri/"
+    description = "En son eklenen sihirli dünya hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sihirli-dunya-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
+class SevimliHayvanHikayelerFeed(Feed):
+    title = "Sevimli Hayvan Hikayeleri"
+    link = "/feeds/sevimli-hayvan-hikayeleri/"
+    description = "En son eklenen sevimli hayvan hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sevimli-hayvan-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
+class KahramanHikayelerFeed(Feed):
+    title = "Korkusuz Kahraman Hikayeleri"
+    link = "/feeds/korkusuz-kahraman-hikayeleri/"
+    description = "En son eklenen korkusux kahraman hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="korkusuz-kahraman-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
+
+class AileHikayelerFeed(Feed):
+    title = "Mutlu Aile Hikayeleri"
+    link = "/feeds/mutlu-aile-hikayeleri/"
+    description = "En son eklenen mutlu aile hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="mutlu-aile-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
+class HazineHikayelerFeed(Feed):
+    title = "Hazine Hikayeleri"
+    link = "/feeds/hazine-avi-hikayeleri/"
+    description = "En son eklenen hazine avı hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="hazine-avi-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
+class YolculukHikayelerFeed(Feed):
+    title = "Eğlenceli Yolculuk Hikayeleri"
+    link = "/feeds/eglenceli-yolculuk-hikayeleri/"
+    description = "En son eklenen eğlenceli yolculuk hikayeleri."
 
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="eglenceli-yolculuk-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
+class GezikHikayelerFeed(Feed):
+    title = "Gezi Maceraları Hikayeleri"
+    link = "/feeds/gezi-maceralari-hikayeleri/"
+    description = "En son eklenen gezi maceraları hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="gezi-maceralari-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
 

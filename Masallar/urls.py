@@ -77,7 +77,15 @@ urlpatterns = [
     path('feeds/kardeslik-masallari/', KardesMasallariFeed(), name='kardeslik_masallari_feed'),
     path('feeds/iyilik-masallari/', iyilikMasallariFeed(), name='iyilik_masallari_feed'),
     path('feeds/keloglan-masallari/', KeloglanMasallariFeed(), name='keloglan_masallari_feed'),
+
     path('feeds/dini-hikayeler/', DiniHikayelerFeed(), name='dini_hikayeler_feed'),
+    path('feeds/sihirli-dunya-hikayeleri/', SihirliDunyaHikayelerFeed(), name='sihirli_hikayeler_feed'),
+    path('feeds/sevimli-hayvan-hikayeleri/', SevimliHayvanHikayelerFeed(), name='hayvan_hikayeler_feed'),
+    path('feeds/korkusuz-kahraman-hikayeleri/', KahramanHikayelerFeed(), name='kahraman_hikayeler_feed'),
+    path('feeds/mutlu-aile-hikayeleri/', AileHikayelerFeed(), name='aile_hikayeler_feed'),
+    path('feeds/hazine-avi-hikayeleri/', HazineHikayelerFeed(), name='hazine_hikayeler_feed'),
+    path('feeds/eglenceli-yolculuk-hikayeleri/', YolculukHikayelerFeed(), name='yolculuk_hikayeler_feed'),
+    path('feeds/gezi-maceralari-hikayeleri/', GezikHikayelerFeed(), name='gezi_hikayeler_feed'),
 
 
 
