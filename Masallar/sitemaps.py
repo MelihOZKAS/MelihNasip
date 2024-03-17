@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
+from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
 from Hepsi.models import *
 
 class MasalKategorileriSitemap(Sitemap):
@@ -85,7 +86,8 @@ class PeriMasallariSitemap(Sitemap):
     protocol = 'https'
 
     def items(self):
-        alt_kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari")
+        #alt_kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari")
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
         return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
 
 
