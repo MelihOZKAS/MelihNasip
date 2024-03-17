@@ -63,7 +63,7 @@ urlpatterns = [
     path('sitemap.xml/', index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
-    #path('feeds/dini_masallar/', DiniMasallarFeed(), name='dini_masal_feed'),
+    path('feeds/dini_masallar/', DiniMasallarFeed(), name='dini_masal_feed'),
 
 
 
