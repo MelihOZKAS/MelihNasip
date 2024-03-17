@@ -80,6 +80,22 @@ class CocukSitemap(Sitemap):
 
 
 
+
+
+
+class DiniMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="dini-masallar")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
 class PeriMasallariSitemap(Sitemap):
     changefreq = "daily"
     priority = 1.0
@@ -179,13 +195,13 @@ class MaceraMasallariSitemap(Sitemap):
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 
-class MaceraMasallariSitemap(Sitemap):
+class KomikMasallariSitemap(Sitemap):
     changefreq = "daily"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
-        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="macera-masallari")
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="komik-masallar")
         return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
@@ -194,5 +210,74 @@ class MaceraMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 
+class EgiticiMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="egitici-masallar")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
+
+class ArkadasMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="arkadas-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
+
+class KardesMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="kardeslik-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
+
+class iyilikMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="iyilik-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
+
+class KelOglanMasallariSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="keloglan-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('masal-getir', args=[obj.slug])
 
 

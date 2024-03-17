@@ -30,6 +30,7 @@ sitemaps = {
     'hikaye-kategorileri': HikayeAltKategoriSitemap,
     'hikayeler': HikayelerSitemap,
     'cocuk-gelisimi': CocukSitemap,
+    'dini-masallari': DiniMasallariSitemap,
     'peri-masallari': PeriMasallariSitemap,
     'uyku-masallari': UykuMasallariSitemap,
     'hayvan-masallari': HayvanMasallariSitemap,
@@ -37,6 +38,12 @@ sitemaps = {
     'prens-masallari': PrensMasallariSitemap,
     'aile-masallari': AileMasallariSitemap,
     'macera-masallari': MaceraMasallariSitemap,
+    'komik-masallari': KomikMasallariSitemap,
+    'egitici-masallari': EgiticiMasallariSitemap,
+    'arkadas-masallari': ArkadasMasallariSitemap,
+    'kardes-masallari': KardesMasallariSitemap,
+    'iyilik-masallari': iyilikMasallariSitemap,
+    'keloglan-masallari': KelOglanMasallariSitemap,
 
 }
 
