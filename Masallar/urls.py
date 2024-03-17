@@ -72,6 +72,7 @@ urlpatterns = [
     path('feeds/aile-masallari/', AileMasallariFeed(), name='aie_masallari_feed'),
     path('feeds/macera-masallari/', MaceraMasallariFeed(), name='macera_masallari_feed'),
     path('feeds/komik-masallar/', KomikMasallariFeed(), name='komik_masallari_feed'),
+    path('feeds/egitici-masallar/', EgiticiMasallariFeed(), name='egitici_masallari_feed'),
 
 
 
