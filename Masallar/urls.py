@@ -44,6 +44,7 @@ sitemaps = {
     'kardes-masallari': KardesMasallariSitemap,
     'iyilik-masallari': iyilikMasallariSitemap,
     'keloglan-masallari': KelOglanMasallariSitemap,
+    'dini-hikayeler': DiniHikayelerSitemap,
 
 }
 
