@@ -281,3 +281,16 @@ class KelOglanMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 
+class DiniHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="dini-hikayeler")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
