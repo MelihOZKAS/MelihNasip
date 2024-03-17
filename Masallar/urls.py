@@ -52,6 +52,13 @@ sitemaps = {
     'aile-hikayeleri': AileHikayelerSitemap,
     'hazine-avi-hikayeleri': HazineHikayelerSitemap,
     'eglenceli-yolculuk-hikayeleri': YolculukHikayelerSitemap,
+    'gezi-maceralari-hikayeleri': GeziHikayelerSitemap,
+    'uzay-maceralari-hikayeleri': UzayHikayelerSitemap,
+    'muhtesem-bilim-hikayeleri': BilimHikayelerSitemap,
+    'dostluk-hikayeleri': DostlukHikayelerSitemap,
+    'doga-ve-cevre-onemi-hikayeleri': DogaHikayelerSitemap,
+    'ingilizce-hikayeler': EnglishHikayelerSitemap,
+    'sevimli-canavar-hikayeleri': SevimliCanavarHikayelerSitemap,
 
 }
 
