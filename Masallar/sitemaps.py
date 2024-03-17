@@ -294,3 +294,89 @@ class DiniHikayelerSitemap(Sitemap):
 
     def location(self, obj):
         return reverse('hikaye-getir', args=[obj.slug])
+
+
+class SihirliDunyaHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sihirli-dunya-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
+
+class SevimliHayvanHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sevimli-hayvan-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
+
+class KahramanHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="korkusuz-kahraman-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
+
+
+class AileHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="mutlu-aile-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
+
+class HazineHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="hazine-avi-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
+
+class YolculukHikayelerSitemap(Sitemap):
+    changefreq = "daily"
+    priority = 1.0
+    protocol = 'https'
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="eglenceli-yolculuk-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
+    def location(self, obj):
+        return reverse('hikaye-getir', args=[obj.slug])
