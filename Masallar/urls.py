@@ -73,6 +73,9 @@ urlpatterns = [
     path('feeds/macera-masallari/', MaceraMasallariFeed(), name='macera_masallari_feed'),
     path('feeds/komik-masallar/', KomikMasallariFeed(), name='komik_masallari_feed'),
     path('feeds/egitici-masallar/', EgiticiMasallariFeed(), name='egitici_masallari_feed'),
+    path('feeds/arkadas-masallari/', ArkadasMasallariFeed(), name='arkadas_masallari_feed'),
+    path('feeds/kardeslik-masallari/', KardesMasallariFeed(), name='kardeslik_masallari_feed'),
+    path('feeds/iyilik-masallari/', iyilikMasallariFeed(), name='iyilik_masallari_feed'),
 
 
 

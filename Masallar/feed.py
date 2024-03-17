@@ -196,7 +196,7 @@ class KomikMasallariFeed(Feed):
 class EgiticiMasallariFeed(Feed):
     title = "Eğitici Masallar"
     link = "/feeds/egitici-masallar/"
-    description = "En son eklenen eğitici masalları."
+    description = "En son eklenen eğitici masallar."
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="egitici-masallar")
@@ -215,9 +215,65 @@ class EgiticiMasallariFeed(Feed):
 
 
 
+class ArkadasMasallariFeed(Feed):
+    title = "Arkadaş Masallar"
+    link = "/feeds/arkadas-masallari/"
+    description = "En son eklenen arkadaş masalları."
 
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="arkadas-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Masal").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('masal-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
+class KardesMasallariFeed(Feed):
+    title = "Kardeşlik Masalları"
+    link = "/feeds/kardeslik-masallari/"
+    description = "En son eklenen kardeş masalları."
 
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="kardeslik-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Masal").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('masal-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
+
+class iyilikMasallariFeed(Feed):
+    title = "iyilik Masalları"
+    link = "/feeds/iyilik-masallari/"
+    description = "En son eklenen iyilik doğruluk masalları."
+
+    def items(self):
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="iyilik-masallari")
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Masal").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('masal-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
 
 
 
