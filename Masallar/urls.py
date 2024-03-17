@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.contrib.sitemaps.views import index, sitemap
 from .sitemaps import *
 from Hepsi.views import *
-from feed import *
+from .feed import *
 
 
 
