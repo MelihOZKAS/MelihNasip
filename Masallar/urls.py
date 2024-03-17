@@ -90,6 +90,8 @@ urlpatterns = [
     path('feeds/muhtesem-bilim-hikayeleri/', BilimHikayelerFeed(), name='bilim_hikayeler_feed'),
     path('feeds/dostluk-hikayeleri/', DostlukHikayelerFeed(), name='Dostluk_hikayeler_feed'),
     path('feeds/doga-ve-cevre-onemi-hikayeleri/', DogaHikayelerSitemap(), name='doga_hikayeler_feed'),
+    path('feeds/ingilizce-hikayeler/', ingilizceHikayelerFeed(), name='ingilizce_hikayeler_feed'),
+    path('feeds/sevimli-canavar-hikayeleri/', CanavarHikayelerFeed(), name='canavar_hikayeler_feed'),
 
 
 

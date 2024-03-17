@@ -542,3 +542,45 @@ class CevreHikayelerFeed(Feed):
         return item.olusturma_tarihi
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
+
+
+class ingilizceHikayelerFeed(Feed):
+    title = "ingilizce çocuk Hikayeleri"
+    link = "/feeds/ingilizce-hikayeler/"
+    description = "En son eklenen ingilizce çocuk hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="ingilizce-hikayeler")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
+
+
+class CanavarHikayelerFeed(Feed):
+    title = "Sevimli Canavar Hikayeleri"
+    link = "/feeds/sevimli-canavar-hikayeleri/"
+    description = "En son eklenen sevimli canavar hikayeleri."
+
+    def items(self):
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sevimli-canavar-hikayeleri")
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                        Model="Hikaye").order_by('-olusturma_tarihi')[:20]
+    def item_title(self, item):
+        return item.title
+    def item_description(self, item):
+        return item.meta_description
+    def item_link(self, item):
+        return reverse('hikaye-getir', args=[item.slug])
+    def item_pubdate(self, item):
+        return item.olusturma_tarihi
+    def item_author_name(self, item):
+        return "Melih ÖZKAŞ"
