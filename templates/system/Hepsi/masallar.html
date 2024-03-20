@@ -27,7 +27,7 @@
       "@type": "CollectionPage",
       {% if sayfa_Turu == "Masal" %}
         "name": "{{ category.MasalKategoriAdi }}",
-        "description": "{{ category.Hikaye_meta_description }}",
+        "description": "{{ category.Masal_meta_description }}",
         "url": "{{ request.scheme }}://{{ request.get_host }}/masal-kategori/{{ category.MasalSlug }}/"
       {% elif sayfa_Turu == "Hikaye" %}
         "name": "{{ category.HikayeKategoriAdi }}",
