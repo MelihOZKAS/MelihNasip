@@ -98,6 +98,8 @@ class SiirMasal(models.Model):
     banner = models.BooleanField(default=False, help_text=HELP_TEXTS["banner"])
     small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
     indexing = models.BooleanField(default=False, help_text="Indexlensin mi?")
+    facebook = models.BooleanField(default=True, help_text="Facebook da Paylaşılsın mı ?")
+    twitter = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
