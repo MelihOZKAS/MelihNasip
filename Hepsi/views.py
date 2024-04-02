@@ -592,7 +592,7 @@ def facebook_var_mi(request):
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
         post.save()
-        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
+        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik}")
         #return HttpResponse(f"https://www.kidsstorieshub.com/kids-bedtime-story/{post.slug}/")
     else:
         return HttpResponse("post bulunamadı.")
