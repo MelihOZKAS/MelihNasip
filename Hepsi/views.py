@@ -7,6 +7,8 @@ from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 import re
+from django.utils.html import strip_tags
+from html import unescape
 
 
 
@@ -580,3 +582,17 @@ def indexing_var_mi(request):
         return HttpResponse("post bulunamadı.")
 
 
+@csrf_exempt
+def facebook_var_mi(request):
+    post = SiirMasal.objects.filter(facebook=True, aktif=True, status="Yayinda").first()
+    if post is not None:
+        # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
+        post.facebook = False
+        icerik = post.h1
+        if not icerik:
+            icerik = "Haberin devamı için tıklayın!"
+        post.save()
+        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
+        #return HttpResponse(f"https://www.kidsstorieshub.com/kids-bedtime-story/{post.slug}/")
+    else:
+        return HttpResponse("post bulunamadı.")
