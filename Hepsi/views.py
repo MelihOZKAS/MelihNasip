@@ -420,7 +420,7 @@ def kullanim(request):
 def enderunMasal(request,masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
     thumbnail_url = None
@@ -459,7 +459,7 @@ def enderunMasal(request,masal_slug):
 def enderunBlog(request,blog_slug):
     EnDerun = get_object_or_404(Blog, slug=blog_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
     category_names_str = "Çocuk Gelişimi"
@@ -486,7 +486,7 @@ def enderunBlog(request,blog_slug):
 def enderunHikaye(request,hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
     thumbnail_url = None
