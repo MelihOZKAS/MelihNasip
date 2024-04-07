@@ -586,13 +586,12 @@ def indexing_var_mi(request):
 def facebook_var_mi(request):
     post = SiirMasal.objects.filter(facebook=True, aktif=True, status="Yayinda").first()
     if post is not None:
-        # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
+        # post'un facebook durumunu False yapayı unutmamak lazımmm dimi.
         post.facebook = False
         icerik = post.h1
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
         return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz !")
-        #return HttpResponse(f"https://www.kidsstorieshub.com/kids-bedtime-story/{post.slug}/")
     else:
         return HttpResponse("post bulunamadı.")
