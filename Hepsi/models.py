@@ -140,7 +140,16 @@ class Blog(models.Model):
     faq = models.TextField(blank=True, verbose_name="Faq")
     resim = models.ImageField(upload_to=kapak_resmi_upload_to,
                               storage=ImageSettingStorage(),
-                              help_text=HELP_TEXTS["resim"], null=True, blank=True)
+                              null=True, blank=True)
+    resim2 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim3 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim4 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
 
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
