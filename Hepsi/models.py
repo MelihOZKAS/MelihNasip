@@ -1,5 +1,5 @@
 from django.db import models
-
+from Masallar.custom_storages import ImageSettingStorage
 
 from django.conf import settings
 from ckeditor.fields import RichTextField
@@ -41,6 +41,14 @@ boyutu = (
     ("Kısa", "Kısa"),
     ("Uzun", "Uzun"),
 )
+
+def kapak_resmi_upload_to(instance, filename):
+    # Dosya adını değiştir
+    yeni_ad = f"{instance.slug}"
+    # Dosya uzantısını koru
+    uzanti = filename.split('.')[-1]
+    # Yeni dosya adını döndür
+    return f"kapak_resimleri/{yeni_ad}.{uzanti}"
 
 class HikayeKategorileri(models.Model):
     HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
@@ -118,6 +126,22 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
     h1 = models.CharField(max_length=255,blank=True, help_text=HELP_TEXTS["h1"])
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik1 = RichTextField(null=True, blank=True)
+    icerik2 = RichTextField(null=True, blank=True)
+    icerik3 = RichTextField(null=True, blank=True)
+    icerik4 = RichTextField(null=True, blank=True)
+    icerik5 = RichTextField(null=True, blank=True)
+    icerik6 = RichTextField(null=True, blank=True)
+    icerik7 = RichTextField(null=True, blank=True)
+    icerik8 = RichTextField(null=True, blank=True)
+    icerik9 = RichTextField(null=True, blank=True)
+    icerik10 = RichTextField(null=True, blank=True)
+    ozet = models.TextField(blank=True, verbose_name="Özet")
+    faq = models.TextField(blank=True, verbose_name="Faq")
+    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              help_text=HELP_TEXTS["resim"], null=True, blank=True)
+
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
     keywords = models.CharField(max_length=255,blank=True,verbose_name="Anahtar Kelimeler",help_text=HELP_TEXTS["keywords"])
