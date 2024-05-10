@@ -23,6 +23,7 @@ urlpatterns = [
     path('oto_masalkategoriekle/', views.oto_masalkategoriekle, name='oto_masalkategoriekle'),
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 
+    path("saglik-add/", views.ai_add, name="saglikadd"),
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
     path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
     path("index-ver/", views.indexing_var_mi, name="indexver"),
