@@ -603,12 +603,13 @@ def ai_add(request):
         faq = request.POST.get('faq')
         key = request.POST.get('key')
         meta = request.POST.get('meta')
+        slug = request.POST.get('slug')
 
         Postislem = Blog(title=title, h1=h1, icerik=icerik0, icerik1=icerik1, icerik2=icerik2, icerik3=icerik3,
                          icerik4=icerik4, icerik5=icerik5,
                          icerik6=icerik6, icerik7=icerik7, icerik8=icerik8, icerik9=icerik9,
                          icerik10=icerik10, ozet=ZekaOzet, faq=faq, keywords=key,
-                         meta_description=meta)
+                         meta_description=meta, slug=slug)
         Postislem.save()
 
         if Postislem.id is None:
