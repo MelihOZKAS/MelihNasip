@@ -1,5 +1,5 @@
-from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
-from .models import  SiirMasal,HikayeKategorileri,MasalKategorileri,iletisimmodel,Blog
+from django.shortcuts import render, HttpResponse, get_object_or_404, reverse
+from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -9,7 +9,6 @@ from django.utils import timezone
 import re
 from django.utils.html import strip_tags
 from html import unescape
-
 
 
 def create_unique_title_slug(title):
@@ -26,35 +25,30 @@ def create_unique_title_slug(title):
 
 def turkish_slugify(input):
     tr_map = {
-        'ş':'s',
-        'Ş':'S',
-        'ı':'i',
-        'İ':'i',
-        'I':'i',
-        'ğ':'g',
-        'Ğ':'G',
-        'ü':'u',
-        'Ü':'U',
-        'ö':'o',
-        'Ö':'O',
-        'Ç':'C',
-        'ç':'c'
+        'ş': 's',
+        'Ş': 'S',
+        'ı': 'i',
+        'İ': 'i',
+        'I': 'i',
+        'ğ': 'g',
+        'Ğ': 'G',
+        'ü': 'u',
+        'Ü': 'U',
+        'ö': 'o',
+        'Ö': 'O',
+        'Ç': 'C',
+        'ç': 'c'
     }
     for key, value in tr_map.items():
         input = input.replace(key, value)
     return slugify(input)
 
 
-
 def get_youtube_id(url):
     # YouTube video URL'sinden video ID'sini çıkaran bir regex deseni
-    link = url.replace("https://www.youtube.com/embed/","")
+    link = url.replace("https://www.youtube.com/embed/", "")
     youtube_id = link.split("?")
     return youtube_id[0] if youtube_id else None
-
-
-
-
 
 
 # Create your views here.
@@ -62,11 +56,9 @@ def home(request):
     masal_banner = MasalKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
     hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
 
-
     title = "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku"
     description = "Çocuklar için en güzel masallar, Uyku masalları, hayvan masalları, klasik masallar. Çocuğunuzun hayal gücünü geliştirecek masallarımızı keşfedin masal oku"
     keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
-
 
     context = {
         'title': title,
@@ -81,7 +73,9 @@ def home(request):
 @csrf_exempt
 def oto_masalkategoriekle(request):
     # Eklemek istediğiniz öğelerin listesi
-    masal_listesi = ['Peri Masalları','Hayvan Masalları', 'Prenses Masalları','Prens Masalları','Aile Masalları','Macera Masalları','Komik Masallar','Eğitici Masallar','Arkadaş Masalları','Uyku Masalları','Kardeşlik Masalları','İyilik Masalları','Keloğlan Masalları','Dini Masallar']
+    masal_listesi = ['Peri Masalları', 'Hayvan Masalları', 'Prenses Masalları', 'Prens Masalları', 'Aile Masalları',
+                     'Macera Masalları', 'Komik Masallar', 'Eğitici Masallar', 'Arkadaş Masalları', 'Uyku Masalları',
+                     'Kardeşlik Masalları', 'İyilik Masalları', 'Keloğlan Masalları', 'Dini Masallar']
 
     for masal in masal_listesi:
         # Eğer bu masal zaten varsa, geç
@@ -89,16 +83,22 @@ def oto_masalkategoriekle(request):
             continue
 
         # Yeni bir MasalKategorileri örneği oluştur
-        yeni_masal = MasalKategorileri(MasalKategoriAdi=masal, MasalSlug=turkish_slugify(masal),Banner=True,Aktif=True)
+        yeni_masal = MasalKategorileri(MasalKategoriAdi=masal, MasalSlug=turkish_slugify(masal), Banner=True,
+                                       Aktif=True)
 
         # Yeni masalı veritabanına kaydet
         yeni_masal.save()
 
     return HttpResponse('Masallar başarıyla eklendi.')
 
+
 def oto_hikayekategoriekle(request):
     # Eklemek istediğiniz öğelerin listesi
-    hikaye_listesi = ["Sevimli Canavar Hikayeleri","ingilizce Hikayeler","Dini Hikayeler","Doğa ve Çevre Önemi Hikayeleri","Dostluk Hikayeleri","Muhteşem Bilim Hikayeleri","Uzay Maceraları Hikayeleri","Gezi Maceraları Hikayeleri","Eğlenceli Yolculuk Hikayeleri","Hazine Avı Hikayeleri","Mutlu Aile Hikayeleri","Korkusuz Kahraman Hikayeleri","Sevimli Hayvan Hikayeleri","Sihirli Dünya Hikayeleri"]
+    hikaye_listesi = ["Sevimli Canavar Hikayeleri", "ingilizce Hikayeler", "Dini Hikayeler",
+                      "Doğa ve Çevre Önemi Hikayeleri", "Dostluk Hikayeleri", "Muhteşem Bilim Hikayeleri",
+                      "Uzay Maceraları Hikayeleri", "Gezi Maceraları Hikayeleri", "Eğlenceli Yolculuk Hikayeleri",
+                      "Hazine Avı Hikayeleri", "Mutlu Aile Hikayeleri", "Korkusuz Kahraman Hikayeleri",
+                      "Sevimli Hayvan Hikayeleri", "Sihirli Dünya Hikayeleri"]
 
     for hikaye in hikaye_listesi:
         # Eğer bu masal zaten varsa, geç
@@ -106,7 +106,8 @@ def oto_hikayekategoriekle(request):
             continue
 
         # Yeni bir MasalKategorileri örneği oluştur
-        yeni_hikaye = HikayeKategorileri(HikayeKategoriAdi=hikaye, HikayeSlug=turkish_slugify(hikaye),Banner=True,Aktif=True)
+        yeni_hikaye = HikayeKategorileri(HikayeKategoriAdi=hikaye, HikayeSlug=turkish_slugify(hikaye), Banner=True,
+                                         Aktif=True)
 
         # Yeni masalı veritabanına kaydet
         yeni_hikaye.save()
@@ -114,16 +115,14 @@ def oto_hikayekategoriekle(request):
     return HttpResponse('Hikayeler başarıyla eklendi.')
 
 
-
-
-
 def masalAltKategori(request, alt_kategori_slug):
     alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug=alt_kategori_slug)
-    icerik_list = SiirMasal.objects.filter(masalKategorisi=alt_kategori,aktif=True,status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+    icerik_list = SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                           Model="Masal").order_by('-olusturma_tarihi')
     sayfa_adi = f"En Güzel {alt_kategori.MasalKategoriAdi}"
     sayfa_Turu = "Masal"
 
-    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
@@ -133,8 +132,6 @@ def masalAltKategori(request, alt_kategori_slug):
     else:
         title = f"{alt_kategori.Masal_Title} - {page_number}"
         description = f"{alt_kategori.Masal_meta_description} - Sayfa {page_number}"
-
-
 
     context = {
         'title': title,
@@ -148,14 +145,13 @@ def masalAltKategori(request, alt_kategori_slug):
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
-
-
 def MasalOkuListesi(request):
-    icerik_list = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')[:50]
+    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')[
+                  :50]
     sayfa_adi = f"En Güzel Uyku Masalları"
     sayfa_Turu = "Masal"
 
-    paginator = Paginator(icerik_list, 14) # 10 içerik göstermek için
+    paginator = Paginator(icerik_list, 14)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
@@ -170,8 +166,6 @@ def MasalOkuListesi(request):
         title = f"{title} - {page_number}"
         description = f"{description} - Sayfa {page_number}"
 
-
-
     context = {
         'title': title,
         'description': description,
@@ -184,21 +178,14 @@ def MasalOkuListesi(request):
     return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
-
-
-
-
-
-
-
-def hikayeAltKategori(request,  alt_kategori_slug):
+def hikayeAltKategori(request, alt_kategori_slug):
     alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
-    icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
+    icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                           Model="Hikaye").order_by('-olusturma_tarihi')
     sayfa_adi = f"En Güzel {alt_kategori.HikayeKategoriAdi}"
     sayfa_Turu = "Hikaye"
 
-
-    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
@@ -208,8 +195,6 @@ def hikayeAltKategori(request,  alt_kategori_slug):
     else:
         title = f"{alt_kategori.Hikaye_Title} - {page_number}"
         description = f"{alt_kategori.Hikaye_meta_description} - Sayfa {page_number}"
-
-
 
     context = {
         'title': title,
@@ -222,13 +207,14 @@ def hikayeAltKategori(request,  alt_kategori_slug):
     }
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
+
 def hikayeOkuListesi(request):
-    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')[:50]
+    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')[
+                  :50]
     sayfa_adi = f"En Güzel Çocuk Hikayeleri Oku"
     sayfa_Turu = "Hikaye"
 
-
-    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
@@ -242,7 +228,6 @@ def hikayeOkuListesi(request):
     else:
         title = f"{title} - {page_number}"
         description = f"{description} - Sayfa {page_number}"
-
 
     context = {
         'title': title,
@@ -261,7 +246,7 @@ def BlogHome(request):
     keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
     sayfa_adi = f"Çocuk Gelişimi: Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
 
-    paginator = Paginator(icerik_list, 10) # 10 içerik göstermek için
+    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
@@ -271,7 +256,6 @@ def BlogHome(request):
     else:
         title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi - {page_number}"
         description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler. - Sayfa {page_number}"
-
 
     context = {
         'title': title,
@@ -283,8 +267,6 @@ def BlogHome(request):
     return render(request, 'system/Hepsi/bloghome.html', context)
 
 
-
-
 def Masallar(request):
     Tum_Masallar = MasalKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
@@ -293,7 +275,6 @@ def Masallar(request):
     keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Masal Oku, Masal Dinle, Masal Dinle, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
     sayfa_adiH1 = "Çocuk Masalları, Eğitici Masallar, Kısa Masallar ve Uyku Masalları Oku"
     sayfa_Turu = "Masal"
-
 
     context = {
         'sayfa_adi': sayfa_adiH1,
@@ -304,6 +285,7 @@ def Masallar(request):
         'masal_banner': Tum_Masallar,
     }
     return render(request, 'system/Hepsi/masallar.html', context)
+
 
 def Hikayeler(request):
     Tum_Hikayeler = HikayeKategorileri.objects.filter(Aktif=True).order_by('sirasi')
@@ -325,10 +307,6 @@ def Hikayeler(request):
     return render(request, 'system/Hepsi/masallar.html', context)
 
 
-
-
-
-
 def ekle(request):
     context = {
         'title': "Uyku Masalları, Uyku Hikayeleri Ekle",
@@ -345,15 +323,17 @@ def ekle(request):
         icerik = icerik.replace('\n', '<br>')
 
         title, slug = create_unique_title_slug(title)
-        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, meta_description=aciklama , status="manuel")
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, meta_description=aciklama,
+                               status="manuel")
         siir_masal.save()
         # Burada başka bir sayfaya yönlendirme yapabilirsiniz.
-        return HttpResponse('Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}" class="btn btn-primary">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(reverse('masal-hikaye-ekle')))
+        return HttpResponse(
+            'Ellerinize Sağlık Yazdığınız içeriği Kaydettik Kontrollerden Sonra Yayınlanacaktır. <a href="{}" class="btn btn-primary">Yeni masal/hikaye eklemek için tıklayınız.</a>'.format(
+                reverse('masal-hikaye-ekle')))
 
 
     else:
-        return render(request, 'system/Hepsi/masal-ekle.html',context)  # Formun bulunduğu sayfa
-
+        return render(request, 'system/Hepsi/masal-ekle.html', context)  # Formun bulunduğu sayfa
 
 
 def iletisim(request):
@@ -373,10 +353,12 @@ def iletisim(request):
         iletisim_obj = iletisimmodel(name=name, email=email, title=title, icerik=icerik)
         iletisim_obj.save()
 
-        return HttpResponse('İletişim istediğinizi Kaydettik. <a href="{}" class="btn btn-primary">Ana Sayfaya Dönmek için Tıklayın.</a>'.format(reverse('home')))
-
+        return HttpResponse(
+            'İletişim istediğinizi Kaydettik. <a href="{}" class="btn btn-primary">Ana Sayfaya Dönmek için Tıklayın.</a>'.format(
+                reverse('home')))
 
     return render(request, 'system/Hepsi/iletisim.html', context)
+
 
 def hakkimizda(request):
     context = {
@@ -388,6 +370,7 @@ def hakkimizda(request):
 
     return render(request, 'system/Hepsi/hakkimizda.html', context)
 
+
 def gizlilik(request):
     context = {
         'title': "Çocuk Hikayeleri ve Masalları Oku - Gizlilik Politikası",
@@ -398,6 +381,7 @@ def gizlilik(request):
 
     return render(request, 'system/Hepsi/gilzlilik.html', context)
 
+
 def cerez(request):
     context = {
         'title': "Çocuk Hikayeleri ve Masalları Oku - Çerez Politikası",
@@ -406,6 +390,7 @@ def cerez(request):
     }
 
     return render(request, 'system/Hepsi/cerez.html', context)
+
 
 def kullanim(request):
     context = {
@@ -417,14 +402,14 @@ def kullanim(request):
 
     return render(request, 'system/Hepsi/kullanim.html', context)
 
-def enderunMasal(request,masal_slug):
+
+def enderunMasal(request, masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
     EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
-    BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
-
 
     if EnDerun.Model == 'Masal':
         categories = EnDerun.masalKategorisi.all()
@@ -454,14 +439,12 @@ def enderunMasal(request,masal_slug):
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
-
-
-def enderunBlog(request,blog_slug):
+def enderunBlog(request, blog_slug):
     EnDerun = get_object_or_404(Blog, slug=blog_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi']) #, 'indexing', 'facebook', 'twitter'
-    BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    EnDerun.save(update_fields=['okunma_sayisi'])  # , 'indexing', 'facebook', 'twitter'
+    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     category_names_str = "Çocuk Gelişimi"
     thumbnail_url = None
 
@@ -482,15 +465,13 @@ def enderunBlog(request,blog_slug):
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 
 
-
-def enderunHikaye(request,hikaye_slug):
+def enderunHikaye(request, hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug)
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
     EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
-    BaskaMasal = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye").order_by('?').first()
+    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
-
 
     if EnDerun.Model == 'Masal':
         categories = EnDerun.masalKategorisi.all()
@@ -519,10 +500,10 @@ def enderunHikaye(request,hikaye_slug):
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
-
 @require_GET
 def robots_txt(request):
     return HttpResponse(robots_txt_content, content_type="text/plain")
+
 
 robots_txt_content = """
 User-agent: *
@@ -531,12 +512,13 @@ Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
 """
 
 
-
 @require_GET
 def ads(request):
     return HttpResponse(ads_content, content_type="text/plain")
 
+
 ads_content = """google.com, pub-7065951693101615, DIRECT, f08c47fec0942fa0"""
+
 
 def Oto_Paylas(request):
     post = SiirMasal.objects.filter(status="oto").order_by('id').first()
@@ -563,12 +545,13 @@ def apiyle_ekle(request):
         key = request.POST.get('kew')
 
         title, slug = create_unique_title_slug(title)
-        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug,keywords=key , status="Taslak")
+        siir_masal = SiirMasal(title=title, Model=model, icerik=icerik, slug=slug, keywords=key, status="Taslak")
         siir_masal.save()
         if siir_masal.id is None:
             return HttpResponse("Model kaydedilemedi.")
         else:
             return HttpResponse("Model başarıyla kaydedildi. ID: " + str(siir_masal.id))
+
 
 @csrf_exempt
 def indexing_var_mi(request):
@@ -577,7 +560,8 @@ def indexing_var_mi(request):
         # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
         post.indexing = False
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
-        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
+        return HttpResponse(
+            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
     else:
         return HttpResponse("post bulunamadı.")
 
@@ -592,6 +576,42 @@ def facebook_var_mi(request):
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
-        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz !")
+        return HttpResponse(
+            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz !")
     else:
         return HttpResponse("post bulunamadı.")
+
+
+@csrf_exempt
+def ai_add(request):
+    if request.method == 'POST':
+        # Gelen POST isteğindeki değerleri alın
+        title = request.POST.get('title')
+        h1 = request.POST.get('h1')
+        icerik0 = request.POST.get('main')
+        icerik1 = request.POST.get('icerik1')
+        icerik2 = request.POST.get('icerik2')
+        icerik3 = request.POST.get('icerik3')
+        icerik4 = request.POST.get('icerik4')
+        icerik5 = request.POST.get('icerik5')
+        icerik6 = request.POST.get('icerik6')
+        icerik7 = request.POST.get('icerik7')
+        icerik8 = request.POST.get('icerik8')
+        icerik9 = request.POST.get('icerik9')
+        icerik10 = request.POST.get('icerik10')
+        ZekaOzet = request.POST.get('ZekaOzet')
+        faq = request.POST.get('faq')
+        key = request.POST.get('key')
+        meta = request.POST.get('meta')
+
+        Postislem = Blog(title=title, h1=h1, icerik=icerik0, icerik1=icerik1, icerik2=icerik2, icerik3=icerik3,
+                         icerik4=icerik4, icerik5=icerik5,
+                         icerik6=icerik6, icerik7=icerik7, icerik8=icerik8, icerik9=icerik9,
+                         icerik10=icerik10, ozet=ZekaOzet, faq=faq, keywords=key,
+                         meta_description=meta)
+        Postislem.save()
+
+        if Postislem.id is None:
+            return HttpResponse("Post kaydedilemedi.")
+        else:
+            return HttpResponse("Şükürler Olsun Post başarıyla kaydedildi. ID: " + str(Postislem.id))
