@@ -114,7 +114,8 @@
                         <div class="post-content clearfix">
 
                             <figure class="figure">
-                                <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded" alt="{{ EnDerun.title }}">
+                                <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
+                                     alt="{{ EnDerun.title }}">
                                 <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Anne Çocuk
                                 </figcaption>
                             </figure>
@@ -140,22 +141,78 @@
                             <br/>
 
                             <!-- İçerik -->
-                            {{ EnDerun.icerik|safe }}
-                            <div>
-                                <script async
-                                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7065951693101615"
-                                        crossorigin="anonymous"></script>
-                                <!-- esnek yatay -->
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-client="ca-pub-7065951693101615"
-                                     data-ad-slot="3184627616"
-                                     data-ad-format="auto"
-                                     data-full-width-responsive="true"></ins>
-                                <script>
-                                    (adsbygoogle = window.adsbygoogle || []).push({});
-                                </script>
-                            </div>
+                            <div>{{ EnDerun.icerik|safe }}</div>
+
+                            {% if EnDerun.resim2 %}
+                                <br>
+                                <figure class="my-4">
+                                    <img src="{{ EnDerun.resim2.url }}" alt="{{ EnDerun.title }} - 2"
+                                         class="img-fluid" height="400" width="650"
+                                         style="margin: auto; display: block; border-radius: 20px;">
+                                    <!--  <figcaption>{{ EnDerun.title }} </figcaption> -->
+                                </figure>
+                            {% endif %}
+
+
+                            {% if EnDerun.icerik2 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik2|safe }}</div>
+                            {% endif %}
+
+                            {% if EnDerun.resim3 %}
+                                <br>
+                                <figure class="my-4">
+                                    <img src="{{ EnDerun.resim3.url }}" alt="{{ EnDerun.title }} - 3"
+                                         class="img-fluid" height="400" width="650"
+                                         style="margin: auto; display: block; border-radius: 20px;">
+                                    <!--  <figcaption>{{ EnDerun.title }} </figcaption> -->
+                                </figure>
+                            {% endif %}
+
+                            {% if EnDerun.icerik3 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik3|safe }}</div>
+                            {% endif %}
+
+                            {% if EnDerun.resim4 %}
+                                <br>
+                                <figure class="my-4">
+                                    <img src="{{ EnDerun.resim4.url }}" alt="{{ EnDerun.title }} - 4"
+                                         class="img-fluid" height="400" width="650"
+                                         style="margin: auto; display: block; border-radius: 20px;">
+                                    <!--  <figcaption>{{ EnDerun.title }} </figcaption> -->
+                                </figure>
+                            {% endif %}
+
+                            {% if EnDerun.icerik4 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik4|safe }}</div>
+                            {% endif %}
+
+                            {% if EnDerun.icerik5 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik5|safe }}</div>
+                            {% endif %}
+                            {% if EnDerun.icerik6 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik6|safe }}</div>
+                            {% endif %}
+                            {% if EnDerun.icerik7 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik7|safe }}</div>
+                            {% endif %}
+                            {% if EnDerun.icerik8 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik8|safe }}</div>
+                            {% endif %}
+                            {% if EnDerun.icerik9 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik9|safe }}</div>
+                            {% endif %}
+                            {% if EnDerun.icerik10 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik10|safe }}</div>
+                            {% endif %}
 
 
                         </div>
