@@ -153,6 +153,11 @@
                                 </figure>
                             {% endif %}
 
+                            {% if EnDerun.icerik1 %}
+                                {% include 'system/parcali/yatayreklam.html' %}
+                                <div>{{ EnDerun.icerik1|safe }}</div>
+                            {% endif %}
+
 
                             {% if EnDerun.icerik2 %}
                                 {% include 'system/parcali/yatayreklam.html' %}
