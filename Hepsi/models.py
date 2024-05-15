@@ -37,6 +37,12 @@ model_tipi = (
     ("Masal", "Masal"),
 )
 
+model_tipi_blog = (
+    ("saglik", "saglik"),
+    ("kadin", "kadin"),
+    ("cocuk", "cocuk"),
+)
+
 boyutu = (
     ("Kısa", "Kısa"),
     ("Uzun", "Uzun"),
@@ -126,6 +132,7 @@ class Blog(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True,help_text=HELP_TEXTS["slug"])
     h1 = models.CharField(max_length=255,blank=True, help_text=HELP_TEXTS["h1"])
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    Model = models.CharField(max_length=40, choices=model_tipi_blog, help_text=HELP_TEXTS["Model"])
     icerik1 = RichTextField(null=True, blank=True)
     icerik2 = RichTextField(null=True, blank=True)
     icerik3 = RichTextField(null=True, blank=True)
