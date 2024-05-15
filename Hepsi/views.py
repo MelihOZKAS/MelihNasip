@@ -573,7 +573,7 @@ def blog_indexing_var_mi(request):
         post.indexing = False
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
         return HttpResponse(
-            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
+            f"https://www.cocukmasallarioku.com/{post.slug}/")
     else:
         return HttpResponse("post bulunamadı.")
 
