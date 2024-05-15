@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("ads.txt/", views.ads, name="ads"),
     path('oto_masalkategoriekle/', views.oto_masalkategoriekle, name='oto_masalkategoriekle'),
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 
@@ -33,7 +34,7 @@ urlpatterns = [
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
 
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
-    #path("cocuk/", views.BlogHome, name="cocuk"),
+    # path("cocuk/", views.BlogHome, name="cocuk"),
     path("cocuk-gelisimi/", views.BlogHome, name="cocuk"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
@@ -42,8 +43,7 @@ urlpatterns = [
     path("gizlilik-politikasi/", views.gizlilik, name="gizlilik-politikasi"),
     path("kullanim-sartlari/", views.kullanim, name="kullanim-sartlari"),
 
-
-    #path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
+    # path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
     path('masal-oku/', views.MasalOkuListesi, name='masal-oku'),
     path('hikaye-oku/', views.hikayeOkuListesi, name='hikaye-oku'),
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),
