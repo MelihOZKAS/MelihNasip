@@ -50,6 +50,6 @@ urlpatterns = [
 
     path('masal-kategori/<str:alt_kategori_slug>/', views.masalAltKategori, name='masalAltKategori'),
     path('hikaye-kategori/<str:alt_kategori_slug>/', views.hikayeAltKategori, name='hikayeAltKategori'),
-    path('<str:post_slug>/', views.enderunBlog, name='blog-getir'),
+    path('<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
 
 ]
