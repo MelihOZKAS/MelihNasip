@@ -27,6 +27,7 @@ urlpatterns = [
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
     path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
     path("index-ver/", views.indexing_var_mi, name="indexver"),
+    path("blog-index-ver/", views.blog_indexing_var_mi, name="blogindexver"),
     path("facebook-cek/", views.facebook_var_mi, name="facebookcek"),
     path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
