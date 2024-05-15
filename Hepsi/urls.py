@@ -42,7 +42,7 @@ urlpatterns = [
     path("kullanim-sartlari/", views.kullanim, name="kullanim-sartlari"),
 
 
-    path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
+    #path('cocuk-gelisimi/<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
     path('masal-oku/', views.MasalOkuListesi, name='masal-oku'),
     path('hikaye-oku/', views.hikayeOkuListesi, name='hikaye-oku'),
     path('masal-oku/<str:masal_slug>/', views.enderunMasal, name='masal-getir'),
