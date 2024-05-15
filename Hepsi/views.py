@@ -535,6 +535,20 @@ def Oto_Paylas(request):
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
 
 
+def Blog_oto_Paylas(request):
+    post = Blog.objects.filter(status="oto").order_by('id').first()
+
+    if post is not None:
+        if post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now():
+            post.status = "Yayinda"
+            post.aktif = True
+            #post.indexing = True  # indekslendi olarak işaretle
+            post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
+            post.save()
+            return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
+    else:
+        return HttpResponse('Paylaşılacak Post Bulunamadı.')
+
 @csrf_exempt
 def apiyle_ekle(request):
     if request.method == 'POST':
