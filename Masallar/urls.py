@@ -45,7 +45,6 @@ sitemaps = {
     'doga-ve-cevre-onemi-hikayeleri': DogaHikayelerSitemap,
     'ingilizce-hikayeler': EnglishHikayelerSitemap,
     'sevimli-canavar-hikayeleri': SevimliCanavarHikayelerSitemap,
-
 }
 
 def handler404(request, *args, **argv):
@@ -55,8 +54,8 @@ def handler404(request, *args, **argv):
 
 urlpatterns = [
     path("yonetici/", admin.site.urls),
-    path("", include("Hepsi.urls")),
     path('sitemap.xml', index, {'sitemaps': sitemaps}),
+    path("", include("Hepsi.urls")),
     path('sitemap-<section>.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('feeds/dini-masallar/', DiniMasallarFeed(), name='dini_masal_feed'),
     path('feeds/peri-masallari/', PeriMasallariFeed(), name='peri_masal_feed'),
@@ -87,7 +86,4 @@ urlpatterns = [
     path('feeds/doga-ve-cevre-onemi-hikayeleri/', CevreHikayelerFeed(), name='doga_hikayeler_feed'),
     path('feeds/ingilizce-hikayeler/', ingilizceHikayelerFeed(), name='ingilizce_hikayeler_feed'),
     path('feeds/sevimli-canavar-hikayeleri/', CanavarHikayelerFeed(), name='canavar_hikayeler_feed'),
-
-
-
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
