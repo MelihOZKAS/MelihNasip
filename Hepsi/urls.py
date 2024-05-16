@@ -17,11 +17,55 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.contrib.sitemaps.views import index, sitemap
+from Masallar.sitemaps import *
+
+
+sitemaps = {
+    'masal-kategorileri': MasalKategorileriSitemap,
+    'masallar': MasallarSitemap,
+    'hikaye-kategorileri': HikayeAltKategoriSitemap,
+    'hikayeler': HikayelerSitemap,
+    'cocuk-gelisimi': CocukSitemap,
+    'dini-masallari': DiniMasallariSitemap,
+    'peri-masallari': PeriMasallariSitemap,
+    'uyku-masallari': UykuMasallariSitemap,
+    'hayvan-masallari': HayvanMasallariSitemap,
+    'prenses-masallari': PrensesMasallariSitemap,
+    'prens-masallari': PrensMasallariSitemap,
+    'aile-masallari': AileMasallariSitemap,
+    'macera-masallari': MaceraMasallariSitemap,
+    'komik-masallari': KomikMasallariSitemap,
+    'egitici-masallari': EgiticiMasallariSitemap,
+    'arkadas-masallari': ArkadasMasallariSitemap,
+    'kardes-masallari': KardesMasallariSitemap,
+    'iyilik-masallari': iyilikMasallariSitemap,
+    'keloglan-masallari': KelOglanMasallariSitemap,
+
+    'dini-hikayeler': DiniHikayelerSitemap,
+    'sihirli-dunya-hikayeleri': SihirliDunyaHikayelerSitemap,
+    'sevimli-hayvan-hikayeleri': SevimliHayvanHikayelerSitemap,
+    'kahraman-hikayeleri': KahramanHikayelerSitemap,
+    'aile-hikayeleri': AileHikayelerSitemap,
+    'hazine-avi-hikayeleri': HazineHikayelerSitemap,
+    'eglenceli-yolculuk-hikayeleri': YolculukHikayelerSitemap,
+    'gezi-maceralari-hikayeleri': GeziHikayelerSitemap,
+    'uzay-maceralari-hikayeleri': UzayHikayelerSitemap,
+    'muhtesem-bilim-hikayeleri': BilimHikayelerSitemap,
+    'dostluk-hikayeleri': DostlukHikayelerSitemap,
+    'doga-ve-cevre-onemi-hikayeleri': DogaHikayelerSitemap,
+    'ingilizce-hikayeler': EnglishHikayelerSitemap,
+    'sevimli-canavar-hikayeleri': SevimliCanavarHikayelerSitemap,
+}
 
 urlpatterns = [
     path("", views.home, name="home"),
     path("ads.txt/", views.ads, name="ads"),
     path("robots.txt/", views.robots_txt, name="robots"),
+    path('sitemap.xml/', index, {'sitemaps': sitemaps}),
+    path('sitemap-<section>.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+
     path('oto_masalkategoriekle/', views.oto_masalkategoriekle, name='oto_masalkategoriekle'),
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 
