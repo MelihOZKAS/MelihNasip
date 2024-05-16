@@ -55,8 +55,8 @@ def handler404(request, *args, **argv):
 urlpatterns = [
     path("yonetici/", admin.site.urls),
     path('sitemap.xml/', index, {'sitemaps': sitemaps}),
-    path("", include("Hepsi.urls")),
     path('sitemap-<section>.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path("", include("Hepsi.urls")),
     path('feeds/dini-masallar/', DiniMasallarFeed(), name='dini_masal_feed'),
     path('feeds/peri-masallari/', PeriMasallariFeed(), name='peri_masal_feed'),
     path('feeds/uyku-masallari/', UykuMasallariFeed(), name='uyku_masallari_feed'),
