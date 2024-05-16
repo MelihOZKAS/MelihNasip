@@ -66,7 +66,7 @@
 
                                         <a href="{% url 'blog-getir' blog_slug=blog.slug %}">
                                             <div class="inner">
-                                                <img src="{% static 'images/cocuk-gelisimi/'|add:blog.slug|add:'.webp' %}"
+                                                <img src="{{ blog.resim.url }}"
                                                      loading="lazy" alt="{{ masal.MasalKategoriAdi }}"
                                                      width="368" height="178"/>
                                             </div>
