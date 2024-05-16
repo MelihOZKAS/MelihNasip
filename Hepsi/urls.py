@@ -38,6 +38,8 @@ urlpatterns = [
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),
     # path("cocuk/", views.BlogHome, name="cocuk"),
     path("cocuk-gelisimi/", views.BlogHome, name="cocuk"),
+    path("saglik/", views.BlogHome, name="saglik"),
+    path("kadin/", views.BlogHome, name="kadin"),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("cerez-politikasi/", views.cerez, name="cerez"),

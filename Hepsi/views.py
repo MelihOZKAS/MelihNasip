@@ -242,20 +242,39 @@ def hikayeOkuListesi(request):
 
 
 def BlogHome(request):
-    icerik_list = Blog.objects.filter(aktif=True, status="Yayinda")
-    keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
-    sayfa_adi = f"Çocuk Gelişimi: Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+    if request.resolver_match.url_name == 'cocuk':
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk")
+        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+
+    elif request.resolver_match.url_name == 'saglik':
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="saglik")
+        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+
+    elif request.resolver_match.url_name == 'kadin':
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="kadin")
+        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+
+
 
     paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
     if page_number is None:
-        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
-        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+        title = title
+        description = description
     else:
-        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi - {page_number}"
-        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler. - Sayfa {page_number}"
+        title = f"{title} - {page_number}"
+        description = f"{description} - Sayfa {page_number}"
 
     context = {
         'title': title,
