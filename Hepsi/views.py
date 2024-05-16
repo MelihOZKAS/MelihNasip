@@ -243,21 +243,21 @@ def hikayeOkuListesi(request):
 
 def BlogHome(request):
     if request.resolver_match.url_name == 'cocuk':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk")
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
         keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
         sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
         title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
         description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
 
     elif request.resolver_match.url_name == 'saglik':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="saglik")
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="saglik").order_by('-olusturma_tarihi')
         keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
         sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
         title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
         description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
 
     elif request.resolver_match.url_name == 'kadin':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="kadin")
+        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="kadin").order_by('-olusturma_tarihi')
         keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
         sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
         title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
