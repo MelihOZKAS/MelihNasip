@@ -210,5 +210,3 @@ TINYMCE_DEFAULT_CONFIG = {
     "custom_undo_redo_levels": 10,
     "language": "tr_TR",  # To force a specific language instead of the Django current language.
 }
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
