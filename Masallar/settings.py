@@ -194,6 +194,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "path/to/tiny_mce/tiny_mce.js")
 
 TINYMCE_DEFAULT_CONFIG = {
     "height": "320px",
