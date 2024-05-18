@@ -18,4 +18,5 @@ whitenoise
 django-storages
 boto3
 pillow-avif-plugin
-django-tinymce==3.6.1
+django-froala-editor
+django-tinymce
