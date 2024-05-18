@@ -3,6 +3,7 @@ from Masallar.custom_storages import ImageSettingStorage
 
 from django.conf import settings
 from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 
 HELP_TEXTS = {
     "title": "Masal Hiyenin başlığını girin.",
@@ -134,6 +135,7 @@ class Blog(models.Model):
     Model = models.CharField(max_length=40, choices=model_tipi_blog, help_text=HELP_TEXTS["Model"],  blank=True)
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik1 = RichTextField(null=True, blank=True)
+    tinyicerik1 = HTMLField(null=True, blank=True)
     icerik2 = RichTextField(null=True, blank=True)
     icerik3 = RichTextField(null=True, blank=True)
     icerik4 = RichTextField(null=True, blank=True)
