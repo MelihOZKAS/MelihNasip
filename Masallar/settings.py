@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'Hepsi.apps.HepsiConfig',
+    "tinymce",
     "ckeditor",
     "django.contrib.sitemaps",
     "whitenoise.runserver_nostatic",
