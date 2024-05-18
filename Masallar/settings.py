@@ -194,27 +194,19 @@ CKEDITOR_CONFIGS = {
 }
 
 
-TINYMCE_CONFIG = {
-    'language': 'tr_TR',
-    'theme': 'modern',
-    'plugins': 'link image code lists spellchecker media',
-    'toolbar': 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code | media',
-    'menubar': 'file edit view insert format tools table help',
-    'statusbar': True,
-    'branding': True,
-    'font_formats': 'Arial=Arial,Helvetica=Helvetica,Tahoma=Tahoma,Verdana=Verdana,Courier New=Courier New,Times New Roman=Times New Roman,monospace=monospace',
-    'textcolor': 'black white red green blue indigo purple cyan darkgray gray lightgray',
-    'textalign': 'left center right justify',
-    'fontfamily': 'Arial,Helvetica,Tahoma,Verdana,Courier New,Times New Roman',
-    'fontsize': '8 9 10 11 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40',
-    'imageupload_tab': True,
-    'link_list': [
-        {'title': 'Google', 'url': 'https://www.google.com/'},
-        {'title': 'Wikipedia', 'url': 'https://tr.wikipedia.org/wiki/Ana_Sayfa'},
-    ],
-    'media_voices': [
-        {'lang': 'tr', 'name': 'tr_TR'},
-    ],
-    'spellchecker': True,
-    'content_css': '/static/css/tinymce.css',
+TINYMCE_DEFAULT_CONFIG = {
+    "height": "320px",
+    "width": "960px",
+    "menubar": "file edit view insert format tools table help",
+    "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
+    "fullscreen insertdatetime media table paste code help wordcount spellchecker",
+    "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
+    "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
+    "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
+    "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
+    "a11ycheck ltr rtl | showcomments addcomment code",
+    "custom_undo_redo_levels": 10,
+    "language": "tr_TR",  # To force a specific language instead of the Django current language.
 }
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
