@@ -193,6 +193,7 @@ CKEDITOR_CONFIGS = {
         'height': 400,
         'width': 900,
         'fillEmptyBlocks': False,  # Bu satırı ekleyin
+        'autoParagraph': False,
     },
 }
 
