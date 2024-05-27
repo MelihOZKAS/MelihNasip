@@ -133,7 +133,7 @@
                             {% elif sayfa_Turu == "Masal" %}
 
                                 {% for masal in icerik %}
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="margin-top: 20px;">
                                         <!-- post -->
                                         <div class="post post-grid rounded bordered">
                                             <div class="thumb top-rounded">
@@ -157,7 +157,7 @@
                                                     <li class="list-inline-item">Eklenme
                                                         Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                                 </ul>
-                                                <h2 class="post-title mb-3 mt-3"><a
+                                                <h2 class="post-title mb-3 mt-3" style="font-size: 14px;"><a
                                                         href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
                                                 </h2>
                                                 <p class="excerpt mb-0">{{ masal.icerik|truncatechars:150|safe }}</p>
