@@ -153,9 +153,8 @@
                                             </div>
                                             <div class="details">
                                                 <ul class="meta list-inline mb-0">
-
-                                                    <li class="list-inline-item">Eklenme
-                                                        Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+                                                    <li class="list-inline-item"><strong>Eklenme
+                                                        Tarihi:</strong> {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                                 </ul>
                                                 <h2 class="post-title mb-3 mt-3" style="font-size: 15px;"><a
                                                         href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
@@ -175,9 +174,7 @@
                                     </div>
                                 {% endfor %}
 
-                            {% elif sayfa_Turu == "Hikaye" %}
-
-
+                            {% elif sayfa_Turu == "Hikaye Eski" %}
                                 {% for masal in icerik %}
                                     <div class="card mb-3">
                                         <div class="row no-gutters d-flex align-items-center">
@@ -191,7 +188,6 @@
                                                         <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}"
                                                              class="card-img" loading="lazy" alt="{{ masal.title }}"
                                                              style="border-radius: 10px;">
-
                                                     {% endif %}
                                                 </a>
                                             </div>
@@ -207,6 +203,56 @@
                                                     <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
                                                        class="btn btn-default">Hikaye Oku</a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+
+
+                            {% elif sayfa_Turu == "Hikaye" %}
+
+                                {% for masal in icerik %}
+
+                                    <div class="col-sm-6">
+                                        <!-- post -->
+                                        <div class="post post-grid rounded bordered">
+                                            <div class="thumb top-rounded">
+
+                                                <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
+                                                    <div class="inner">
+                                                        {% if masal.resim %}
+                                                        <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
+                                                             loading="lazy">
+                                                        {% else %}
+
+                                                            <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}" alt="{{ masal.title }}"
+                                                                 loading="lazy">
+
+                                                        {% endif %}
+
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="details">
+                                                <ul class="meta list-inline mb-0">
+
+                                                    <li class="list-inline-item"><strong>Eklenme
+                                                        Tarihi:</strong> {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+
+                                                </ul>
+                                                <h2 class="post-title mb-3 mt-3" style="font-size: 15px;"><a
+                                                        href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">{{ masal.title }}</a>
+                                                </h2>
+                                                <p class="excerpt mb-0"
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
+                                            </div>
+                                            <div class="post-bottom clearfix d-flex align-items-center">
+                                                <div>
+                                                    <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
+                                                       class="btn btn-default">Hikaye Oku</a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -241,10 +287,7 @@
                                     {% endif %}
                                 </ul>
                             </nav>
-
                         </div>
-
-
                     </div>
 
 
@@ -258,7 +301,6 @@
             </div>
         </div>
     </section>
-
 
 
 {% endblock content %}
