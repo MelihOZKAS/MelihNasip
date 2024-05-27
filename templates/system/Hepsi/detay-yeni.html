@@ -164,14 +164,13 @@
                                                    style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
 
                                             </div>
-                                            <div class="post-bottom clearfix d-flex align-items-center">
+                                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
                                                 <div>
                                                     <a href="{% url 'masal-getir' masal_slug=masal.slug %}"
                                                        class="btn btn-default">Masal Oku</a>
-
                                                 </div>
-
                                             </div>
+
                                         </div>
                                     </div>
                                 {% endfor %}
