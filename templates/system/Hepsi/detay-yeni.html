@@ -214,7 +214,7 @@
 
                                 {% for masal in icerik %}
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="margin-top: 20px;">
                                         <!-- post -->
                                         <div class="post post-grid rounded bordered">
                                             <div class="thumb top-rounded">
@@ -247,7 +247,7 @@
                                                 <p class="excerpt mb-0"
                                                    style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
                                             </div>
-                                            <div class="post-bottom clearfix d-flex align-items-center">
+                                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
                                                 <div>
                                                     <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
                                                        class="btn btn-default">Hikaye Oku</a>
