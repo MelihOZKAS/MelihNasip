@@ -18,26 +18,31 @@
 {% block extra_head %}
     <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "Article",
-    "@id": "{{ request.build_absolute_uri }}"
-  },
+"@context": "https://schema.org",
+  "@type": "Article",
+  "name": "{{ EnDerun.title }}",
   "headline": "{{ EnDerun.title }}",
+  "alternateName": "{{ EnDerun.h1 }}",
   "description": "{{ EnDerun.meta_description }}",
+  "inLanguage": "tr",
+  "sameAs": ["{{ request.build_absolute_uri }}",
+  ],
   "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
   "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
 
+  "mainEntityOfPage": {
+  "@type": "webPage",
+  "id": "{{ request.build_absolute_uri }}"
+},
+
   {% if EnDerun.youtube %}
-  "video": {
+"video": {
     "@type": "VideoObject",
-    "name": "{{ EnDerun.title }}"
+    "name": "{{ EnDerun.title }}",
     "description": "{{ EnDerun.meta_description }}",
     "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}",
     "thumbnailUrl": "{{ thumbnail_url }}",
     "embedUrl": "{{ EnDerun.youtube }}"
-
   },
   {% endif %}
 
