@@ -17,9 +17,9 @@
 
 {% if EnDerun.resim %}
     {% block tt_post_image %}
-    <meta name="twitter:image" content="{{ EnDerun.resim.url }}">{% endblock %}
-{% block sosyal_post_image %}
-    <meta property="og:image" content="{{ EnDerun.resim.url }}">{% endblock %}
+        <meta name="twitter:image" content="{{ EnDerun.resim.url }}">{% endblock %}
+    {% block sosyal_post_image %}
+        <meta property="og:image" content="{{ EnDerun.resim.url }}">{% endblock %}
 
 {% endif %}
 
@@ -66,7 +66,9 @@
       },
   "image": {
     "@type": "ImageObject",
-    "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+    "url": [
+{{ resimler }}
+]
   },
   "publisher": {
       "@type": "Organization",

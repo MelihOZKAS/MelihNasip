@@ -445,6 +445,18 @@ def enderunMasal(request, masal_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
+    resimler = []
+
+    if EnDerun.resim:
+        resimler.append(EnDerun.resim.url)
+    if EnDerun.resim2:
+        resimler.append(EnDerun.resim2.url)
+    if EnDerun.resim3:
+        resimler.append(EnDerun.resim3.url)
+    if EnDerun.resim4:
+        resimler.append(EnDerun.resim4.url)
+    if resimler == "":
+        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
@@ -454,6 +466,7 @@ def enderunMasal(request, masal_slug):
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
+        'resimler': resimler,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
@@ -471,6 +484,21 @@ def enderunBlog(request, blog_slug):
         youtube_id = get_youtube_id(EnDerun.youtube)
         thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
+    resimler = []
+
+    if EnDerun.resim:
+        resimler.append(EnDerun.resim.url)
+    if EnDerun.resim2:
+        resimler.append(EnDerun.resim2.url)
+    if EnDerun.resim3:
+        resimler.append(EnDerun.resim3.url)
+    if EnDerun.resim4:
+        resimler.append(EnDerun.resim4.url)
+
+    if resimler == "":
+        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
+
+
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
@@ -480,6 +508,7 @@ def enderunBlog(request, blog_slug):
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
+        'resimler': resimler,
     }
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 
@@ -506,6 +535,20 @@ def enderunHikaye(request, hikaye_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
+    resimler = []
+
+    if EnDerun.resim:
+        resimler.append(EnDerun.resim.url)
+    if EnDerun.resim2:
+        resimler.append(EnDerun.resim2.url)
+    if EnDerun.resim3:
+        resimler.append(EnDerun.resim3.url)
+    if EnDerun.resim4:
+        resimler.append(EnDerun.resim4.url)
+
+    if resimler == "":
+        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
+
     context = {
         'EnDerun': EnDerun,
         'BaskaMasal': BaskaMasal,
@@ -515,6 +558,7 @@ def enderunHikaye(request, hikaye_slug):
         'keywords': EnDerun.keywords,
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
+        'resimler': resimler,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
