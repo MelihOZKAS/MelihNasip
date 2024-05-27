@@ -15,7 +15,13 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
+{% if EnDerun.resim %}
+    {% block tt_post_image %}
+    <meta name="twitter:image" content="{{ EnDerun.resim.url }}">{% endblock %}
+{% block sosyal_post_image %}
+    <meta property="og:image" content="{{ EnDerun.resim.url }}">{% endblock %}
 
+{% endif %}
 
 
 
@@ -121,22 +127,8 @@
 
     <section class="main-content">
         <div class="container-xl">
-            <div>
-                <script async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7065951693101615"
-                        crossorigin="anonymous"></script>
-                <!-- esnek yatay -->
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-7065951693101615"
-                     data-ad-slot="3184627616"
-                     data-ad-format="auto"
-                     data-full-width-responsive="true"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
 
+            {% include 'system/parcali/yatayreklam.html' %}
 
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">

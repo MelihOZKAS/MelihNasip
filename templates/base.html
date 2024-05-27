@@ -20,7 +20,8 @@
     <!-- Open Graph Etiketleri (Facebook, LinkedIn) -->
     <meta property="og:title" content="{% block ogtitle %}OG TITLE{% endblock %}">
     <meta property="og:description" content="{% block ogDes %}OG DES{% endblock %}">
-    <meta property="og:image" content="{% static 'images/hikaye-masal.webp' %}">
+    {% block sosyal_post_image %}
+        <meta property="og:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">{% endblock %}
     <meta property="og:url" content="{% block ogurl %}OG url{% endblock %}">
     <meta property="og:type" content="{% block ogtype %}website{% endblock %}">
 
@@ -31,7 +32,10 @@
     <meta name="twitter:creator" content="{% block twcreator %}tw creator{% endblock %}">
     <meta name="twitter:title" content="{% block twtitle %}tw title{% endblock %}">
     <meta name="twitter:description" content="{% block twdesc %}tw description{% endblock %}">
-    <meta name="twitter:image" content="{% static 'images/hikaye-masal.webp' %}">
+    {% block tt_post_image %}
+        <meta name="twitter:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">{% endblock %}
+    <meta property="og:site_name" content="Çocuk Masalları Oku">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- STYLES -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" media="all">
