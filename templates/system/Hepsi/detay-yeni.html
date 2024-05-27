@@ -157,11 +157,11 @@
                                                     <li class="list-inline-item">Eklenme
                                                         Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
                                                 </ul>
-                                                <h2 class="post-title mb-3 mt-3" style="font-size: 14px;"><a
+                                                <h2 class="post-title mb-3 mt-3" style="font-size: 15px;"><a
                                                         href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
                                                 </h2>
                                                 <p class="excerpt mb-0"
-                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:125|safe }}</p>
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
 
                                             </div>
                                             <div class="post-bottom clearfix d-flex align-items-center">
