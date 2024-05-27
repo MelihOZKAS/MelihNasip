@@ -186,16 +186,18 @@
                                 <figure class="figure">
                                     <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
                                          alt="{{ EnDerun.title }}">
-                                    <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku - Hikaye Oku
+                                    <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
+                                        Hikaye Oku
                                     </figcaption>
                                 </figure>
+                                <!--
                             {% else %}
                                 <figure class="figure">
                                     <img src="{% static 'images/masal/Masal-Oku-Hikaye-Oku.webp' %}" class="figure-img img-fluid rounded"
                                          alt="{{ EnDerun.title }}">
                                     <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku - Hikaye Oku
                                     </figcaption>
-                                </figure>
+                                </figure>-->
 
                             {% endif %}
 
@@ -249,16 +251,32 @@
 
                             {% if EnDerun.icerik2 %}
                                 {% include 'system/parcali/yatayreklam.html' %}
+
+                                {% if EnDerun.resim2 %}
+                                    <figure class="figure">
+                                    <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
+                                         alt="{{ EnDerun.title }} - 2">
+                                {% endif %}
                                 <div>{{ EnDerun.icerik2|safe }}</div>
                             {% endif %}
 
                             {% if EnDerun.icerik3 %}
                                 {% include 'system/parcali/yatayreklam.html' %}
+                                {% if EnDerun.resim3 %}
+                                    <figure class="figure">
+                                    <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
+                                         alt="{{ EnDerun.title }} - 3">
+                                {% endif %}
                                 <div>{{ EnDerun.icerik3|safe }}</div>
                             {% endif %}
 
                             {% if EnDerun.icerik4 %}
                                 {% include 'system/parcali/yatayreklam.html' %}
+                                {% if EnDerun.resim4 %}
+                                    <figure class="figure">
+                                    <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
+                                         alt="{{ EnDerun.title }} - 4">
+                                {% endif %}
                                 <div>{{ EnDerun.icerik4|safe }}</div>
                             {% endif %}
 
