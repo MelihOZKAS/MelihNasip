@@ -201,9 +201,6 @@
 
                             {% endif %}
 
-
-
-
                             {% if EnDerun.youtube %}
                                 <br/>
                                 {% if EnDerun.Model == "Masal" %}
@@ -234,15 +231,13 @@
 
                             {% endif %}
 
-
-                            <br/>
-
                             {% if EnDerun.Model == "Masal" %}
+                                <br/>
                                 <h3>Haydi, büyülü dünyamıza adım atalım. Masalımız şimdi başlıyor...</h3>
                             {% elif EnDerun.Model == "Hikaye" %}
                                 <h3>Birlikte yeni bir maceraya atılalım. Hikayemiz başlıyor...</h3>
+                                <br/>
                             {% endif %}
-                            <br/>
 
 
                             <div>
@@ -256,6 +251,7 @@
                                     <figure class="figure">
                                     <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
                                          alt="{{ EnDerun.title }} - 2">
+                                    </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik2|safe }}</div>
                             {% endif %}
@@ -266,6 +262,7 @@
                                     <figure class="figure">
                                     <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
                                          alt="{{ EnDerun.title }} - 3">
+                                    </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik3|safe }}</div>
                             {% endif %}
@@ -276,139 +273,103 @@
                                     <figure class="figure">
                                     <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
                                          alt="{{ EnDerun.title }} - 4">
+                                    </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik4|safe }}</div>
                             {% endif %}
 
-                            <!--       <div>
-                                       <script async
-                                               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7065951693101615"
-                                               crossorigin="anonymous"></script>
 
-                                       <ins class="adsbygoogle"
-                                            style="display:block"
-                                            data-ad-client="ca-pub-7065951693101615"
-                                            data-ad-slot="3184627616"
-                                            data-ad-format="auto"
-                                            data-full-width-responsive="true"></ins>
-                                       <script>
-                                           (adsbygoogle = window.adsbygoogle || []).push({});
-                                       </script>
-                                   </div>
+                            <!-- post bottom section -->
+                            <div class="post-bottom">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-md-6 col-12 text-center text-md-start">
+                                        <!-- buttons -->
+                                        <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
+                                           class="btn btn-default">Başka Masal</a>
+                                        <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
+                                           class="btn btn-default">Başka Hikaye</a>
+                                    </div>
 
-                           -->
-                            <!-- İçerik -->
-
-                            <!--
-                                                   <div>
-                                                       <script async
-                                                               src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7065951693101615"
-                                                               crossorigin="anonymous"></script>
-
-                                                       <ins class="adsbygoogle"
-                                                            style="display:block"
-                                                            data-ad-client="ca-pub-7065951693101615"
-                                                            data-ad-slot="3184627616"
-                                                            data-ad-format="auto"
-                                                            data-full-width-responsive="true"></ins>
-                                                       <script>
-                                                           (adsbygoogle = window.adsbygoogle || []).push({});
-                                                       </script>
-                                                   </div>
-                                               -->
-
-
-                        </div>
-                        <!-- post bottom section -->
-                        <div class="post-bottom">
-                            <div class="row d-flex align-items-center">
-                                <div class="col-md-6 col-12 text-center text-md-start">
-                                    <!-- buttons -->
-                                    <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
-                                       class="btn btn-default">Başka Masal</a>
-                                    <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
-                                       class="btn btn-default">Başka Hikaye</a>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <!-- social icons -->
-                                    <style>
-                                        .social-icons .bi {
-                                            font-size: 24px; /* İkonların boyutunu ayarlar */
-                                            animation: fadeInOut 2s infinite;
-                                            animation-delay: calc(.2s * var(--i));
-                                        }
-
-                                        @keyframes fadeInOut {
-                                            0% {
-                                                opacity: 0.5;
+                                    <div class="col-md-6 col-12">
+                                        <!-- social icons -->
+                                        <style>
+                                            .social-icons .bi {
+                                                font-size: 24px; /* İkonların boyutunu ayarlar */
+                                                animation: fadeInOut 2s infinite;
+                                                animation-delay: calc(.2s * var(--i));
                                             }
-                                            50% {
-                                                opacity: 1;
+
+                                            @keyframes fadeInOut {
+                                                0% {
+                                                    opacity: 0.5;
+                                                }
+                                                50% {
+                                                    opacity: 1;
+                                                }
+                                                100% {
+                                                    opacity: 0.5;
+                                                }
                                             }
-                                            100% {
-                                                opacity: 0.5;
+
+                                            .social-icons .bi {
+                                                animation: fadeInOut 2s infinite;
+                                                animation-delay: calc(.2s * var(--i));
                                             }
-                                        }
+                                        </style>
 
-                                        .social-icons .bi {
-                                            animation: fadeInOut 2s infinite;
-                                            animation-delay: calc(.2s * var(--i));
-                                        }
-                                    </style>
+                                        <ul class="social-icons list-unstyled list-inline mb-0 float-md-end">
+                                            <li class="list-inline-item"><a
+                                                    href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                                                    target="_blank"><i class="bi bi-facebook"
+                                                                       aria-label="Hikaye ve Masalı Facebook'ta Paylaş"
+                                                                       title="Hikaye ve Masalı Facebook'ta Paylaş"
+                                                                       role="button" style="--i: 0;"></i></a></li>
+                                            <li class="list-inline-item"><a
+                                                    href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
+                                                    target="_blank"><i class="bi bi-twitter"
+                                                                       aria-label="Hikaye ve Masalı Twitter'da Paylaş"
+                                                                       title="Hikaye ve Masalı Twitter'da Paylaş"
+                                                                       role="button" style="--i: 1;"></i></a></li>
+                                            <li class="list-inline-item"><a
+                                                    href="https://wa.me/?text=Bunu Keslinkle okumalısın! {{ request.build_absolute_uri }}"
+                                                    target="_blank"><i class="bi bi-whatsapp"
+                                                                       aria-label="Hikaye ve Masalı Whatsapp'da Paylaş"
+                                                                       title="Hikaye ve Masalı Whatsapp'da Paylaş"
+                                                                       role="button" style="--i: 2;"></i></a></li>
+                                            <li class="list-inline-item"><a href="https://www.instagram.com/"
+                                                                            target="_blank"><i class="bi bi-instagram"
+                                                                                               aria-label="Hikaye ve Masalı instagram'da Paylaş"
+                                                                                               title="Hikaye ve Masalı instagram'da Paylaş"
+                                                                                               role="button"
+                                                                                               style="--i: 3;"></i></a>
+                                            </li>
+                                            <li class="list-inline-item"><a
+                                                    href="https://telegram.me/share/url?url={{ request.build_absolute_uri }}"
+                                                    target="_blank"><i class="bi bi-telegram"
+                                                                       aria-label="Hikaye ve Masalı Telegram'da Paylaş"
+                                                                       title="Hikaye ve Masalı Telegram'da Paylaş"
+                                                                       role="button" style="--i: 4;"></i></a></li>
+                                            <li class="list-inline-item"><a href="#"
+                                                                            onclick="navigator.clipboard.writeText(window.location.href); return false;"><i
+                                                    class="bi bi-clipboard" aria-label="Masal & Hikayeyi Kopyala"
+                                                    title="Masal & Hikayeyi Kopyala" role="button" style="--i: 5;"></i></a>
+                                            </li>
+                                        </ul>
 
-                                    <ul class="social-icons list-unstyled list-inline mb-0 float-md-end">
-                                        <li class="list-inline-item"><a
-                                                href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
-                                                target="_blank"><i class="bi bi-facebook"
-                                                                   aria-label="Hikaye ve Masalı Facebook'ta Paylaş"
-                                                                   title="Hikaye ve Masalı Facebook'ta Paylaş"
-                                                                   role="button" style="--i: 0;"></i></a></li>
-                                        <li class="list-inline-item"><a
-                                                href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}"
-                                                target="_blank"><i class="bi bi-twitter"
-                                                                   aria-label="Hikaye ve Masalı Twitter'da Paylaş"
-                                                                   title="Hikaye ve Masalı Twitter'da Paylaş"
-                                                                   role="button" style="--i: 1;"></i></a></li>
-                                        <li class="list-inline-item"><a
-                                                href="https://wa.me/?text=Bunu Keslinkle okumalısın! {{ request.build_absolute_uri }}"
-                                                target="_blank"><i class="bi bi-whatsapp"
-                                                                   aria-label="Hikaye ve Masalı Whatsapp'da Paylaş"
-                                                                   title="Hikaye ve Masalı Whatsapp'da Paylaş"
-                                                                   role="button" style="--i: 2;"></i></a></li>
-                                        <li class="list-inline-item"><a href="https://www.instagram.com/"
-                                                                        target="_blank"><i class="bi bi-instagram"
-                                                                                           aria-label="Hikaye ve Masalı instagram'da Paylaş"
-                                                                                           title="Hikaye ve Masalı instagram'da Paylaş"
-                                                                                           role="button"
-                                                                                           style="--i: 3;"></i></a></li>
-                                        <li class="list-inline-item"><a
-                                                href="https://telegram.me/share/url?url={{ request.build_absolute_uri }}"
-                                                target="_blank"><i class="bi bi-telegram"
-                                                                   aria-label="Hikaye ve Masalı Telegram'da Paylaş"
-                                                                   title="Hikaye ve Masalı Telegram'da Paylaş"
-                                                                   role="button" style="--i: 4;"></i></a></li>
-                                        <li class="list-inline-item"><a href="#"
-                                                                        onclick="navigator.clipboard.writeText(window.location.href); return false;"><i
-                                                class="bi bi-clipboard" aria-label="Masal & Hikayeyi Kopyala"
-                                                title="Masal & Hikayeyi Kopyala" role="button" style="--i: 5;"></i></a>
-                                        </li>
-                                    </ul>
-
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
 
+                    <!-- Sağ Sidebar -->
+                    {% include 'system/parcali/sagSidebar.html' %}
+                    <!-- Sağ Sidebar -->
+
                 </div>
-
-                <!-- Sağ Sidebar -->
-                {% include 'system/parcali/sagSidebar.html' %}
-                <!-- Sağ Sidebar -->
-
             </div>
-        </div>
     </section>
 
 
