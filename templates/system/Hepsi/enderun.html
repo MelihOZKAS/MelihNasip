@@ -64,12 +64,15 @@
   "@type": "Person",
   "name": "Melih ÖZKAŞ"
       },
-  "image": {
-    "@type": "ImageObject",
-    "url": [
-{{ resimler }}
-]
-  },
+"image": [
+  {% for resim_url in resimler %}
+    {
+      "@type": "ImageObject",
+      "url": "{{ resim_url|safe }}"
+    }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+],
+
   "publisher": {
       "@type": "Organization",
       "name": "Masal Oku",

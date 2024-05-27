@@ -455,7 +455,7 @@ def enderunMasal(request, masal_slug):
         resimler.append(EnDerun.resim3.url)
     if EnDerun.resim4:
         resimler.append(EnDerun.resim4.url)
-    if resimler == "":
+    if not resimler:  # Eğer resimler listesi boşsa
         resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
     context = {
         'EnDerun': EnDerun,
@@ -495,7 +495,7 @@ def enderunBlog(request, blog_slug):
     if EnDerun.resim4:
         resimler.append(EnDerun.resim4.url)
 
-    if resimler == "":
+    if not resimler:  # Eğer resimler listesi boşsa
         resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
 
 
@@ -546,7 +546,7 @@ def enderunHikaye(request, hikaye_slug):
     if EnDerun.resim4:
         resimler.append(EnDerun.resim4.url)
 
-    if resimler == "":
+    if not resimler:  # Eğer resimler listesi boşsa
         resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
 
     context = {
