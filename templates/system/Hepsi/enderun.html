@@ -240,8 +240,8 @@
 
                                 {% if EnDerun.resim2 %}
                                     <figure class="figure">
-                                    <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 2">
+                                        <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 2">
                                     </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik2|safe }}</div>
@@ -251,8 +251,8 @@
                                 {% include 'system/parcali/yatayreklam.html' %}
                                 {% if EnDerun.resim3 %}
                                     <figure class="figure">
-                                    <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 3">
+                                        <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 3">
                                     </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik3|safe }}</div>
@@ -262,8 +262,8 @@
                                 {% include 'system/parcali/yatayreklam.html' %}
                                 {% if EnDerun.resim4 %}
                                     <figure class="figure">
-                                    <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 4">
+                                        <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 4">
                                     </figure>
                                 {% endif %}
                                 <div>{{ EnDerun.icerik4|safe }}</div>
@@ -352,15 +352,16 @@
                             </div>
 
                         </div>
-
                     </div>
 
-                    <!-- Sağ Sidebar -->
-                    {% include 'system/parcali/sagSidebar.html' %}
-                    <!-- Sağ Sidebar -->
-
                 </div>
+
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+
             </div>
+        </div>
     </section>
 
 
