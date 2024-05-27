@@ -106,6 +106,18 @@ class SiirMasal(models.Model):
     icerik2 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik3 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik4 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim2 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim3 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim4 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
     uzunluk = models.CharField(max_length=25, choices=boyutu, default="Kısa", help_text=HELP_TEXTS["status"])
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
