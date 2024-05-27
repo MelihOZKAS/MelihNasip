@@ -92,7 +92,7 @@
                         <div class="row">
 
 
-                            {% if sayfa_Turu == "Masal" %}
+                            {% if sayfa_Turu == "Masaleski" %}
 
                                 {% for masal in icerik %}
                                     <div class="card mb-3">
@@ -128,6 +128,50 @@
                                         </div>
                                     </div>
                                 {% endfor %}
+
+
+                            {% elif sayfa_Turu == "Masal" %}
+
+
+                                <div class="col-sm-6">
+                                    <!-- post -->
+                                    <div class="post post-grid rounded bordered">
+                                        <div class="thumb top-rounded">
+
+                                            <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
+                                                <div class="inner">
+                                                    {% if masal.resim %}
+                                                        <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
+                                                             loading="lazy">
+                                                    {% else %}
+                                                        <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                                                             alt="{{ masal.title }}" loading="lazy">
+                                                    {% endif %}
+
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="details">
+                                            <ul class="meta list-inline mb-0">
+
+                                                <li class="list-inline-item">Eklenme
+                                                    Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+                                            </ul>
+                                            <h2 class="post-title mb-3 mt-3"><a
+                                                    href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
+                                            </h2>
+                                            <p class="excerpt mb-0">{{ masal.icerik|truncatechars:150|safe }}</p>
+                                        </div>
+                                        <div class="post-bottom clearfix d-flex align-items-center">
+                                            <div>
+                                                <a href="{% url 'masal-getir' masal_slug=masal.slug %}"
+                                                   class="btn btn-default">Masal Oku</a>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
 
 
                             {% elif sayfa_Turu == "Hikaye" %}
