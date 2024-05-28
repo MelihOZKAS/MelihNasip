@@ -90,8 +90,6 @@
                         </div>
 
                         <div class="row">
-
-
                             {% if sayfa_Turu == "Masaleski" %}
 
                                 {% for masal in icerik %}
@@ -145,7 +143,7 @@
                                                                  loading="lazy">
                                                         {% else %}
                                                             <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                                                                 alt="{{ masal.title }}" loading="lazy">
+                                                                 alt="{{ masal.title }}" loading="lazy" width="368" height="178">
                                                         {% endif %}
 
                                                     </div>
