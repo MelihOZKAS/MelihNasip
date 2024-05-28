@@ -445,8 +445,13 @@ def enderunMasal(request, masal_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
-    resimler = []
 
+
+    contents = [EnDerun.icerik, EnDerun.icerik1, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
+    articleBody = ' '.join(filter(None, contents))
+
+
+    resimler = []
     if EnDerun.resim:
         resimler.append(EnDerun.resim.url)
     if EnDerun.resim2:
@@ -467,6 +472,7 @@ def enderunMasal(request, masal_slug):
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
         'resimler': resimler,
+        'articleBody': articleBody,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
@@ -484,6 +490,11 @@ def enderunBlog(request, blog_slug):
         youtube_id = get_youtube_id(EnDerun.youtube)
         thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
+    contents = [EnDerun.icerik, EnDerun.icerik1, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4, EnDerun.icerik5,
+                EnDerun.icerik6, EnDerun.icerik7, EnDerun.icerik8, EnDerun.icerik9, EnDerun.icerik10]
+    articleBody = ' '.join(filter(None, contents))
+
+
     resimler = []
 
     if EnDerun.resim:
@@ -509,6 +520,7 @@ def enderunBlog(request, blog_slug):
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
         'resimler': resimler,
+        'articleBody': articleBody,
     }
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 
@@ -535,8 +547,12 @@ def enderunHikaye(request, hikaye_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
-    resimler = []
 
+    contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
+    articleBody = ' '.join(filter(None, contents))
+
+
+    resimler = []
     if EnDerun.resim:
         resimler.append(EnDerun.resim.url)
     if EnDerun.resim2:
@@ -559,6 +575,7 @@ def enderunHikaye(request, hikaye_slug):
         'TumKategori': category_names_str,
         'thumbnail_url': thumbnail_url,
         'resimler': resimler,
+        'articleBody': articleBody,
     }
     return render(request, 'system/Hepsi/enderun.html', context)
 
