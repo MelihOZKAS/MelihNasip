@@ -25,6 +25,7 @@
   "alternateName": "{{ EnDerun.h1 }}",
   "description": "{{ EnDerun.meta_description }}",
   "inLanguage": "tr",
+  "genre": "{{ TumKategori }}",
   "sameAs": "{{ request.build_absolute_uri }}",
   "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
   "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
@@ -50,10 +51,16 @@
   "@type": "Person",
   "name": "Melih ÖZKAŞ"
       },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
-  },
+"image": [
+  {% for resim_url in resimler %}
+    {
+      "@type": "ImageObject",
+      "url": "{{ resim_url|safe }}",
+      "width": 800,
+      "height": 400
+    }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+],
   "publisher": {
       "@type": "Organization",
       "name": "Masal Oku",
@@ -222,7 +229,6 @@
                                 {% include 'system/parcali/yatayreklam.html' %}
                                 <div>{{ EnDerun.icerik10|safe }}</div>
                             {% endif %}
-
 
 
                         </div>
