@@ -15,12 +15,6 @@
 {% block twtitle %}{{ title }}{% endblock %}
 {% block twdesc %}{{ description }}{% endblock %}
 
-{% if EnDerun.resim and EnDerun.resim.name %}
-    {% block tt_post_image %}
-        <meta name="twitter:image" content="{{ EnDerun.resim.url }}">{% endblock %}
-    {% block sosyal_post_image %}
-        <meta property="og:image" content="{{ EnDerun.resim.url }}">{% endblock %}
-{% endif %}
 
 
 
