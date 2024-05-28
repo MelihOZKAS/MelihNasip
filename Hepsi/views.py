@@ -447,7 +447,7 @@ def enderunMasal(request, masal_slug):
 
 
 
-    contents = [EnDerun.icerik, EnDerun.icerik1, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
+    contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
     articleBody = ' '.join(filter(None, contents))
 
 
