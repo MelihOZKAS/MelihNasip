@@ -103,7 +103,7 @@
                                                             <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
                                                                  loading="lazy">
                                                         {% else %}
-                                                            <img src="{% static 'images/masal/'|add:masal.alt_kategori.first.MasalSlug|add:'.webp' %}"
+                                                            <img src="{% static 'images/masal/'|add:masal.masalKategorisi.first.MasalSlug|add:'.webp' %}"
                                                                  alt="{{ masal.title }}" loading="lazy" width="368"
                                                                  height="178">
                                                         {% endif %}
@@ -152,7 +152,7 @@
                                                              loading="lazy">
                                                         {% else %}
 
-                                                            <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}" alt="{{ masal.title }}"
+                                                            <img src="{% static 'images/hikaye/'|add:masal.hikayeKategorisi.first.HikayeSlug|add:'.webp' %}" alt="{{ masal.title }}"
                                                                  loading="lazy" width="368"
                                                                  height="178">
 
