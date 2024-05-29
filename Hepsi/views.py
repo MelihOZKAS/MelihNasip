@@ -155,7 +155,7 @@ def MasalOkuListesi(request):
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
 
-    title = "Peri Masalları, Uyku Masalı En Güzel Masallar | Masal Oku"
+    title = "Çocuk Masalları | Uyku Masalları | Kısa Masal | Masal Oku"
     description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
     Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
 
