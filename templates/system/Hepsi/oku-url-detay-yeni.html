@@ -103,7 +103,7 @@
                                                             <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
                                                                  loading="lazy">
                                                         {% else %}
-                                                            <img src="{% static 'images/masal/'|add:masal.alt_kategori.MasalSlug|add:'.webp' %}"
+                                                            <img src="{% static 'images/masal/'|add:masal.alt_kategori.first.MasalSlug|add:'.webp' %}"
                                                                  alt="{{ masal.title }}" loading="lazy" width="368"
                                                                  height="178">
                                                         {% endif %}
