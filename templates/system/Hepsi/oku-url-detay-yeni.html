@@ -15,7 +15,7 @@
 
 
 {% block extra_head %}
-<script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "http://schema.org",
   "@type": "CollectionPage",
@@ -93,27 +93,44 @@
                             {% if sayfa_Turu == "Masal" %}
 
                                 {% for masal in icerik %}
-                                    <div class="card mb-3">
-                                        <div class="row no-gutters d-flex align-items-center">
-                                            <div class="col-md-4">
+                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                        <!-- post -->
+                                        <div class="post post-grid rounded bordered">
+                                            <div class="thumb top-rounded">
+
                                                 <a href="{% url 'masal-getir' masal_slug=masal.slug %}">
-                                                    <img src="{% static 'images/masal/'|add:masal.masalKategorisi.first.MasalSlug|add:'.webp' %}"
-                                                         class="card-img" loading="lazy" alt="{{ masal.title }}"
-                                                         style="border-radius: 10px;">
+                                                    <div class="inner">
+                                                        {% if masal.resim %}
+                                                            <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
+                                                                 loading="lazy">
+                                                        {% else %}
+                                                            <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
+                                                                 alt="{{ masal.title }}" loading="lazy" width="368"
+                                                                 height="178">
+                                                        {% endif %}
+
+                                                    </div>
                                                 </a>
                                             </div>
-                                            <div class="col-md-8 d-flex align-items-center">
-                                                <div class="card-body text-center">
-                                                    <h2 class="card-title"><a
-                                                            href="{% url 'masal-getir' masal_slug=masal.slug %}"
-                                                            class="text-decoration-none text-dark" style="font-size: 22px;">{{ masal.title }}</a>
-                                                    </h2>
-                                                    <p class="card-text"><small class="text-muted" style="color: black">Eklenme
-                                                        Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</small></p>
+                                            <div class="details">
+                                                <ul class="meta list-inline mb-0">
+                                                    <li class="list-inline-item"><strong>Eklenme
+                                                        Tarihi:</strong> {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+                                                </ul>
+                                                <h2 class="post-title mb-3 mt-3" style="font-size: 15px;"><a
+                                                        href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
+                                                </h2>
+                                                <p class="excerpt mb-0"
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
+
+                                            </div>
+                                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
+                                                <div>
                                                     <a href="{% url 'masal-getir' masal_slug=masal.slug %}"
-                                                       class="btn btn-default">Masalı Okuyalım</a>
+                                                       class="btn btn-default">Masal Oku</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -123,26 +140,47 @@
 
 
                                 {% for masal in icerik %}
-                                    <div class="card mb-3">
-                                        <div class="row no-gutters d-flex align-items-center">
-                                            <div class="col-md-4">
+
+                                    <div class="col-sm-6" style="margin-top: 20px;">
+                                        <!-- post -->
+                                        <div class="post post-grid rounded bordered">
+                                            <div class="thumb top-rounded">
+
                                                 <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
-                                                    <img src="{% static 'images/hikaye/'|add:masal.hikayeKategorisi.first.HikayeSlug|add:'.webp' %}"
-                                                         class="card-img" loading="lazy" alt="{{ masal.title }}"
-                                                         style="border-radius: 10px;">
+                                                    <div class="inner">
+                                                        {% if masal.resim %}
+                                                        <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
+                                                             loading="lazy">
+                                                        {% else %}
+
+                                                            <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}" alt="{{ masal.title }}"
+                                                                 loading="lazy" width="368"
+                                                                 height="178">
+
+                                                        {% endif %}
+
+                                                    </div>
                                                 </a>
                                             </div>
-                                            <div class="col-md-8 d-flex align-items-center">
-                                                <div class="card-body text-center">
-                                                    <h2 class="card-title"><a
-                                                            href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
-                                                            class="text-decoration-none text-dark" style="font-size: 22px;">{{ masal.title }}</a>
-                                                    </h2>
-                                                    <p class="card-text"><small class="text-muted" style="color: black">Eklenme
-                                                        Tarihi: {{ masal.olusturma_tarihi|date:"d F Y" }}</small></p>
+                                            <div class="details">
+                                                <ul class="meta list-inline mb-0">
+
+                                                    <li class="list-inline-item"><strong>Eklenme
+                                                        Tarihi:</strong> {{ masal.olusturma_tarihi|date:"d F Y" }}</li>
+
+                                                </ul>
+                                                <h2 class="post-title mb-3 mt-3" style="font-size: 15px;"><a
+                                                        href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">{{ masal.title }}</a>
+                                                </h2>
+                                                <p class="excerpt mb-0"
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
+                                            </div>
+                                            <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
+                                                <div>
                                                     <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}"
-                                                       class="btn btn-default">Hikayeyi Okuyalım</a>
+                                                       class="btn btn-default">Hikaye Oku</a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -151,32 +189,32 @@
 
                             {% endif %}
 
-                        <nav>
-                            <ul class="pagination justify-content-center">
-                                {% if icerik.has_previous %}
-                                    <li class="page-item"><a class="page-link"
-                                                             href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
-                                    </li>
-                                {% endif %}
-
-                                {% for num in icerik.paginator.page_range %}
-                                    {% if icerik.number == num %}
-                                        <li class="page-item active"><span
-                                                class="page-link">{{ num }}</span>
-                                        </li>
-                                    {% else %}
+                            <nav>
+                                <ul class="pagination justify-content-center">
+                                    {% if icerik.has_previous %}
                                         <li class="page-item"><a class="page-link"
-                                                                 href="?sayfa={{ num }}">{{ num }}</a></li>
+                                                                 href="?sayfa={{ icerik.previous_page_number }}">Önceki</a>
+                                        </li>
                                     {% endif %}
-                                {% endfor %}
 
-                                {% if icerik.has_next %}
-                                    <li class="page-item"><a class="page-link"
-                                                             href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
+                                    {% for num in icerik.paginator.page_range %}
+                                        {% if icerik.number == num %}
+                                            <li class="page-item active"><span
+                                                    class="page-link">{{ num }}</span>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link"
+                                                                     href="?sayfa={{ num }}">{{ num }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if icerik.has_next %}
+                                        <li class="page-item"><a class="page-link"
+                                                                 href="?sayfa={{ icerik.next_page_number }}">Sonraki</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
 
                         </div>
 
