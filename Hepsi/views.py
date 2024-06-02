@@ -695,9 +695,9 @@ def pintres_var_mi(request):
         post.facebook = False
         icerik = post.h1
         if post.Model =="Masal":
-            KategoriFistName = post.masalKategorisi.first.MasalSlug
+            KategoriFistName = post.masalKategorisi.first().MasalSlug
         if post.Model =="Hikaye":
-            KategoriFistName = post.hikayeKategorisi.first.HikayeSlug
+            KategoriFistName = post.hikayeKategorisi.first().HikayeSlug
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
