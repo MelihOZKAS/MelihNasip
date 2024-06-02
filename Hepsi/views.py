@@ -694,6 +694,11 @@ def pintres_var_mi(request):
         # post'un facebook durumunu False yapayı unutmamak lazımmm dimi.
         post.facebook = False
         icerik = post.h1
+        if post.resim:
+            image = post.resim
+        else:
+            image = "Yok"
+
         if post.Model =="Masal":
             KategoriFistName = post.masalKategorisi.first().MasalSlug
         if post.Model =="Hikaye":
@@ -702,7 +707,7 @@ def pintres_var_mi(request):
             icerik = "Haberin devamı için tıklayın!"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
-            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz! !={KategoriFistName}")
+            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz! !={post.title}!={KategoriFistName}!={image}")
     else:
         return HttpResponse("post bulunamadı.")
 @csrf_exempt
