@@ -425,7 +425,7 @@ def kullanim(request):
 def enderunMasal(request, masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
@@ -480,7 +480,7 @@ def enderunMasal(request, masal_slug):
 def enderunBlog(request, blog_slug):
     EnDerun = get_object_or_404(Blog, slug=blog_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     category_names_str = "Çocuk Gelişimi"
@@ -528,7 +528,7 @@ def enderunBlog(request, blog_slug):
 def enderunHikaye(request, hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
@@ -653,7 +653,7 @@ def indexing_var_mi(request):
     if post is not None:
         # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
         post.indexing = False
-        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/")
     else:
@@ -665,7 +665,7 @@ def blog_indexing_var_mi(request):
     if post is not None:
         # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
         post.indexing = False
-        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
             f"https://www.cocukmasallarioku.com/{post.slug}/")
     else:
@@ -681,7 +681,7 @@ def facebook_var_mi(request):
         icerik = post.h1
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
-        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz !")
     else:
@@ -700,7 +700,7 @@ def pintres_var_mi(request):
             KategoriFistName = post.hikayeKategorisi.first.HikayeSlug
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
-        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter'])
+        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz! !={KategoriFistName}")
     else:
