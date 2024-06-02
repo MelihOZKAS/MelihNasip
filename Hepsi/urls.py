@@ -32,6 +32,7 @@ urlpatterns = [
     path("index-ver/", views.indexing_var_mi, name="indexver"),
     path("blog-index-ver/", views.blog_indexing_var_mi, name="blogindexver"),
     path("facebook-cek/", views.facebook_var_mi, name="facebookcek"),
+    path("pint-cek/", views.pintres_var_mi, name="pintcek"),
     path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
 
