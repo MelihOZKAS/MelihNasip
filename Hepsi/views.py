@@ -695,7 +695,7 @@ def pintres_var_mi(request):
         post.pinterest = False
         icerik = post.h1
         if post.resim:
-            image = post.resim
+            image = post.resim.url
         else:
             image = "Yok"
 
