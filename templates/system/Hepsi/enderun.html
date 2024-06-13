@@ -144,173 +144,179 @@
 {% block content %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
+    <article>
+        <section class="main-content">
+            <div class="container-xl">
 
-    <section class="main-content">
-        <div class="container-xl">
+                {% include 'system/parcali/yatayreklam.html' %}
 
-            {% include 'system/parcali/yatayreklam.html' %}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
+                        {% if EnDerun.Model == "Masal" %}
+                            <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
+                        {% elif EnDerun.Model == "Hikaye" %}
+                            <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
+                        {% endif %}
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
-                    {% if EnDerun.Model == "Masal" %}
-                        <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
-                    {% elif EnDerun.Model == "Hikaye" %}
-                        <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
-                    {% endif %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
+                    </ol>
+                </nav>
 
-                    <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
-                </ol>
-            </nav>
+                <div class="row gy-4">
 
-            <div class="row gy-4">
+                    <div class="col-lg-8">
+                        <div class="post post-single">
+                            <!-- post header -->
+                            <div class="post-header">
 
-                <div class="col-lg-8">
-                    <div class="post post-single">
-                        <!-- post header -->
-                        <div class="post-header">
+                                <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
 
-                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
-
-                            <!-- {% if EnDerun.Model == "Masal" %}
+                                <!-- {% if EnDerun.Model == "Masal" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
                         {% elif EnDerun.Model == "Hikaye" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
                         {% endif %} -->
 
-                            <ul class="meta list-inline mb-0">
-                                {% if EnDerun.Model == "Masal" %}
-                                    <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a></li>
-                                {% elif EnDerun.Model == "Hikaye" %}
-                                    <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a></li>
-                                {% endif %}
-                                <li class="list-inline-item">Eklenme
-                                    Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
-                                <li class="list-inline-item">Güncelleme
-                                    Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="post-content clearfix">
-
-                            {% if EnDerun.resim %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }}">
-                                    <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
-                                        Hikaye Oku
-                                    </figcaption>
-                                </figure>
-                            {% endif %}
-
-                            {% if EnDerun.youtube %}
-                                <br/>
-                                {% if EnDerun.Model == "Masal" %}
-                                    <h2>YouTube' dan Masal Dinleyebilirsiniz - Abone Olmayı Unutmayın! &#128519;</h2>
-                                {% elif EnDerun.Model == "Hikaye" %}
-                                    <h2>YouTube' dan Hikaye Dinleyebilirsiniz - Abone Olmayı Unutmayın! &#128519;</h2>
-                                {% endif %}
-
-
-
-                                <br/>
-
-                                <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-                                    <iframe style="position: absolute; top:0; left: 0; width: 100%; height: 100%;"
-                                            src="{{ EnDerun.youtube }}" title="{{ EnDerun.title }} - Masalını Dinle"
-                                            frameborder="0"
-                                            allowfullscreen></iframe>
-                                </div>
-                                <br/>
-                                <script src="https://apis.google.com/js/platform.js"></script>
-
-                                <div style="display: flex; align-items: center;">
-                                    <div class="g-ytsubscribe" data-channelid="UCm8n38Sg8uVYCRjs3faSAuQ"
-                                         data-layout="full" data-count="default"></div>
-                                    <p style="margin-left: 20px; font-weight: bold; position: relative; top: 10px;">
-                                        Lütfen abone olup bize <br> destek olun! 😇</p>
-                                </div>
-
-                            {% endif %}
-
-                            {% if EnDerun.Model == "Masal" %}
-                                <br/>
-                                <h3>Haydi, büyülü dünyamıza adım atalım. Masalımız şimdi başlıyor...</h3>
-                            {% elif EnDerun.Model == "Hikaye" %}
-                                <h3>Birlikte yeni bir maceraya atılalım. Hikayemiz başlıyor...</h3>
-                                <br/>
-                            {% endif %}
-
-
-                            <div>
-                                {{ EnDerun.icerik|safe }}
+                                <ul class="meta list-inline mb-0">
+                                    {% if EnDerun.Model == "Masal" %}
+                                        <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a>
+                                        </li>
+                                    {% elif EnDerun.Model == "Hikaye" %}
+                                        <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="list-inline-item">Eklenme
+                                        Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
+                                    <li class="list-inline-item">Güncelleme
+                                        Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
+                                </ul>
                             </div>
 
-                            {% if EnDerun.icerik2 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                {% if EnDerun.resim2 %}
+
+                            <div class="post-content clearfix">
+
+                                {% if EnDerun.resim %}
                                     <figure class="figure">
-                                        <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
-                                             alt="{{ EnDerun.title }} - 2">
+                                        <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }}">
+                                        <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
+                                            Hikaye Oku
+                                        </figcaption>
                                     </figure>
                                 {% endif %}
-                                <div>{{ EnDerun.icerik2|safe }}</div>
-                            {% endif %}
 
-                            {% if EnDerun.icerik3 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                {% if EnDerun.resim3 %}
-                                    <figure class="figure">
-                                        <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
-                                             alt="{{ EnDerun.title }} - 3">
-                                    </figure>
-                                {% endif %}
-                                <div>{{ EnDerun.icerik3|safe }}</div>
-                            {% endif %}
-
-                            {% if EnDerun.icerik4 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                {% if EnDerun.resim4 %}
-                                    <figure class="figure">
-                                        <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
-                                             alt="{{ EnDerun.title }} - 4">
-                                    </figure>
-                                {% endif %}
-                                <div>{{ EnDerun.icerik4|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.youtube %}
+                                    <br/>
+                                    {% if EnDerun.Model == "Masal" %}
+                                        <h2>YouTube' dan Masal Dinleyebilirsiniz - Abone Olmayı Unutmayın!
+                                            &#128519;</h2>
+                                    {% elif EnDerun.Model == "Hikaye" %}
+                                        <h2>YouTube' dan Hikaye Dinleyebilirsiniz - Abone Olmayı Unutmayın!
+                                            &#128519;</h2>
+                                    {% endif %}
 
 
-                            <!-- post bottom section -->
-                            <div class="post-bottom">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col-md-12 col-12 text-center">
-                                        <!-- buttons -->
-                                        <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
-                                           class="btn btn-default">Başka Masal</a>
-                                        <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
-                                           class="btn btn-default">Başka Hikaye</a>
+
+                                    <br/>
+
+                                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+                                        <iframe style="position: absolute; top:0; left: 0; width: 100%; height: 100%;"
+                                                src="{{ EnDerun.youtube }}" title="{{ EnDerun.title }} - Masalını Dinle"
+                                                frameborder="0"
+                                                allowfullscreen></iframe>
+                                    </div>
+                                    <br/>
+                                    <script src="https://apis.google.com/js/platform.js"></script>
+
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="g-ytsubscribe" data-channelid="UCm8n38Sg8uVYCRjs3faSAuQ"
+                                             data-layout="full" data-count="default"></div>
+                                        <p style="margin-left: 20px; font-weight: bold; position: relative; top: 10px;">
+                                            Lütfen abone olup bize <br> destek olun! 😇</p>
                                     </div>
 
-                                    {% include "system/parcali/paylas.html" %}
-                                </div>
-                            </div>
+                                {% endif %}
 
+                                {% if EnDerun.Model == "Masal" %}
+                                    <br/>
+                                    <h3>Haydi, büyülü dünyamıza adım atalım. Masalımız şimdi başlıyor...</h3>
+                                {% elif EnDerun.Model == "Hikaye" %}
+                                    <h3>Birlikte yeni bir maceraya atılalım. Hikayemiz başlıyor...</h3>
+                                    <br/>
+                                {% endif %}
+
+
+                                <div>
+                                    {{ EnDerun.icerik|safe }}
+                                </div>
+
+                                {% if EnDerun.icerik2 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    {% if EnDerun.resim2 %}
+                                        <figure class="figure">
+                                            <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
+                                                 alt="{{ EnDerun.title }} - 2">
+                                        </figure>
+                                    {% endif %}
+                                    <div>{{ EnDerun.icerik2|safe }}</div>
+                                {% endif %}
+
+                                {% if EnDerun.icerik3 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    {% if EnDerun.resim3 %}
+                                        <figure class="figure">
+                                            <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
+                                                 alt="{{ EnDerun.title }} - 3">
+                                        </figure>
+                                    {% endif %}
+                                    <div>{{ EnDerun.icerik3|safe }}</div>
+                                {% endif %}
+
+                                {% if EnDerun.icerik4 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    {% if EnDerun.resim4 %}
+                                        <figure class="figure">
+                                            <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
+                                                 alt="{{ EnDerun.title }} - 4">
+                                        </figure>
+                                    {% endif %}
+                                    <div>{{ EnDerun.icerik4|safe }}</div>
+                                {% endif %}
+
+
+
+                                <!-- post bottom section -->
+                                <div class="post-bottom">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-12 col-12 text-center">
+                                            <!-- buttons -->
+                                            <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
+                                               class="btn btn-default">Başka Masal</a>
+                                            <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
+                                               class="btn btn-default">Başka Hikaye</a>
+                                        </div>
+
+                                        {% include "system/parcali/paylas.html" %}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
 
+                    <!-- Sağ Sidebar -->
+                    {% include 'system/parcali/sagSidebar.html' %}
+                    <!-- Sağ Sidebar -->
+
                 </div>
-
-                <!-- Sağ Sidebar -->
-                {% include 'system/parcali/sagSidebar.html' %}
-                <!-- Sağ Sidebar -->
-
             </div>
-        </div>
-    </section>
+        </section>
+    </article>
 
 
 
