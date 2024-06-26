@@ -688,6 +688,21 @@ def facebook_var_mi(request):
         return HttpResponse("post bulunamadı.")
 
 @csrf_exempt
+def twitter_var_mi(request):
+    post = SiirMasal.objects.filter(twitter=True, aktif=True, status="Yayinda").first()
+    if post is not None:
+        # post'un indexing durumunu False yapayı unutmamak lazımmm dimi.
+        post.twitter = False
+        icerik = post.h1
+        hashtag = "#masaloku #masal #hikaye"
+        if not icerik:
+            icerik = "Haberin devamı için tıklayın!"
+        post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
+        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} {hashtag} Daha Fazla Çocuk Masalı için Takipte Kalın!")
+    else:
+        return HttpResponse("Paylaşılacak Twitter içerik bulunamadı")
+
+@csrf_exempt
 def pintres_var_mi(request):
     post = SiirMasal.objects.filter(pinterest=True, aktif=True, Model="Masal", status="Yayinda").first()
     if post is not None:
