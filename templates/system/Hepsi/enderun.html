@@ -206,6 +206,25 @@
                                     </figure>
                                 {% endif %}
 
+
+
+
+                                {% if EnDerun.youtube %}
+                                    <div class="video-container"
+                                         style="position: relative; width: 100%; max-width: 640px; margin: 0 auto;">
+                                        <img src="{{ thumbnail_url }}" alt="{{ EnDerun.title }}"
+                                             style="width: 100%; height: auto;">
+                                        <button class="play-button"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border: none; border-radius: 50%; padding: 20px; cursor: pointer;">
+                                            <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                {% endif %}
+
+                                <!-- youtube close
+
                                 {% if EnDerun.youtube %}
                                     <br/>
                                     {% if EnDerun.Model == "Masal" %}
@@ -237,6 +256,8 @@
                                     </div>
 
                                 {% endif %}
+
+                            -->
 
                                 {% if EnDerun.Model == "Masal" %}
                                     <br/>
@@ -318,6 +339,37 @@
         </section>
     </article>
 
+
+    <script>
+        document.querySelector('.play-button').addEventListener('click', function () {
+            var popup = document.createElement('div');
+            popup.style.position = 'fixed';
+            popup.style.top = '0';
+            popup.style.left = '0';
+            popup.style.width = '100%';
+            popup.style.height = '100%';
+            popup.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            popup.style.display = 'flex';
+            popup.style.justifyContent = 'center';
+            popup.style.alignItems = 'center';
+            popup.style.zIndex = '1000';
+
+            var iframe = document.createElement('iframe');
+            iframe.src = "{{ EnDerun.youtube }}";
+            iframe.style.width = '80%';
+            iframe.style.height = '80%';
+            iframe.style.border = 'none';
+
+            popup.appendChild(iframe);
+            document.body.appendChild(popup);
+
+            popup.addEventListener('click', function (e) {
+                if (e.target === popup) {
+                    document.body.removeChild(popup);
+                }
+            });
+        });
+    </script>
 
 
 {% endblock content %}
