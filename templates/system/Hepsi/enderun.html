@@ -199,7 +199,7 @@
                                 {% if EnDerun.resim %}
                                     <figure class="figure">
                                         <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
-                                             alt="{{ EnDerun.title }}">
+                                             alt="{{ EnDerun.title }}" width="800" height="400" loading="lazy">
                                         <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
                                             Hikaye Oku
                                         </figcaption>
@@ -278,7 +278,7 @@
                                     {% if EnDerun.resim2 %}
                                         <figure class="figure">
                                             <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
-                                                 alt="{{ EnDerun.title }} - 2">
+                                                 alt="{{ EnDerun.title }} - 2" width="800" height="400" loading="lazy">
                                         </figure>
                                     {% endif %}
                                     <div>{{ EnDerun.icerik2|safe }}</div>
@@ -290,7 +290,7 @@
                                     {% if EnDerun.resim3 %}
                                         <figure class="figure">
                                             <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
-                                                 alt="{{ EnDerun.title }} - 3">
+                                                 alt="{{ EnDerun.title }} - 3" width="800" height="400" loading="lazy">
                                         </figure>
                                     {% endif %}
                                     <div>{{ EnDerun.icerik3|safe }}</div>
@@ -302,7 +302,7 @@
                                     {% if EnDerun.resim4 %}
                                         <figure class="figure">
                                             <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
-                                                 alt="{{ EnDerun.title }} - 4">
+                                                 alt="{{ EnDerun.title }} - 4" width="800" height="400" loading="lazy">
                                         </figure>
                                     {% endif %}
                                     <div>{{ EnDerun.icerik4|safe }}</div>
@@ -339,37 +339,27 @@
         </section>
     </article>
 
+    {% block extra_script %}
+        <script>
+            document.querySelector('.play-button').addEventListener('click', function () {
+                var videoId = '{{ EnDerun.youtube }}'.split('/').pop();
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
 
-    <script>
-        document.querySelector('.play-button').addEventListener('click', function () {
-            var popup = document.createElement('div');
-            popup.style.position = 'fixed';
-            popup.style.top = '0';
-            popup.style.left = '0';
-            popup.style.width = '100%';
-            popup.style.height = '100%';
-            popup.style.backgroundColor = 'rgba(0,0,0,0.8)';
-            popup.style.display = 'flex';
-            popup.style.justifyContent = 'center';
-            popup.style.alignItems = 'center';
-            popup.style.zIndex = '1000';
-
-            var iframe = document.createElement('iframe');
-            iframe.src = "{{ EnDerun.youtube }}";
-            iframe.style.width = '80%';
-            iframe.style.height = '80%';
-            iframe.style.border = 'none';
-
-            popup.appendChild(iframe);
-            document.body.appendChild(popup);
-
-            popup.addEventListener('click', function (e) {
-                if (e.target === popup) {
-                    document.body.removeChild(popup);
-                }
+                this.parentNode.appendChild(iframe);
+                this.style.display = 'none';
             });
-        });
-    </script>
+        </script>
+    {% endblock extra_script %}
+
 
 
 {% endblock content %}
