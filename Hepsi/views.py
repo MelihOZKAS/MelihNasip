@@ -9,6 +9,7 @@ from django.utils import timezone
 import re
 from django.utils.html import strip_tags
 from html import unescape
+from django.http import JsonResponse
 
 
 def create_unique_title_slug(title):
@@ -759,3 +760,26 @@ def ai_add(request):
             return HttpResponse("Post kaydedilemedi.")
         else:
             return HttpResponse("Şükürler Olsun Post başarıyla kaydedildi. ID: " + str(Postislem.id))
+
+
+def flutterMasal(request):
+    page_number = request.GET.get('page', 1)
+    per_page = 10  # Her sayfada 10 masal
+
+    masallar = SiirMasal.objects.all().order_by('-id')
+    paginator = Paginator(masallar, per_page)
+    page_obj = paginator.get_page(page_number)
+
+    data = []
+    for masal in page_obj:
+        data.append({
+            'id': masal.id,
+            'title': masal.title,
+            'resim': masal.resim.url if masal.resim else None,
+        })
+
+    return JsonResponse({
+        'masallar': data,
+        'has_next': page_obj.has_next(),
+        'total_pages': paginator.num_pages,
+    })
