@@ -12,6 +12,7 @@ from html import unescape
 from django.http import JsonResponse
 from django.utils.html import strip_tags
 from django.utils.encoding import smart_str
+import html
 
 
 def create_unique_title_slug(title):
@@ -790,13 +791,23 @@ def flutter_masal_api(request):
 def flutter_masal_detay_api(request, slug):
     masal = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda", Model="Masal")
 
+    def clean_content(content):
+        if content:
+            # HTML etiketlerini kaldır
+            content = strip_tags(content)
+            # HTML karakter referanslarını çöz
+            content = html.unescape(content)
+            # Unicode kaçış dizilerini çöz
+            content = content.encode('utf-8').decode('unicode_escape')
+        return content
+
     data = {
         'id': masal.id,
-        'title': smart_str(masal.title),
-        'icerik': smart_str(strip_tags(masal.icerik)),
-        'icerik2': smart_str(strip_tags(masal.icerik2)) if masal.icerik2 else None,
-        'icerik3': smart_str(strip_tags(masal.icerik3)) if masal.icerik3 else None,
-        'icerik4': smart_str(strip_tags(masal.icerik4)) if masal.icerik4 else None,
+        'title': clean_content(masal.title),
+        'icerik': clean_content(masal.icerik),
+        'icerik2': clean_content(masal.icerik2),
+        'icerik3': clean_content(masal.icerik3),
+        'icerik4': clean_content(masal.icerik4),
         'resim': masal.resim.url if masal.resim else None,
         'resim2': masal.resim2.url if masal.resim2 else None,
         'resim3': masal.resim3.url if masal.resim3 else None,
@@ -805,4 +816,4 @@ def flutter_masal_detay_api(request, slug):
         'yayin_tarihi': masal.olusturma_tarihi.strftime("%d.%m.%Y"),
     }
 
-    return JsonResponse(data)
+    return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
