@@ -11,9 +11,10 @@ from django.utils.html import strip_tags
 from html import unescape
 from django.http import JsonResponse
 from django.utils.html import strip_tags
-from django.utils.encoding import smart_str
+from django.utils.encoding import smart_str, force_str
 import html
 
+import json
 
 def create_unique_title_slug(title):
     slug = turkish_slugify(title)
@@ -797,8 +798,8 @@ def flutter_masal_detay_api(request, slug):
             content = strip_tags(content)
             # HTML karakter referanslarını çöz
             content = html.unescape(content)
-            # Unicode kaçış dizilerini çöz
-            content = content.encode('utf-8').decode('unicode_escape')
+            # Unicode'a强制dönüştür
+            content = force_str(content)
         return content
 
     data = {
@@ -816,4 +817,4 @@ def flutter_masal_detay_api(request, slug):
         'yayin_tarihi': masal.olusturma_tarihi.strftime("%d.%m.%Y"),
     }
 
-    return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
+    return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
