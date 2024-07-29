@@ -792,7 +792,13 @@ def flutter_masal_detay_api(request, slug):
         'id': masal.id,
         'title': masal.title,
         'icerik': masal.icerik,
+        'icerik2': masal.icerik2,
+        'icerik3': masal.icerik3,
+        'icerik4': masal.icerik4,
         'resim': masal.resim.url if masal.resim else None,
+        'resim2': masal.resim2.url if masal.resim2 else None,
+        'resim3': masal.resim3.url if masal.resim3 else None,
+        'resim4': masal.resim4.url if masal.resim4 else None,
         'okunma_sayisi': masal.okunma_sayisi,
         'yayin_tarihi': masal.olusturma_tarihi.strftime("%d.%m.%Y"),
     }
