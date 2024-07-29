@@ -42,7 +42,8 @@ urlpatterns = [
     path("cocuk-gelisimi/", views.BlogHome, name="cocuk"),
     path("saglik/", views.BlogHome, name="saglik"),
     path("kadin/", views.BlogHome, name="kadin"),
-    path("get_masallar/", views.flutterMasal, name="fluttercek"),
+    path('api/flutter-masallar/', views.flutter_masal_api, name='flutter_masal_api'),
+    path('api/flutter-masal-detay/<slug:slug>/', views.flutter_masal_detay_api, name='flutter_masal_detay_api'),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("cerez-politikasi/", views.cerez, name="cerez"),

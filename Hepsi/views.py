@@ -264,8 +264,6 @@ def BlogHome(request):
         title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
         description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
 
-
-
     paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
     page_number = request.GET.get('sayfa')
     icerik = paginator.get_page(page_number)
@@ -446,11 +444,8 @@ def enderunMasal(request, masal_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
-
-
     contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
     articleBody = ' '.join(filter(None, contents))
-
 
     resimler = []
     if EnDerun.resim:
@@ -495,7 +490,6 @@ def enderunBlog(request, blog_slug):
                 EnDerun.icerik6, EnDerun.icerik7, EnDerun.icerik8, EnDerun.icerik9, EnDerun.icerik10]
     articleBody = ' '.join(filter(None, contents))
 
-
     resimler = []
 
     if EnDerun.resim:
@@ -509,7 +503,6 @@ def enderunBlog(request, blog_slug):
 
     if not resimler:  # Eğer resimler listesi boşsa
         resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
-
 
     context = {
         'EnDerun': EnDerun,
@@ -548,10 +541,8 @@ def enderunHikaye(request, hikaye_slug):
     if not category_names:
         category_names_str = EnDerun.Model
 
-
     contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
     articleBody = ' '.join(filter(None, contents))
-
 
     resimler = []
     if EnDerun.resim:
@@ -623,12 +614,13 @@ def Blog_oto_Paylas(request):
         if post.yayin_tarihi is None or post.yayin_tarihi <= timezone.now():
             post.status = "Yayinda"
             post.aktif = True
-            #post.indexing = True  # indekslendi olarak işaretle
+            # post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
+
 
 @csrf_exempt
 def apiyle_ekle(request):
@@ -660,6 +652,7 @@ def indexing_var_mi(request):
     else:
         return HttpResponse("post bulunamadı.")
 
+
 @csrf_exempt
 def blog_indexing_var_mi(request):
     post = Blog.objects.filter(indexing=True, aktif=True, status="Yayinda").first()
@@ -688,6 +681,7 @@ def facebook_var_mi(request):
     else:
         return HttpResponse("post bulunamadı.")
 
+
 @csrf_exempt
 def twitter_var_mi(request):
     post = SiirMasal.objects.filter(twitter=True, aktif=True, status="Yayinda").first()
@@ -699,9 +693,11 @@ def twitter_var_mi(request):
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
-        return HttpResponse(f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} {hashtag} Daha Fazla Çocuk Masalı için Takipte Kalın!")
+        return HttpResponse(
+            f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} {hashtag} Daha Fazla Çocuk Masalı için Takipte Kalın!")
     else:
         return HttpResponse("Paylaşılacak Twitter içerik bulunamadı")
+
 
 @csrf_exempt
 def pintres_var_mi(request):
@@ -715,9 +711,9 @@ def pintres_var_mi(request):
         else:
             image = "Yok"
 
-        if post.Model =="Masal":
+        if post.Model == "Masal":
             KategoriFistName = post.masalKategorisi.first().MasalSlug
-        if post.Model =="Hikaye":
+        if post.Model == "Hikaye":
             KategoriFistName = post.hikayeKategorisi.first().HikayeSlug
         if not icerik:
             icerik = "Haberin devamı için tıklayın!"
@@ -726,6 +722,8 @@ def pintres_var_mi(request):
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz! !={post.title}!={KategoriFistName}!={image}")
     else:
         return HttpResponse("post bulunamadı.")
+
+
 @csrf_exempt
 def ai_add(request):
     if request.method == 'POST':
@@ -762,11 +760,11 @@ def ai_add(request):
             return HttpResponse("Şükürler Olsun Post başarıyla kaydedildi. ID: " + str(Postislem.id))
 
 
-def flutterMasal(request):
+def flutter_masal_api(request):
     page_number = request.GET.get('page', 1)
     per_page = 10  # Her sayfada 10 masal
 
-    masallar = SiirMasal.objects.all().order_by('-id')
+    masallar = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     paginator = Paginator(masallar, per_page)
     page_obj = paginator.get_page(page_number)
 
@@ -775,7 +773,9 @@ def flutterMasal(request):
         data.append({
             'id': masal.id,
             'title': masal.title,
+            'slug': masal.slug,
             'resim': masal.resim.url if masal.resim else None,
+            'kisa_ozet': masal.meta_description[:100] + '...' if masal.meta_description else None,
         })
 
     return JsonResponse({
@@ -783,3 +783,18 @@ def flutterMasal(request):
         'has_next': page_obj.has_next(),
         'total_pages': paginator.num_pages,
     })
+
+
+def flutter_masal_detay_api(request, slug):
+    masal = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda", Model="Masal")
+
+    data = {
+        'id': masal.id,
+        'title': masal.title,
+        'icerik': masal.icerik,
+        'resim': masal.resim.url if masal.resim else None,
+        'okunma_sayisi': masal.okunma_sayisi,
+        'yayin_tarihi': masal.olusturma_tarihi.strftime("%d.%m.%Y"),
+    }
+
+    return JsonResponse(data)
