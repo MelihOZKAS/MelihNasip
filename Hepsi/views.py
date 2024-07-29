@@ -10,6 +10,8 @@ import re
 from django.utils.html import strip_tags
 from html import unescape
 from django.http import JsonResponse
+from django.utils.html import strip_tags
+from django.utils.encoding import smart_str
 
 
 def create_unique_title_slug(title):
@@ -790,11 +792,11 @@ def flutter_masal_detay_api(request, slug):
 
     data = {
         'id': masal.id,
-        'title': masal.title,
-        'icerik': masal.icerik,
-        'icerik2': masal.icerik2,
-        'icerik3': masal.icerik3,
-        'icerik4': masal.icerik4,
+        'title': smart_str(masal.title),
+        'icerik': smart_str(strip_tags(masal.icerik)),
+        'icerik2': smart_str(strip_tags(masal.icerik2)) if masal.icerik2 else None,
+        'icerik3': smart_str(strip_tags(masal.icerik3)) if masal.icerik3 else None,
+        'icerik4': smart_str(strip_tags(masal.icerik4)) if masal.icerik4 else None,
         'resim': masal.resim.url if masal.resim else None,
         'resim2': masal.resim2.url if masal.resim2 else None,
         'resim3': masal.resim3.url if masal.resim3 else None,
