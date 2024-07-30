@@ -794,9 +794,9 @@ def flutter_icerik_api(request):
     sayfa_basina = 10
 
     if kategori == 'masal':
-        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal")
     elif kategori == 'hikaye':
-        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye")
     else:
         return HttpResponse(json.dumps({"error": "Geçersiz kategori"}), content_type="application/json; charset=utf-8")
 
