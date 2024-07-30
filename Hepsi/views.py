@@ -827,6 +827,8 @@ def flutter_icerik_api(request):
 
 def flutter_icerik_detay_api(request, slug):
     icerik = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda")
+    icerik.okunma_sayisi += 1  # okunma sayısını artır
+    icerik.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
 
     def clean_content(content):
         if content:
