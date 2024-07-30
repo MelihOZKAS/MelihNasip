@@ -788,33 +788,67 @@ def flutter_masal_api(request):
         'total_pages': paginator.num_pages,
     })
 
+def flutter_icerik_api(request):
+    kategori = request.GET.get('kategori', 'masal')  # Varsayılan olarak 'masal'
+    sayfa = int(request.GET.get('sayfa', 1))
+    sayfa_basina = 10
 
-def flutter_masal_detay_api(request, slug):
-    masal = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda", Model="Masal")
+    if kategori == 'masal':
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal")
+    elif kategori == 'hikaye':
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye")
+    else:
+        return HttpResponse(json.dumps({"error": "Geçersiz kategori"}), content_type="application/json; charset=utf-8")
+
+    baslangic = (sayfa - 1) * sayfa_basina
+    bitis = baslangic + sayfa_basina
+    sayfalanmis_icerikler = icerikler[baslangic:bitis]
 
     def clean_content(content):
         if content:
-            # HTML etiketlerini kaldır
             content = strip_tags(content)
-            # HTML karakter referanslarını çöz
             content = html.unescape(content)
-            # Unicode'a强制dönüştür
+            content = force_str(content)
+        return content
+
+    data = [{
+        'id': icerik.id,
+        'slug': icerik.slug,
+        'title': clean_content(icerik.title),
+        'kisa_ozet': clean_content(icerik.meta_description)[:100] if icerik.meta_description else None,
+        'resim': icerik.resim.url if icerik.resim else None,
+    } for icerik in sayfalanmis_icerikler]
+
+    return HttpResponse(json.dumps({
+        'icerikler': data,
+        'toplam_sayfa': (icerikler.count() + sayfa_basina - 1) // sayfa_basina,
+        'mevcut_sayfa': sayfa,
+    }, ensure_ascii=False), content_type="application/json; charset=utf-8")
+
+def flutter_icerik_detay_api(request, slug):
+    icerik = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda")
+
+    def clean_content(content):
+        if content:
+            content = strip_tags(content)
+            content = html.unescape(content)
             content = force_str(content)
         return content
 
     data = {
-        'id': masal.id,
-        'title': clean_content(masal.title),
-        'icerik': clean_content(masal.icerik),
-        'icerik2': clean_content(masal.icerik2),
-        'icerik3': clean_content(masal.icerik3),
-        'icerik4': clean_content(masal.icerik4),
-        'resim': masal.resim.url if masal.resim else None,
-        'resim2': masal.resim2.url if masal.resim2 else None,
-        'resim3': masal.resim3.url if masal.resim3 else None,
-        'resim4': masal.resim4.url if masal.resim4 else None,
-        'okunma_sayisi': masal.okunma_sayisi,
-        'yayin_tarihi': masal.olusturma_tarihi.strftime("%d.%m.%Y"),
+        'id': icerik.id,
+        'title': clean_content(icerik.title),
+        'icerik': clean_content(icerik.icerik),
+        'icerik2': clean_content(icerik.icerik2),
+        'icerik3': clean_content(icerik.icerik3),
+        'icerik4': clean_content(icerik.icerik4),
+        'resim': icerik.resim.url if icerik.resim else None,
+        'resim2': icerik.resim2.url if icerik.resim2 else None,
+        'resim3': icerik.resim3.url if icerik.resim3 else None,
+        'resim4': icerik.resim4.url if icerik.resim4 else None,
+        'okunma_sayisi': icerik.okunma_sayisi,
+        'yayin_tarihi': icerik.olusturma_tarihi.strftime("%d.%m.%Y"),
+        'model': icerik.Model,
     }
 
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
