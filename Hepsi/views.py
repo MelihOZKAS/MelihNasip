@@ -16,6 +16,7 @@ import html
 
 import json
 
+
 def create_unique_title_slug(title):
     slug = turkish_slugify(title)
     unique_slug = slug
@@ -788,8 +789,12 @@ def flutter_masal_api(request):
         'total_pages': paginator.num_pages,
     })
 
+
+from .models import SiirMasal, Blog
+
+
 def flutter_icerik_api(request):
-    kategori = request.GET.get('kategori', 'masal')  # Varsayılan olarak 'masal'
+    kategori = request.GET.get('kategori', 'masal')
     sayfa = int(request.GET.get('sayfa', 1))
     sayfa_basina = 10
 
@@ -797,6 +802,8 @@ def flutter_icerik_api(request):
         icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     elif kategori == 'hikaye':
         icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
+    elif kategori == 'cocuk':
+        icerikler = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
     else:
         return HttpResponse(json.dumps({"error": "Geçersiz kategori"}), content_type="application/json; charset=utf-8")
 
@@ -825,10 +832,18 @@ def flutter_icerik_api(request):
         'mevcut_sayfa': sayfa,
     }, ensure_ascii=False), content_type="application/json; charset=utf-8")
 
+
 def flutter_icerik_detay_api(request, slug):
-    icerik = get_object_or_404(SiirMasal, slug=slug, aktif=True, status="Yayinda")
-    icerik.okunma_sayisi += 1  # okunma sayısını artır
-    icerik.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
+    try:
+        icerik = SiirMasal.objects.get(slug=slug, aktif=True, status="Yayinda")
+        model_type = 'siirmasal'
+    except SiirMasal.DoesNotExist:
+        try:
+            icerik = Blog.objects.get(slug=slug, aktif=True, status="Yayinda")
+            model_type = 'blog'
+        except Blog.DoesNotExist:
+            return HttpResponse(json.dumps({"error": "İçerik bulunamadı"}),
+                                content_type="application/json; charset=utf-8")
 
     def clean_content(content):
         if content:
@@ -840,17 +855,26 @@ def flutter_icerik_detay_api(request, slug):
     data = {
         'id': icerik.id,
         'title': clean_content(icerik.title),
+        'model_type': model_type,
         'icerik': clean_content(icerik.icerik),
-        'icerik2': clean_content(icerik.icerik2),
-        'icerik3': clean_content(icerik.icerik3),
-        'icerik4': clean_content(icerik.icerik4),
         'resim': icerik.resim.url if icerik.resim else None,
         'resim2': icerik.resim2.url if icerik.resim2 else None,
         'resim3': icerik.resim3.url if icerik.resim3 else None,
         'resim4': icerik.resim4.url if icerik.resim4 else None,
         'okunma_sayisi': icerik.okunma_sayisi,
         'yayin_tarihi': icerik.olusturma_tarihi.strftime("%d.%m.%Y"),
-        'model': icerik.Model,
     }
+
+    if model_type == 'blog':
+        for i in range(1, 11):
+            icerik_field = f'icerik{i}'
+            if hasattr(icerik, icerik_field):
+                data[icerik_field] = clean_content(getattr(icerik, icerik_field))
+        data['ozet'] = clean_content(icerik.ozet)
+        data['faq'] = clean_content(icerik.faq)
+    else:
+        data['icerik2'] = clean_content(icerik.icerik2)
+        data['icerik3'] = clean_content(icerik.icerik3)
+        data['icerik4'] = clean_content(icerik.icerik4)
 
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
