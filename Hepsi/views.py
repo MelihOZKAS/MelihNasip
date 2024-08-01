@@ -824,9 +824,6 @@ def flutter_icerik_api(request):
         'title': clean_content(icerik.title),
         'kisa_ozet': clean_content(icerik.meta_description)[:100] if icerik.meta_description else None,
         'resim': icerik.resim.url if icerik.resim else None,
-        'kategori': icerik.masalKategorisi.first().HikayeKategoriAdi if kategori == 'masal' and icerik.masalKategorisi.exists() else
-                    icerik.hikayeKategorisi.first().HikayeKategoriAdi if kategori == 'hikaye' and icerik.hikayeKategorisi.exists() else
-                    None
     } for icerik in sayfalanmis_icerikler]
 
     return HttpResponse(json.dumps({
