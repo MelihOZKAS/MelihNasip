@@ -4,7 +4,7 @@ from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
 from Hepsi.models import *
 
 class MasalKategorileriSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "monthly"
     priority = 0.3
     protocol = 'https'
 
@@ -19,12 +19,12 @@ class MasalKategorileriSitemap(Sitemap):
 
 
 class MasallarSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
-        return SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Masal")
+        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')
 
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
@@ -32,13 +32,10 @@ class MasallarSitemap(Sitemap):
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 
-    #def youtube(self, obj):
-    #    return obj.youtube if obj.youtube else None
-
 
 
 class HikayeAltKategoriSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "monthly"
     priority = 0.3
     protocol = 'https'
 
@@ -51,12 +48,12 @@ class HikayeAltKategoriSitemap(Sitemap):
 
 
 class HikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 0.9
     protocol = 'https'
 
     def items(self):
-        return SiirMasal.objects.filter(aktif=True,status="Yayinda",Model="Hikaye")
+        return SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -66,12 +63,12 @@ class HikayelerSitemap(Sitemap):
 
 
 class CocukSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 0.9
     protocol = 'https'
 
     def items(self):
-        return Blog.objects.filter(aktif=True,status="Yayinda")
+        return Blog.objects.filter(aktif=True, status="Yayinda").order_by('-guncelleme_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -84,7 +81,7 @@ class CocukSitemap(Sitemap):
 
 
 class DiniMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -97,13 +94,13 @@ class DiniMasallariSitemap(Sitemap):
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 class PeriMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="peri-masallari")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -111,7 +108,7 @@ class PeriMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class UykuMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -125,7 +122,7 @@ class UykuMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class HayvanMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -140,7 +137,7 @@ class HayvanMasallariSitemap(Sitemap):
 
 
 class PrensesMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -153,7 +150,7 @@ class PrensesMasallariSitemap(Sitemap):
     def location(self, obj):
         return reverse('masal-getir', args=[obj.slug])
 class PrensMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -167,7 +164,7 @@ class PrensMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class AileMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -182,7 +179,7 @@ class AileMasallariSitemap(Sitemap):
 
 
 class MaceraMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -196,7 +193,7 @@ class MaceraMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class KomikMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
@@ -211,13 +208,13 @@ class KomikMasallariSitemap(Sitemap):
 
 
 class EgiticiMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="egitici-masallar")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -225,13 +222,13 @@ class EgiticiMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class ArkadasMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="arkadas-masallari")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -239,13 +236,13 @@ class ArkadasMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class KardesMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="kardeslik-masallari")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -253,13 +250,13 @@ class KardesMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class iyilikMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="iyilik-masallari")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -267,13 +264,13 @@ class iyilikMasallariSitemap(Sitemap):
         return reverse('masal-getir', args=[obj.slug])
 
 class KelOglanMasallariSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug="keloglan-masallari")
-        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Masal").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -282,13 +279,13 @@ class KelOglanMasallariSitemap(Sitemap):
 
 
 class DiniHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="dini-hikayeler")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -297,13 +294,13 @@ class DiniHikayelerSitemap(Sitemap):
 
 
 class SihirliDunyaHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sihirli-dunya-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -311,13 +308,13 @@ class SihirliDunyaHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class SevimliHayvanHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sevimli-hayvan-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -325,13 +322,13 @@ class SevimliHayvanHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class KahramanHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="korkusuz-kahraman-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -340,13 +337,13 @@ class KahramanHikayelerSitemap(Sitemap):
 
 
 class AileHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="mutlu-aile-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -354,13 +351,13 @@ class AileHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class HazineHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="hazine-avi-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -368,13 +365,13 @@ class HazineHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class YolculukHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="eglenceli-yolculuk-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -383,13 +380,13 @@ class YolculukHikayelerSitemap(Sitemap):
 
 
 class GeziHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="gezi-maceralari-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -397,13 +394,13 @@ class GeziHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class UzayHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="uzay-maceralari-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -411,13 +408,13 @@ class UzayHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class BilimHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="muhtesem-bilim-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -425,13 +422,13 @@ class BilimHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class DostlukHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="dostluk-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -439,26 +436,26 @@ class DostlukHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class DogaHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="doga-ve-cevre-onemi-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
     def location(self, obj):
         return reverse('hikaye-getir', args=[obj.slug])
 class EnglishHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="ingilizce-hikayeler")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
@@ -466,13 +463,13 @@ class EnglishHikayelerSitemap(Sitemap):
         return reverse('hikaye-getir', args=[obj.slug])
 
 class SevimliCanavarHikayelerSitemap(Sitemap):
-    changefreq = "daily"
+    changefreq = "weekly"
     priority = 1.0
     protocol = 'https'
 
     def items(self):
         alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug="sevimli-canavar-hikayeleri")
-        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",Model="Hikaye").order_by('-olusturma_tarihi')
+        return SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
