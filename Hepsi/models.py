@@ -110,6 +110,12 @@ class SiirMasal(models.Model):
     icerik2 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik3 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik4 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik5 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik6 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik7 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik8 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik9 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
+    icerik10 = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     resim = models.ImageField(upload_to=kapak_resmi_upload_to,
                               storage=ImageSettingStorage(),
                               null=True, blank=True)
@@ -120,6 +126,24 @@ class SiirMasal(models.Model):
                                storage=ImageSettingStorage(),
                                null=True, blank=True)
     resim4 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim5 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim6 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim7 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim8 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim9 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                               storage=ImageSettingStorage(),
+                               null=True, blank=True)
+    resim10 = models.ImageField(upload_to=kapak_resmi_upload_to,
                                storage=ImageSettingStorage(),
                                null=True, blank=True)
     uzunluk = models.CharField(max_length=25, choices=boyutu, default="Kısa", help_text=HELP_TEXTS["status"])
@@ -141,7 +165,7 @@ class SiirMasal(models.Model):
 
     def kelime_sayisi(self):
         toplam_kelime_sayisi = 0
-        icerikler = [self.icerik, self.icerik2, self.icerik3, self.icerik4]
+        icerikler = [self.icerik, self.icerik2, self.icerik3, self.icerik4, self.icerik5, self.icerik6, self.icerik7, self.icerik8, self.icerik9, self.icerik10]
         for icerik in icerikler:
             if icerik:
                 toplam_kelime_sayisi += len(icerik.split())

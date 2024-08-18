@@ -558,7 +558,18 @@ def enderunHikaye(request, hikaye_slug):
         resimler.append(EnDerun.resim3.url)
     if EnDerun.resim4:
         resimler.append(EnDerun.resim4.url)
-
+    if EnDerun.resim5:
+        resimler.append(EnDerun.resim5.url)
+    if EnDerun.resim6:
+        resimler.append(EnDerun.resim6.url)
+    if EnDerun.resim7:
+        resimler.append(EnDerun.resim7.url)
+    if EnDerun.resim8:
+        resimler.append(EnDerun.resim8.url)
+    if EnDerun.resim9:
+        resimler.append(EnDerun.resim9.url)
+    if EnDerun.resim10:
+        resimler.append(EnDerun.resim10.url)
     if not resimler:  # Eğer resimler listesi boşsa
         resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
 
