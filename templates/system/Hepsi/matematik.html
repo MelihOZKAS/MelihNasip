@@ -70,6 +70,7 @@
             transition: all 0.3s ease;
             width: 100%;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold; /* Cevap butonlarındaki rakamlar daha kalın */
         }
 
         .btn-answer:hover {
@@ -152,15 +153,16 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.05);
+                transform: scale(1.02);
             }
+            /* Daha yumuşak bir büyüme-küçülme efekti */
             100% {
                 transform: scale(1);
             }
         }
 
         .pulse {
-            animation: pulse 0.5s infinite;
+            animation: pulse 1s infinite; /* Animasyon süresi 1 saniyeye çıkarıldı */
         }
 
         .fade-in {
@@ -375,23 +377,21 @@
                                     <div class="game-container">
                                         <h1 class="text-center mb-3" style="color: #4A90E2; font-size: 1.8rem;">Süper
                                             Eğlenceli Matematik Oyunu</h1>
-
                                         {% include 'system/parcali/yatayreklam.html' %}
-
                                         <div id="levelSelect" class="text-center mb-3">
                                             <button class="btn level-btn" data-level="easy">Kolay</button>
                                             <button class="btn level-btn" data-level="medium">Orta</button>
                                             <button class="btn level-btn" data-level="hard">Zor</button>
                                         </div>
-
                                         <div id="question" class="text-center mb-3">
                                             <h2 id="problem" class="mb-3 fade-in">5 + 3 = ?</h2>
                                         </div>
                                         <div id="answers" class="d-grid gap-2">
-                                            <button class="btn btn-answer" style="background-color: #FFB347;">12
+                                            <button class="btn btn-answer pulse" style="background-color: #FFB347;">12
                                             </button>
-                                            <button class="btn btn-answer" style="background-color: #98FB98;">8</button>
-                                            <button class="btn btn-answer" style="background-color: #87CEFA;">10
+                                            <button class="btn btn-answer pulse" style="background-color: #98FB98;">8
+                                            </button>
+                                            <button class="btn btn-answer pulse" style="background-color: #87CEFA;">10
                                             </button>
                                         </div>
                                         <div id="result" class="mt-3 text-center"></div>
@@ -401,7 +401,6 @@
                                             </div>
                                         </div>
                                         {% include 'system/parcali/yatayreklam.html' %}
-
                                     </div>
                                 </div>
 
@@ -410,7 +409,6 @@
                                     let score = 0;
                                     let currentProblem = {};
                                     let currentLevel = 'easy';
-                                    let consecutiveWrong = 0;
 
                                     const levels = {
                                         easy: {maxNum: 10, operations: ['+']},
@@ -478,25 +476,20 @@
                                         const scoreContainer = document.querySelector('.score-container');
 
                                         if (userAnswer === currentProblem.answer) {
-                                            resultDiv.textContent = 'Harika! Doğru cevap!';
-                                            resultDiv.style.color = '#28a745';
+                                            resultDiv.innerHTML = '<span style="color: #28a745; font-size: 2rem;">🎉 Harika! Doğru cevap! 🎉</span>';
                                             score += 10;
                                             problemDiv.classList.add('bounce');
                                             scoreContainer.classList.add('bounce');
                                             confetti();
-                                            consecutiveWrong = 0;
                                         } else {
-                                            resultDiv.textContent = 'Ah, olmadı! Doğru cevap: ' + currentProblem.answer;
-                                            resultDiv.style.color = '#dc3545';
+                                            resultDiv.innerHTML = `<span style="color: #dc3545; font-size: 2rem;">❌ Yanlış cevap!</span><br>
+                                       <span style="color: #4A90E2; font-size: 1.5rem;">Doğru cevap: ${currentProblem.answer}</span>`;
                                             problemDiv.classList.add('rotate');
-                                            consecutiveWrong++;
 
-                                            if (consecutiveWrong >= 3) {
-                                                setTimeout(() => {
-                                                    location.reload();
-                                                }, 2000);
-                                                return;
-                                            }
+                                            setTimeout(() => {
+                                                location.reload();
+                                            }, 2000);
+                                            return;
                                         }
 
                                         document.getElementById('score').textContent = score;
