@@ -889,3 +889,16 @@ def flutter_icerik_detay_api(request, slug):
         data['icerik4'] = clean_content(icerik.icerik4)
 
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
+
+
+
+def matematik(request):
+
+    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
+
+    context = {
+        'BaskaMasal': BaskaMasal,
+        'BaskaHikaye': BaskaHikaye,
+    }
+    return render(request, 'system/Hepsi/enderun.html', context)
