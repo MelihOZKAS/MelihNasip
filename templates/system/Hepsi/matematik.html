@@ -332,14 +332,15 @@
          <div class="container">
         <div class="game-container">
             <h1 class="text-center mb-3" style="color: #4A90E2; font-size: 1.8rem;">Süper Eğlenceli Matematik Oyunu</h1>
+                        <div class="ad-container">
+               {% include 'system/parcali/yatayreklam.html' %}
+            </div>
             <div id="levelSelect" class="text-center mb-3">
                 <button class="btn level-btn" data-level="easy">Kolay</button>
                 <button class="btn level-btn" data-level="medium">Orta</button>
                 <button class="btn level-btn" data-level="hard">Zor</button>
             </div>
-            <div class="ad-container">
-                Reklam Alanı (Üst)
-            </div>
+
             <div id="question" class="text-center mb-3">
                 <h2 id="problem" class="mb-3 fade-in">5 + 3 = ?</h2>
             </div>
@@ -355,7 +356,7 @@
                 </div>
             </div>
             <div class="ad-container">
-                Reklam Alanı (Alt)
+               {% include 'system/parcali/yatayreklam.html' %}
             </div>
         </div>
     </div>
