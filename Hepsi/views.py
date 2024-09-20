@@ -901,4 +901,4 @@ def matematik(request):
         'BaskaMasal': BaskaMasal,
         'BaskaHikaye': BaskaHikaye,
     }
-    return render(request, 'system/Hepsi/enderun.html', context)
+    return render(request, 'system/Hepsi/matematik.html', context)
