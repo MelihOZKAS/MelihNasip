@@ -240,3 +240,10 @@ class iletisimAdmin(admin.ModelAdmin):
 
 
 admin.site.register(iletisimmodel, iletisimAdmin)
+
+
+class hayvanAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+
+
+admin.site.register(Animals, hayvanAdmin)
