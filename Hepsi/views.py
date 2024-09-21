@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, reverse
-from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog
+from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -7,6 +7,7 @@ from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 import re
+import random
 from django.utils.html import strip_tags
 from html import unescape
 from django.http import JsonResponse
@@ -902,3 +903,28 @@ def matematik(request):
         'BaskaHikaye': BaskaHikaye,
     }
     return render(request, 'system/Hepsi/matematik.html', context)
+
+
+def hayvanoyunu(request):
+    # Rastgele bir hayvan seçelim
+    animal = Animals.objects.order_by('?').first()
+
+    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
+
+    # 3 adet rastgele hayvan ismi, biri doğru olacak
+    other_animals = Animals.objects.exclude(id=animal.id).order_by('?')[:2]
+    options = list(other_animals.values_list('ismi', flat=True)) + [animal.ismi]
+    random.shuffle(options)
+
+    # Hayvanın bir resmini rastgele seçelim
+    image = random.choice([animal.resim, animal.resim2, animal.resim3, animal.resim4])
+
+    context = {
+        'animal': animal,
+        'options': options,
+        'image': image,
+        'BaskaMasal': BaskaMasal,
+        'BaskaHikaye': BaskaHikaye,
+    }
+    return render(request, 'system/Hepsi/hayvan.html', context)

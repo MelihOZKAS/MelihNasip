@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Süper Eğlenceli Matematik Oyunu{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}Süper Eğlenceli Matematik Oyunu{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+{% block ogtype %}article{% endblock %}
+{% block yazar %}Melih ÖZKAŞ{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}Süper Eğlenceli Matematik Oyunu{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+
+{% block tt_post_image %}
+    {% if EnDerun.resim %}
+        <meta name="twitter:image" content="{{ EnDerun.resim.url }}">
+    {% else %}
+        <meta name="twitter:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">
+    {% endif %}
+{% endblock %}
+
+{% block sosyal_post_image %}
+    {% if EnDerun.resim %}
+        <meta property="og:image" content="{{ EnDerun.resim.url }}">
+    {% else %}
+        <meta property="og:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">
+    {% endif %}
+
+{% endblock %}
+
+
+{% block extra_head %}
+
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .animal-image {
+            width: 100%;
+            height: auto;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .option {
+            margin: 10px 0;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 10px;
+            }
+        }
+    </style>
+
+
+
+
+    <script type="application/ld+json">
+{
+"@context": "https://schema.org",
+  "@type": "Article",
+  "name": "{{ EnDerun.title }}",
+  "headline": "{{ EnDerun.title }}",
+  "alternateName": "{{ EnDerun.h1 }}",
+  "articleBody": "{{ articleBody }}",
+  "description": "{{ EnDerun.meta_description }}",
+  "inLanguage": "tr",
+  "genre": "{{ TumKategori }}",
+  "sameAs": "{{ request.build_absolute_uri }}",
+  "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
+  "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
+
+  "mainEntityOfPage": {
+  "@type": "webPage",
+  "id": "{{ request.build_absolute_uri }}"
+},
+
+  {% if EnDerun.youtube %}
+  "video": {
+    "@type": "VideoObject",
+    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
+    "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
+    "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
+    "thumbnailUrl": "{{ thumbnail_url }}", // Video küçük resim URL'sini
+    "embedUrl": "{{ EnDerun.youtube }}"
+    // Diğer video bilgilerini buraya ekleyin
+  },
+  {% endif %}
+
+  "keywords": "{{ EnDerun.keywords }}",
+
+  "author": {
+  "@type": "Person",
+  "name": "Melih ÖZKAŞ"
+      },
+"image": [
+  {% for resim_url in resimler %}
+    {
+      "@type": "ImageObject",
+      "url": "{{ resim_url|safe }}",
+      "width": 800,
+      "height": 400
+    }{% if not forloop.last %},{% endif %}
+  {% endfor %}
+],
+
+  "publisher": {
+      "@type": "Organization",
+      "name": "Masal Oku",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+      }
+    },
+
+  "articleSection": "{{ TumKategori }}",
+  "isFamilyFriendly": "true",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "https://schema.org/ReadAction" },
+    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}"
+  }
+}
+</script>
+{% endblock %}
+
+
+{% block extra_Two_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
+      "item": "https://www.cocukmasallarioku.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{% if EnDerun.Model == 'Masal' %}{{ EnDerun.masalKategorisi.first.Masal_Title }}{% else %}
+        {{ EnDerun.hikayeKategorisi.first.Hikaye_Title }}{% endif %}",
+      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-kategori/{% if EnDerun.Model == 'Masal' %}
+        {{ EnDerun.masalKategorisi.first.MasalSlug }}{% else %}
+        {{ EnDerun.hikayeKategorisi.first.HikayeSlug }}{% endif %}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ EnDerun.title }}",
+      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-oku/{{ EnDerun.slug }}/"
+    }
+  ]
+
+}
+</script>
+{% endblock %}
+
+
+
+
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+
+    <article>
+        <section class="main-content">
+            <div class="container-xl">
+
+                {% include 'system/parcali/yatayreklam.html' %}
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
+                        {% if EnDerun.Model == "Masal" %}
+                            <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
+                        {% elif EnDerun.Model == "Hikaye" %}
+                            <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
+                        {% endif %}
+
+                        <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
+                    </ol>
+                </nav>
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-8">
+                        <div class="post post-single">
+                            <!-- post header -->
+                            <div class="post-header">
+
+                                <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
+
+                                <!-- {% if EnDerun.Model == "Masal" %}
+                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
+                        {% elif EnDerun.Model == "Hikaye" %}
+                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
+                        {% endif %} -->
+
+                                <ul class="meta list-inline mb-0">
+                                    {% if EnDerun.Model == "Masal" %}
+                                        <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a>
+                                        </li>
+                                    {% elif EnDerun.Model == "Hikaye" %}
+                                        <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="list-inline-item">Eklenme
+                                        Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
+                                    <li class="list-inline-item">Güncelleme
+                                        Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="post-content clearfix">
+
+
+                                <div class="game-container">
+                                    <h1>Guess the Animal</h1>
+
+                                    <!-- Hayvanın Rastgele Seçilen Resmi -->
+                                    <img src="{{ image.url }}" alt="Animal Image" class="animal-image">
+
+                                    <!-- Hayvanın İngilizce İsmi -->
+                                    <p>{{ animal.ingilizce_ismi }}</p>
+
+                                    <!-- Türkçe Sesi Otomatik Oynatma -->
+                                    <audio autoplay>
+                                        <source src="{{ animal.ses1.url }}" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+
+                                    <div class="buttons">
+                                        <!-- Türkçe Sesi Tekrar Oynatma Butonu -->
+                                        <button class="btn" onclick="playSound('{{ animal.ses1.url }}')">Türkçe Sesi
+                                            Tekrar Oynat
+                                        </button>
+
+                                        <!-- İngilizce İsmini Seslendiren Buton -->
+                                        <button class="btn" onclick="playSound('{{ animal.ses2.url }}')">İngilizce İsmi
+                                            Oynat
+                                        </button>
+                                    </div>
+
+                                    <!-- Cevap Seçenekleri -->
+                                    <div class="options">
+                                        {% for option in options %}
+                                            <div class="option"
+                                                 onclick="checkAnswer('{{ option }}', '{{ animal.ismi }}')">
+                                                {{ option }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <script>
+                                    function playSound(url) {
+                                        const audio = new Audio(url);
+                                        audio.play();
+                                    }
+
+                                    function checkAnswer(selectedOption, correctOption) {
+                                        if (selectedOption === correctOption) {
+                                            alert("Tebrikler! Doğru cevap.");
+                                        } else {
+                                            alert("Üzgünüm, yanlış cevap.");
+                                        }
+                                    }
+                                </script>
+
+
+                                <!-- post bottom section -->
+                                <div class="post-bottom">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-12 col-12 text-center">
+                                            <!-- buttons -->
+                                            <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
+                                               class="btn btn-default">Başka Masal</a>
+                                            <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
+                                               class="btn btn-default">Başka Hikaye</a>
+                                        </div>
+
+                                        {% include "system/parcali/paylas.html" %}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Sağ Sidebar -->
+                    {% include 'system/parcali/sagSidebar.html' %}
+                    <!-- Sağ Sidebar -->
+
+                </div>
+            </div>
+        </section>
+    </article>
+
+    {% block extra_script %}
+        <script>
+            document.querySelector('.play-button').addEventListener('click', function () {
+                var videoId = '{{ EnDerun.youtube }}'.split('/').pop();
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+
+                this.parentNode.appendChild(iframe);
+                this.style.display = 'none';
+            });
+        </script>
+    {% endblock extra_script %}
+
+
+
+{% endblock content %}

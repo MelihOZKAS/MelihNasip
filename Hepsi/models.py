@@ -1,5 +1,5 @@
 from django.db import models
-from Masallar.custom_storages import ImageSettingStorage
+from Masallar.custom_storages import *
 
 from django.conf import settings
 from ckeditor.fields import RichTextField
@@ -242,3 +242,29 @@ class iletisimmodel(models.Model):
         verbose_name_plural = "iletişim Formu"
     def __str__(self):
         return self.title
+
+
+
+
+class Animals(models.Model):
+    ismi = models.CharField(max_length=50)
+    ingilizce_ismi = models.CharField(max_length=50)
+
+
+    ses1 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
+    ses2 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
+    ses3 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
+
+
+    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim2 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim3 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim4 = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
