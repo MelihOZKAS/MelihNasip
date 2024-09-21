@@ -254,6 +254,7 @@ class Animals(models.Model):
     ses1 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
     ses2 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
     ses3 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
+    ingilizce_ses = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
 
 
     resim = models.ImageField(upload_to='Hayvan-images/',
