@@ -352,7 +352,7 @@
                                         </button>
                                         <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
                                                 class="sound-button english">
-                                            <img src="{% static 'images/en_flag.png' %}" alt="EN">
+                                            <img src="{% static 'images/other/ingilizce.png' %}" alt="EN bayrak">
                                             İngilizce Ses
                                         </button>
                                     </div>
@@ -369,9 +369,7 @@
                                     <div id="result" class="result"></div>
 
                                     <!-- Google Adsense için yer tutucu -->
-                                    <div class="ad-container">
-                                        <!-- Google Adsense kodu buraya gelecek -->
-                                    </div>
+                                    {% include 'system/parcali/yatayreklam.html' %}
                                 </div>
 
 
