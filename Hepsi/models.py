@@ -246,9 +246,20 @@ class iletisimmodel(models.Model):
 
 
 
+class Oyunlar(models.Model):
+    title = models.CharField(max_length=255)
+    h1 = models.CharField(max_length=255, blank=True)
+    description = models.TextField(blank=True, verbose_name="Meta Açıklama")
+    keywords = models.CharField(max_length=255, blank=True, verbose_name="Anahtar Kelimeler")
+    okunma_sayisi = models.PositiveBigIntegerField(default=0)
+    oyun_turu = models.CharField(max_length=100, verbose_name="Oyun Türü", blank=True, null=True)
+    short_name = models.CharField(max_length=255, blank=True)
+
+
 class Animals(models.Model):
     ismi = models.CharField(max_length=50)
     ingilizce_ismi = models.CharField(max_length=50)
+    game_meta = models.OneToOneField(Oyunlar, on_delete=models.CASCADE, related_name="animal_game")
 
 
     ses1 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
@@ -269,3 +280,7 @@ class Animals(models.Model):
     resim4 = models.ImageField(upload_to='Hayvan-images/',
                               storage=ImageSettingStorage(),
                               null=True, blank=True)
+
+
+
+

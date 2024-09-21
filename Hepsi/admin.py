@@ -247,3 +247,9 @@ class hayvanAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Animals, hayvanAdmin)
+
+class oyunlarAdmin(admin.ModelAdmin):
+    list_display = ("oyun_turu",)
+
+
+admin.site.register(Oyunlar, oyunlarAdmin)
