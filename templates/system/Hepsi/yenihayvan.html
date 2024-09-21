@@ -47,7 +47,7 @@
         }
 
         .game-container {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+
             background-color: white;
             border-radius: 20px;
             padding: 20px;
@@ -347,8 +347,8 @@
                                     <div class="button-container">
                                         <button onclick="playSound('{{ animal.ses1.url }}')"
                                                 class="sound-button turkish">
-                                            <img src="{% static 'images/tr_flag.png' %}" alt="TR">
-                                            Türkçe Ses
+                                            <img src="{% static 'images/other/tekrar-cal.png' %}" alt="TR">
+                                            Sesi Tekrar Çal
                                         </button>
                                         <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
                                                 class="sound-button english">
@@ -396,10 +396,10 @@
                                             button.disabled = true;
                                         });
 
-                                        // Reload page after 3 seconds
+                                        // Reload page after 2 seconds
                                         setTimeout(() => {
                                             window.location.reload();
-                                        }, 3000);
+                                        }, 2000);
                                     }
 
                                     // Play Turkish sound automatically when page loads
