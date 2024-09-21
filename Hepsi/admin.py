@@ -243,7 +243,7 @@ admin.site.register(iletisimmodel, iletisimAdmin)
 
 
 class hayvanAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+    list_display = ("isim",)
 
 
 admin.site.register(Animals, hayvanAdmin)
