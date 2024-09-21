@@ -247,7 +247,7 @@ class iletisimmodel(models.Model):
 
 
 class Oyunlar(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, blank=True)
     h1 = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True, verbose_name="Meta Açıklama")
     keywords = models.CharField(max_length=255, blank=True, verbose_name="Anahtar Kelimeler")
@@ -257,8 +257,8 @@ class Oyunlar(models.Model):
 
 
 class Animals(models.Model):
-    ismi = models.CharField(max_length=50)
-    ingilizce_ismi = models.CharField(max_length=50)
+    ismi = models.CharField(max_length=50, blank=True)
+    ingilizce_ismi = models.CharField(max_length=50, blank=True)
     game_meta = models.OneToOneField(Oyunlar, on_delete=models.CASCADE, related_name="animal_game")
 
 
