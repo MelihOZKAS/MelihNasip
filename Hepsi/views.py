@@ -927,4 +927,4 @@ def hayvanoyunu(request):
         'BaskaMasal': BaskaMasal,
         'BaskaHikaye': BaskaHikaye,
     }
-    return render(request, 'system/Hepsi/hayvan.html', context)
+    return render(request, 'system/Hepsi/yenihayvan.html', context)
