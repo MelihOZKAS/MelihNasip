@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, reverse
-from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals
+from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals, Oyunlar
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -908,6 +908,9 @@ def matematik(request):
 def hayvanoyunu(request):
     # Rastgele bir hayvan seçelim
     animal = Animals.objects.order_by('?').first()
+    game = get_object_or_404(Oyunlar, short_name="hayvan")
+    game.okunma_sayisi += 1
+    game.save()
 
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
@@ -923,6 +926,7 @@ def hayvanoyunu(request):
     context = {
         'animal': animal,
         'options': options,
+        'game': game,
         'image': image,
         'BaskaMasal': BaskaMasal,
         'BaskaHikaye': BaskaHikaye,
