@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Süper Eğlenceli Matematik Oyunu{% endblock %}
-{% block description %}{{ description }}{% endblock %}
-{% block keywords %}{{ keywords }}{% endblock %}
-{% block ogtitle %}Süper Eğlenceli Matematik Oyunu{% endblock %}
-{% block ogDes %}{{ description }}{% endblock %}
+{% block title %}{{ game.title }}{% endblock %}
+{% block description %}{{ game.description }}{% endblock %}
+{% block keywords %}{{ game.keywords }}{% endblock %}
+{% block ogtitle %}{{ game.title }}{% endblock %}
+{% block ogDes %}{{ game.title }}{% endblock %}
 {% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
 {% block ogtype %}article{% endblock %}
 {% block yazar %}Melih ÖZKAŞ{% endblock %}
 
 {% block twaccountsite %}@Melih{% endblock %}
 {% block twcreator %}@Melih{% endblock %}
-{% block twtitle %}Süper Eğlenceli Matematik Oyunu{% endblock %}
-{% block twdesc %}{{ description }}{% endblock %}
+{% block twtitle %}{{ game.title }}{% endblock %}
+{% block twdesc %}{{ game.description }}{% endblock %}
 
 
 {% block tt_post_image %}

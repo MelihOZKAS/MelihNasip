@@ -4,7 +4,7 @@
 {% block title %}{{ game.title }}{% endblock %}
 {% block description %}{{ game.description }}{% endblock %}
 {% block keywords %}{{ game.keywords }}{% endblock %}
-{% block ogtitle %}Süper Eğlenceli Matematik Oyunu{% endblock %}
+{% block ogtitle %}{{ game.title }}{% endblock %}
 {% block ogDes %}{{ game.title }}{% endblock %}
 {% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
 {% block ogtype %}article{% endblock %}

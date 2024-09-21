@@ -894,11 +894,14 @@ def flutter_icerik_detay_api(request, slug):
 
 
 def matematik(request):
-
+    game = get_object_or_404(Oyunlar, short_name="matematik")
+    game.okunma_sayisi += 1
+    game.save()
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
 
     context = {
+        'game': game,
         'BaskaMasal': BaskaMasal,
         'BaskaHikaye': BaskaHikaye,
     }
