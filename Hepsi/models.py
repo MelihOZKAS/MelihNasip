@@ -259,7 +259,7 @@ class Oyunlar(models.Model):
 class Animals(models.Model):
     ismi = models.CharField(max_length=50, blank=True)
     ingilizce_ismi = models.CharField(max_length=50, blank=True)
-    game_meta = models.OneToOneField(Oyunlar, on_delete=models.CASCADE, related_name="animal_game", blank=True)
+    game_meta = models.OneToOneField(Oyunlar, on_delete=models.CASCADE, related_name="animal_game", blank=True, null=True)
 
 
     ses1 = models.FileField(upload_to='sounds/', blank=True, storage=MediaStorage())
