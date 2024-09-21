@@ -346,6 +346,9 @@
 
                                     <div class="animal-display">
                                         <img src="{{ image.url }}" alt="Hayvan Resmi" class="animal-image">
+
+                                    </div>
+                                    <div>
                                         <button class="english-name-button">
                                             {{ animal.ingilizce_ismi }}
                                         </button>
@@ -383,42 +386,42 @@
                                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
                                 <script>
                                     function playSound(url) {
-    const audio = new Audio(url);
-    audio.play();
-}
+                                        const audio = new Audio(url);
+                                        audio.play();
+                                    }
 
-function playRandomSound(urls) {
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-    playSound(randomUrl);
-}
+                                    function playRandomSound(urls) {
+                                        const randomUrl = urls[Math.floor(Math.random() * urls.length)];
+                                        playSound(randomUrl);
+                                    }
 
-function checkAnswer(selectedOption, correctOption) {
-    const resultDiv = document.getElementById('result');
-    if (selectedOption === correctOption) {
-        resultDiv.textContent = "Tebrikler! Doğru cevap.";
-        resultDiv.style.color = "green";
-    } else {
-        resultDiv.textContent = "Üzgünüm, yanlış cevap. Doğru cevap: " + correctOption;
-        resultDiv.style.color = "red";
-    }
+                                    function checkAnswer(selectedOption, correctOption) {
+                                        const resultDiv = document.getElementById('result');
+                                        if (selectedOption === correctOption) {
+                                            resultDiv.textContent = "Tebrikler! Doğru cevap.";
+                                            resultDiv.style.color = "green";
+                                        } else {
+                                            resultDiv.textContent = "Üzgünüm, yanlış cevap. Doğru cevap: " + correctOption;
+                                            resultDiv.style.color = "red";
+                                        }
 
-    // Disable all buttons after an answer is selected
-    const buttons = document.querySelectorAll('.option-button');
-    buttons.forEach(button => {
-        button.disabled = true;
-    });
+                                        // Disable all buttons after an answer is selected
+                                        const buttons = document.querySelectorAll('.option-button');
+                                        buttons.forEach(button => {
+                                            button.disabled = true;
+                                        });
 
-    // Reload page after 2 seconds
-    setTimeout(() => {
-        window.location.reload();
-    }, 2000);
-}
+                                        // Reload page after 2 seconds
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
 
-// Play random Turkish sound automatically when page loads
-window.onload = function() {
-    const turkishSoundButton = document.querySelector('.sound-button.turkish');
-    turkishSoundButton.click();
-};
+                                    // Play random Turkish sound automatically when page loads
+                                    window.onload = function () {
+                                        const turkishSoundButton = document.querySelector('.sound-button.turkish');
+                                        turkishSoundButton.click();
+                                    };
                                 </script>
 
                                 <!-- post bottom section -->
