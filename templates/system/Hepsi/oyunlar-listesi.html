@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+
+
+{% block extra_head %}
+    <script type="application/ld+json">
+
+    {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url": "https://www.cocukmasallarioku.com/",
+    "name": "Çocuk Masalları Oku",
+    "description": "{{ description }}",
+    "keywords": "{{ keywords }}",
+    "publisher": {
+    "@type": "Organization",
+    "name": "Çocuk Masalları Oku",
+    "logo": {
+    "@type": "ImageObject",
+    "url": "{% static 'images/hikaye-masal.webp' %}"
+    }
+    }
+    }
+</script>
+
+{% endblock extra_head %}
+
+{% block extra_Two_head %}
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
+      "item": "https://www.cocukmasallarioku.com/"
+    }
+  ]
+
+}
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+    <section class="main-content">
+        <div class="container-xl">
+
+            <div class="row gy-4">
+                <h1 style="display: none;">Çocuklara Özel Eğitici Oyunlar</h1>
+
+                <div class="col-lg-8">
+
+
+                    <div class="section-header">
+                        <h2 class="section-title">Basit Matematik Oyunu</h2>
+                        {% include 'system/parcali/vave.html' %}
+                    </div>
+                    <!--   thumbnail   -->
+                    <div class="thumb rounded">
+                        <a href="{% url 'matematikoyunu' %}">
+                            <div class="inner">
+                                <img src="{% static 'images/egitici-matematik-cocuk-oyunlari.webp' %}" width="800" height="400"
+                                     style="border-radius: 20px;" loading="lazy" alt="Masal Oku"/>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- details -->
+                    <br>
+                    <div class="details">
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın seveceği basit matematik işlerinin
+                            olduğu
+                            ücretsiz Matematik Oyunumuz sizlerle, bu arada siz ebebeyinleride unutmadık
+                            <strong>"Zor"</strong> bölümüde sizler için yaptık.</p>
+                    </div>
+                    <br>
+
+
+                    <div class="section-header">
+                        <h2 class="section-title">Eşleştirme Oyunu</h2>
+                        {% include 'system/parcali/vave.html' %}
+                    </div>
+                    <!--   thumbnail   -->
+                    <div class="thumb rounded">
+                        <a href="{% url 'hayvanoyunu' %}">
+                            <div class="inner">
+                                <img src="{% static 'images/egitici-eslestirme-cocuk-oyunlari.webp' %}" width="800" height="400"
+                                     style="border-radius: 20px;" loading="lazy" alt="Masal Oku"/>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- details -->
+                    <br>
+                    <div class="details">
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın ilgisini çekecek eşleştirme
+                            resimleri sesleri ve ingilizce yazılışları ile sesli okunuşları dahil ücretsiz oyunumuz
+                            sizlerle!</p>
+                    </div>
+                    <br>
+                </div>
+                <!-- Sağ Sidebar -->
+                {% include 'system/parcali/sagSidebar.html' %}
+                <!-- Sağ Sidebar -->
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock content %}

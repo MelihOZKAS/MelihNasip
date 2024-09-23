@@ -37,6 +37,7 @@ urlpatterns = [
     path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
 
+    path("oyunlar/", views.oyunlar, name="oyunlar"),
     path("cocuklara-matematik-oyunu/", views.matematik, name="matematikoyunu"),
     path("cocuklara-hayvan-oyunu/", views.hayvanoyunu, name="hayvanoyunu"),
     path("cocuk-hikayeleri/", views.Hikayeler, name="HikayelerHome"),

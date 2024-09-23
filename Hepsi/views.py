@@ -935,3 +935,18 @@ def hayvanoyunu(request):
         'BaskaHikaye': BaskaHikaye,
     }
     return render(request, 'system/Hepsi/yenihayvan.html', context)
+
+
+
+def oyunlar(request):
+    title = "Çocuklar İçin Eğitici Oyunlar - Çocuk Masalları"
+    description = "Çocuklara özel oyunlar, matematik eişeştire oyunları, puzzle oyunları ve çok daha fazlası"
+    keywords = "çocuk oyunları, eğitici oyunlar, oyun, matematik oyunları"
+
+    context = {
+        'title': title,
+        'description': description,
+        'keywords': keywords,
+
+    }
+    return render(request, 'system/Hepsi/oyunlar-listesi.html', context)
