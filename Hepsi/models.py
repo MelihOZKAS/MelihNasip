@@ -254,6 +254,9 @@ class Oyunlar(models.Model):
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
     oyun_turu = models.CharField(max_length=100, verbose_name="Oyun Türü", blank=True, null=True)
     short_name = models.CharField(max_length=255, blank=True)
+    def __str__(self):
+        return self.title
+
 
 
 class Animals(models.Model):
