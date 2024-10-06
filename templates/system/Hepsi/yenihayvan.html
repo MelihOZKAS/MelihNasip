@@ -318,45 +318,52 @@
                             <div class="post-content clearfix">
 
                                 <div class="game-container">
-                                    <h2>Resmi Bul!</h2>
+    <h2>Resmi Bul!</h2>
 
-                                    <div class="animal-display">
-                                        <img src="{{ image.url }}" alt="Hayvan Resmi" class="animal-image">
+    <div class="animal-display">
+        {% if image %}
+            <img src="{{ image.url }}" alt="Hayvan Resmi" class="animal-image">
+        {% else %}
+            <p>Resim bulunamadı</p>
+        {% endif %}
+    </div>
+    <div>
+        <button class="english-name-button">
+            {{ animal.ingilizce_ismi }}
+        </button>
+    </div>
 
-                                    </div>
-                                    <div>
-                                        <button class="english-name-button">
-                                            {{ animal.ingilizce_ismi }}
-                                        </button>
-                                    </div>
+    <div class="button-container">
+        {% if sound %}
+            <button onclick="playSound('{{ sound.url }}')"
+                    class="sound-button turkish">
+                <img src="{% static 'images/other/tekrar-cal.png' %}" alt="TR">
+                Sesi Tekrar Çal
+            </button>
+        {% endif %}
+        {% if animal.ingilizce_ses %}
+            <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
+                    class="sound-button english">
+                <img src="{% static 'images/other/ingilizce.png' %}" alt="EN bayrak">
+                İngilizce Ses
+            </button>
+        {% endif %}
+    </div>
 
-                                    <div class="button-container">
-                                        <button onclick="playRandomSound(['{{ animal.ses1.url }}', '{{ animal.ses2.url }}', '{{ animal.ses3.url }}'])"
-                                                class="sound-button turkish">
-                                            <img src="{% static 'images/other/tekrar-cal.png' %}" alt="TR">
-                                            Sesi Tekrar Çal
-                                        </button>
-                                        <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
-                                                class="sound-button english">
-                                            <img src="{% static 'images/other/ingilizce.png' %}" alt="EN bayrak">
-                                            İngilizce Ses
-                                        </button>
-                                    </div>
+    <div class="options-container">
+        {% for option in options %}
+            <button onclick="checkAnswer('{{ option }}', '{{ animal.ismi }}')"
+                    class="option-button">
+                {{ option }}
+            </button>
+        {% endfor %}
+    </div>
 
-                                    <div class="options-container">
-                                        {% for option in options %}
-                                            <button onclick="checkAnswer('{{ option }}', '{{ animal.ismi }}')"
-                                                    class="option-button">
-                                                {{ option }}
-                                            </button>
-                                        {% endfor %}
-                                    </div>
+    <div id="result" class="result"></div>
 
-                                    <div id="result" class="result"></div>
-
-                                    <!-- Google Adsense için yer tutucu -->
-                                    {% include 'system/parcali/gameYatay.html' %}
-                                </div>
+    <!-- Google Adsense için yer tutucu -->
+    {% include 'system/parcali/gameYatay.html' %}
+</div>
 
 
                                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -364,11 +371,6 @@
                                     function playSound(url) {
                                         const audio = new Audio(url);
                                         audio.play();
-                                    }
-
-                                    function playRandomSound(urls) {
-                                        const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-                                        playSound(randomUrl);
                                     }
 
                                     function checkAnswer(selectedOption, correctOption) {
@@ -393,11 +395,7 @@
                                         }, 2000);
                                     }
 
-                                    // Play random Turkish sound automatically when page loads
-                                    window.onload = function () {
-                                        const turkishSoundButton = document.querySelector('.sound-button.turkish');
-                                        turkishSoundButton.click();
-                                    };
+                                    // Otomatik ses çalmayı kaldırdık
                                 </script>
 
                                 <!-- post bottom section -->

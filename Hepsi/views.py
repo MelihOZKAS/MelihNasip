@@ -923,14 +923,26 @@ def hayvanoyunu(request):
     options = list(other_animals.values_list('ismi', flat=True)) + [animal.ismi]
     random.shuffle(options)
 
-    # Hayvanın bir resmini rastgele seçelim
-    image = random.choice([animal.resim, animal.resim2, animal.resim3, animal.resim4])
+    # Mevcut resimleri bir liste içine alalım
+    images = [animal.resim, animal.resim2, animal.resim3, animal.resim4]
+    # Boş olmayan resimleri filtreleyelim
+    valid_images = [img for img in images if img]
+    # Eğer geçerli resim varsa, rastgele birini seçelim
+    image = random.choice(valid_images) if valid_images else None
+
+    # Mevcut sesleri bir liste içine alalım
+    sounds = [animal.ses1, animal.ses2, animal.ses3]
+    # Boş olmayan sesleri filtreleyelim
+    valid_sounds = [sound for sound in sounds if sound]
+    # Eğer geçerli ses varsa, rastgele birini seçelim
+    sound = random.choice(valid_sounds) if valid_sounds else None
 
     context = {
         'animal': animal,
         'options': options,
         'game': game,
         'image': image,
+        'sound': sound,
         'BaskaMasal': BaskaMasal,
         'BaskaHikaye': BaskaHikaye,
     }
