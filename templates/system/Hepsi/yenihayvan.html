@@ -302,47 +302,23 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
-                        {% if EnDerun.Model == "Masal" %}
-                            <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
-                        {% elif EnDerun.Model == "Hikaye" %}
-                            <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
-                        {% endif %}
-
-                        <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
+                        <li class="breadcrumb-item"><a href="{% url 'oyunlar' %}">Çocuk Oyunları</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ game.title }}</li>
                     </ol>
                 </nav>
                 <div class="row gy-4">
                     <div class="col-lg-8">
                         <div class="post post-single">
-                            <!-- post header -->
+                            <!-- post header
                             <div class="post-header">
-                                <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
-                                <!-- {% if EnDerun.Model == "Masal" %}
-                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
-                        {% elif EnDerun.Model == "Hikaye" %}
-                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
-                        {% endif %} -->
-
-                                <ul class="meta list-inline mb-0">
-                                    {% if EnDerun.Model == "Masal" %}
-                                        <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a>
-                                        </li>
-                                    {% elif EnDerun.Model == "Hikaye" %}
-                                        <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a>
-                                        </li>
-                                    {% endif %}
-                                    <li class="list-inline-item">Eklenme
-                                        Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
-                                    <li class="list-inline-item">Güncelleme
-                                        Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
-                                </ul>
-                            </div>
+                                <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ game.h1 }}</h1>
+                            </div> -->
 
 
                             <div class="post-content clearfix">
 
                                 <div class="game-container">
-                                    <h1>Hayvanı Tahmin Et!</h1>
+                                    <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ game.h1 }}</h1>
 
                                     <div class="animal-display">
                                         <img src="{{ image.url }}" alt="Hayvan Resmi" class="animal-image">
@@ -417,11 +393,7 @@
                                         }, 2000);
                                     }
 
-                                    // Play random Turkish sound automatically when page loads
-                                    window.onload = function () {
-                                        const turkishSoundButton = document.querySelector('.sound-button.turkish');
-                                        turkishSoundButton.click();
-                                    };
+
                                 </script>
 
                                 <!-- post bottom section -->
