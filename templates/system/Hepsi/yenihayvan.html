@@ -341,11 +341,13 @@
                 Sesi Tekrar Çal
             </button>
         {% endif %}
-        <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
-                class="sound-button english">
-            <img src="{% static 'images/other/ingilizce.png' %}" alt="EN bayrak">
-            İngilizce Ses
-        </button>
+        {% if animal.ingilizce_ses %}
+            <button onclick="playSound('{{ animal.ingilizce_ses.url }}')"
+                    class="sound-button english">
+                <img src="{% static 'images/other/ingilizce.png' %}" alt="EN bayrak">
+                İngilizce Ses
+            </button>
+        {% endif %}
     </div>
 
     <div class="options-container">
@@ -366,33 +368,35 @@
 
                                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
                                 <script>
-    function playSound(url) {
-        const audio = new Audio(url);
-        audio.play();
-    }
+                                    function playSound(url) {
+                                        const audio = new Audio(url);
+                                        audio.play();
+                                    }
 
-    function checkAnswer(selectedOption, correctOption) {
-        const resultDiv = document.getElementById('result');
-        if (selectedOption === correctOption) {
-            resultDiv.textContent = "Tebrikler! Doğru cevap.";
-            resultDiv.style.color = "green";
-        } else {
-            resultDiv.textContent = "Üzgünüm, yanlış cevap. Doğru cevap: " + correctOption;
-            resultDiv.style.color = "red";
-        }
+                                    function checkAnswer(selectedOption, correctOption) {
+                                        const resultDiv = document.getElementById('result');
+                                        if (selectedOption === correctOption) {
+                                            resultDiv.textContent = "Tebrikler! Doğru cevap.";
+                                            resultDiv.style.color = "green";
+                                        } else {
+                                            resultDiv.textContent = "Üzgünüm, yanlış cevap. Doğru cevap: " + correctOption;
+                                            resultDiv.style.color = "red";
+                                        }
 
-        // Disable all buttons after an answer is selected
-        const buttons = document.querySelectorAll('.option-button');
-        buttons.forEach(button => {
-            button.disabled = true;
-        });
+                                        // Disable all buttons after an answer is selected
+                                        const buttons = document.querySelectorAll('.option-button');
+                                        buttons.forEach(button => {
+                                            button.disabled = true;
+                                        });
 
-        // Reload page after 2 seconds
-        setTimeout(() => {
-            window.location.reload();
-        }, 2000);
-    }
-</script>
+                                        // Reload page after 2 seconds
+                                        setTimeout(() => {
+                                            window.location.reload();
+                                        }, 2000);
+                                    }
+
+                                    // Otomatik ses çalmayı kaldırdık
+                                </script>
 
                                 <!-- post bottom section -->
                                 <div class="post-bottom">
