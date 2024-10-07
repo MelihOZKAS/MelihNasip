@@ -18,7 +18,7 @@
 
 {% block tt_post_image %}
     {% if EnDerun.resim %}
-        <meta name="twitter:image" content="{{ EnDerun.resim.url }}">
+        <meta name="twitter:image" content="{{ game.resim.url }}">
     {% else %}
         <meta name="twitter:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">
     {% endif %}
@@ -35,9 +35,6 @@
 
 
 {% block extra_head %}
-
-
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -188,35 +185,20 @@
 {
 "@context": "https://schema.org",
   "@type": "Article",
-  "name": "{{ EnDerun.title }}",
-  "headline": "{{ EnDerun.title }}",
-  "alternateName": "{{ EnDerun.h1 }}",
+  "name": "{{ game.title }}",
+  "headline": "{{ game.title }}",
+  "alternateName": "{{ game.h1 }}",
   "articleBody": "{{ articleBody }}",
   "description": "{{ EnDerun.meta_description }}",
   "inLanguage": "tr",
-  "genre": "{{ TumKategori }}",
   "sameAs": "{{ request.build_absolute_uri }}",
-  "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
-  "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
-
   "mainEntityOfPage": {
   "@type": "webPage",
   "id": "{{ request.build_absolute_uri }}"
 },
 
-  {% if EnDerun.youtube %}
-  "video": {
-    "@type": "VideoObject",
-    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
-    "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
-    "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
-    "thumbnailUrl": "{{ thumbnail_url }}", // Video küçük resim URL'sini
-    "embedUrl": "{{ EnDerun.youtube }}"
-    // Diğer video bilgilerini buraya ekleyin
-  },
-  {% endif %}
 
-  "keywords": "{{ EnDerun.keywords }}",
+  "keywords": "{{ game.keywords }}",
 
   "author": {
   "@type": "Person",
@@ -242,12 +224,11 @@
       }
     },
 
-  "articleSection": "{{ TumKategori }}",
   "isFamilyFriendly": "true",
   "interactionStatistic": {
     "@type": "InteractionCounter",
     "interactionType": { "@type": "https://schema.org/ReadAction" },
-    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}"
+    "userInteractionCount": "{{ game.okunma_sayisi }}"
   }
 }
 </script>
@@ -269,17 +250,14 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "{% if EnDerun.Model == 'Masal' %}{{ EnDerun.masalKategorisi.first.Masal_Title }}{% else %}
-        {{ EnDerun.hikayeKategorisi.first.Hikaye_Title }}{% endif %}",
-      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-kategori/{% if EnDerun.Model == 'Masal' %}
-        {{ EnDerun.masalKategorisi.first.MasalSlug }}{% else %}
-        {{ EnDerun.hikayeKategorisi.first.HikayeSlug }}{% endif %}/"
+      "name": "Çocuk Oyunları",
+      "item": "https://www.cocukmasallarioku.com/oyunlar/"
     },
     {
       "@type": "ListItem",
       "position": 3,
-      "name": "{{ EnDerun.title }}",
-      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-oku/{{ EnDerun.slug }}/"
+      "name": "{{ game.title }}",
+      "item": "{{ request.build_absolute_uri }}"
     }
   ]
 
