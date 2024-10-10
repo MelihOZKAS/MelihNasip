@@ -278,6 +278,11 @@
                                     {% include 'system/parcali/yatayreklam.html' %}
                                     <br>
                                     {% if EnDerun.resim2 %}
+                                        <div class="position-absolute top-50 start-50 translate-middle">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="toggleImage('image2', this)">Resmi Göster/Gizle
+                                            </button>
+                                        </div>
                                         <figure class="figure">
                                             <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
                                                  alt="{{ EnDerun.title }} - 2" width="800" height="400" loading="lazy">
@@ -290,6 +295,11 @@
                                     {% include 'system/parcali/yatayreklam.html' %}
                                     <br>
                                     {% if EnDerun.resim3 %}
+                                        <div class="position-absolute top-50 start-50 translate-middle">
+                                            <button class="btn btn-primary" type="button"
+                                                    onclick="toggleImage('image3', this)">Resmi Göster/Gizle
+                                            </button>
+                                        </div>
                                         <figure class="figure">
                                             <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
                                                  alt="{{ EnDerun.title }} - 3" width="800" height="400" loading="lazy">
@@ -428,6 +438,18 @@
 
     {% block extra_script %}
         <script>
+
+            function toggleImage(imageId, button) {
+                const image = document.getElementById(imageId);
+                if (image.style.display === 'none') {
+                    image.style.display = 'block';
+                    button.textContent = 'Resmi Gizle';
+                } else {
+                    image.style.display = 'none';
+                    button.textContent = 'Resmi Göster';
+                }
+            }
+
             document.querySelector('.play-button').addEventListener('click', function () {
                 var videoId = '{{ EnDerun.youtube }}'.split('/').pop();
                 var iframe = document.createElement('iframe');
