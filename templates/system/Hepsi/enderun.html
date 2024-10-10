@@ -279,7 +279,7 @@
                                 {% if EnDerun.resim2 %}
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning" type="button"
+                                            <button class="btn btn-warning" style="font-size: large" type="button"
                                                     onclick="toggleImage('image2', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -304,7 +304,7 @@
                                 {% if EnDerun.resim3 %}
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning" type="button"
+                                            <button class="btn btn-warning" style="font-size: xx-large" type="button"
                                                     onclick="toggleImage('image3', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -330,7 +330,7 @@
                                 {% if EnDerun.resim4 %}
                                     <div class="row mb-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning" type="button"
+                                            <button class="btn btn-warning" style="font-size: xxx-large" type="button"
                                                     onclick="toggleImage('image4', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -346,8 +346,8 @@
                                     </div>
                                 {% endif %}
                                 {% if EnDerun.icerik4 %}
-                                    {% include 'system/parcali/yatayreklam.html' %}
                                     <div class="mt-3">{{ EnDerun.icerik4|safe }}</div>
+                                    {% include 'system/parcali/yatayreklam.html' %}
                                 {% endif %}
 
 
