@@ -279,7 +279,8 @@
                                 {% if EnDerun.resim2 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image2', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -304,7 +305,8 @@
                                 {% if EnDerun.resim3 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image3', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -330,7 +332,8 @@
                                 {% if EnDerun.resim4 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image4', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -355,7 +358,8 @@
                                 {% if EnDerun.resim5 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image5', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -379,7 +383,8 @@
                                 {% if EnDerun.resim6 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image6', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -405,7 +410,8 @@
                                 {% if EnDerun.resim7 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image7', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -428,7 +434,8 @@
                                 {% if EnDerun.resim8 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image8', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -454,7 +461,8 @@
                                 {% if EnDerun.resim9 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image9', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -478,7 +486,8 @@
                                 {% if EnDerun.resim10 %}
                                     <div class="row mb-3 mt-3">
                                         <div class="col text-center">
-                                            <button class="btn btn-warning fw-bold" style="font-size: x-large" type="button"
+                                            <button class="btn btn-warning fw-bold" style="font-size: x-large"
+                                                    type="button"
                                                     onclick="toggleImage('image10', this)">Resmi Gizle
                                             </button>
                                         </div>
@@ -486,7 +495,8 @@
                                     <div class="row">
                                         <div class="col">
                                             <figure class="figure mb-0">
-                                                <img src="{{ EnDerun.resim10.url }}" class="figure-img img-fluid rounded"
+                                                <img src="{{ EnDerun.resim10.url }}"
+                                                     class="figure-img img-fluid rounded"
                                                      alt="{{ EnDerun.title }} - 10" width="800" height="400"
                                                      loading="lazy" id="image10">
                                             </figure>
@@ -509,6 +519,9 @@
                                                class="btn btn-default">Başka Masal</a>
                                             <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
                                                class="btn btn-default">Başka Hikaye</a>
+                                        </div>
+                                        <div class="col-md-12 col-12 text-center">
+                                            <h3>Arkadaşlarınla Paylaş</h3>
                                         </div>
 
                                         {% include "system/parcali/paylas.html" %}
