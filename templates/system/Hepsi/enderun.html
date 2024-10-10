@@ -142,88 +142,88 @@
 
 
 {% block content %}
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 
-<article>
-    <section class="main-content">
-        <div class="container-xl">
+    <article>
+        <section class="main-content">
+            <div class="container-xl">
 
-            {% include 'system/parcali/yatayreklam.html' %}
+                {% include 'system/parcali/yatayreklam.html' %}
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
-                    {% if EnDerun.Model == "Masal" %}
-                        <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
-                    {% elif EnDerun.Model == "Hikaye" %}
-                        <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
-                    {% endif %}
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">AnaSayfa</a></li>
+                        {% if EnDerun.Model == "Masal" %}
+                            <li class="breadcrumb-item"><a href="{% url 'MasallarHome' %}">Çocuk Masalları</a></li>
+                        {% elif EnDerun.Model == "Hikaye" %}
+                            <li class="breadcrumb-item"><a href="{% url 'HikayelerHome' %}">Çocuk Hikayeleri</a></li>
+                        {% endif %}
 
-                    <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
-                </ol>
-            </nav>
+                        <li class="breadcrumb-item active" aria-current="page">{{ EnDerun.title }}</li>
+                    </ol>
+                </nav>
 
-            <div class="row gy-4">
+                <div class="row gy-4">
 
-                <div class="col-lg-8">
-                    <div class="post post-single">
-                        <!-- post header -->
-                        <div class="post-header">
+                    <div class="col-lg-8">
+                        <div class="post post-single">
+                            <!-- post header -->
+                            <div class="post-header">
 
-                            <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
+                                <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.h1 }}</h1>
 
-                            <!-- {% if EnDerun.Model == "Masal" %}
+                                <!-- {% if EnDerun.Model == "Masal" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Masalını Oku - Çocuklar İçin</h1>
                         {% elif EnDerun.Model == "Hikaye" %}
                             <h1 class="title mt-0 mb-3" style="font-size: 24px;">{{ EnDerun.title }} Hikayesini Oku - Çocuklar İçin</h1>
                         {% endif %} -->
 
-                            <ul class="meta list-inline mb-0">
-                                {% if EnDerun.Model == "Masal" %}
-                                    <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a>
-                                    </li>
-                                {% elif EnDerun.Model == "Hikaye" %}
-                                    <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a>
-                                    </li>
+                                <ul class="meta list-inline mb-0">
+                                    {% if EnDerun.Model == "Masal" %}
+                                        <li class="list-inline-item"><a href="{% url 'MasallarHome' %}">Masallar</a>
+                                        </li>
+                                    {% elif EnDerun.Model == "Hikaye" %}
+                                        <li class="list-inline-item"><a href="{% url 'HikayelerHome' %}">Hikayeler</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="list-inline-item">Eklenme
+                                        Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
+                                    <li class="list-inline-item">Güncelleme
+                                        Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="post-content clearfix">
+
+                                {% if EnDerun.resim %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }}" width="800" height="400" loading="lazy">
+                                        <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
+                                            Hikaye Oku
+                                        </figcaption>
+                                    </figure>
                                 {% endif %}
-                                <li class="list-inline-item">Eklenme
-                                    Tarihi: {{ EnDerun.olusturma_tarihi|date:"d F Y" }} </li>
-                                <li class="list-inline-item">Güncelleme
-                                    Tarihi: {{ EnDerun.guncelleme_tarihi|date:"d F Y" }} </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="post-content clearfix">
-
-                            {% if EnDerun.resim %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }}" width="800" height="400" loading="lazy">
-                                    <figcaption class="figure-caption text-center">{{ EnDerun.title }} - Masal Oku -
-                                        Hikaye Oku
-                                    </figcaption>
-                                </figure>
-                            {% endif %}
 
 
 
 
-                            {% if EnDerun.youtube %}
-                                <div class="video-container"
-                                     style="position: relative; width: 100%; max-width: 640px; margin: 0 auto;">
-                                    <img src="{{ thumbnail_url }}" alt="{{ EnDerun.title }}"
-                                         style="width: 100%; height: auto;">
-                                    <button class="play-button"
-                                            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border: none; border-radius: 50%; padding: 20px; cursor: pointer;">
-                                        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            {% endif %}
+                                {% if EnDerun.youtube %}
+                                    <div class="video-container"
+                                         style="position: relative; width: 100%; max-width: 640px; margin: 0 auto;">
+                                        <img src="{{ thumbnail_url }}" alt="{{ EnDerun.title }}"
+                                             style="width: 100%; height: auto;">
+                                        <button class="play-button"
+                                                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); border: none; border-radius: 50%; padding: 20px; cursor: pointer;">
+                                            <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                {% endif %}
 
-                            <!-- youtube close
+                                <!-- youtube close
 
                                 {% if EnDerun.youtube %}
                                     <br/>
@@ -258,7 +258,7 @@
                                 {% endif %}
 
                             -->
-                            <!--
+                                <!--
                                 {% if EnDerun.Model == "Masal" %}
                                     <br/>
                                     <h3>Haydi, büyülü dünyamıza adım atalım. Masalımız şimdi başlıyor...</h3>
@@ -270,218 +270,212 @@
                             -->
 
 
-                            <div>
-                                {{ EnDerun.icerik|safe }}
-                            </div>
-
-                            {% if EnDerun.resim2 %}
-                                <div class="row mb-3">
-                                    <div class="col text-center">
-                                        <button class="btn btn-warning" type="button"
-                                                onclick="toggleImage('image2', this)">Gizle
-                                        </button>
-                                    </div>
+                                <div>
+                                    {{ EnDerun.icerik|safe }}
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <figure class="figure mb-0">
+
+                                {% if EnDerun.icerik2 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    {% if EnDerun.resim2 %}
+                                        <figure class="figure">
                                             <img src="{{ EnDerun.resim2.url }}" class="figure-img img-fluid rounded"
-                                                 alt="{{ EnDerun.title }} - 2" width="800" height="400" loading="lazy"
-                                                 id="image2">
+                                                 alt="{{ EnDerun.title }} - 2" width="800" height="400" loading="lazy">
                                         </figure>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <div>{{ EnDerun.icerik2|safe }}</div>
-                            {% endif %}
-
-                            {% if EnDerun.icerik3 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                {% if EnDerun.resim3 %}
-                                    <div class="row mb-3">
-                                        <div class="col text-center">
-                                            <button class="btn btn-warning" type="button"
-                                                    onclick="toggleImage('image3', this)">Gizle
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <figure class="figure mb-0">
-                                                <img src="{{ EnDerun.resim3.url }}" class="figure-img img-fluid rounded"
-                                                     alt="{{ EnDerun.title }} - 3" width="800" height="400"
-                                                     loading="lazy" id="image3">
-                                            </figure>
-                                        </div>
-                                    </div>
+                                    {% endif %}
+                                    <div>{{ EnDerun.icerik2|safe }}</div>
                                 {% endif %}
-                                <div>{{ EnDerun.icerik3|safe }}</div>
-                            {% endif %}
+
+                                {% if EnDerun.icerik3 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    {% if EnDerun.resim3 %}
+                                        <div class="row mb-3">
+                                            <div class="col text-center">
+                                                <button class="btn btn-warning" type="button"
+                                                        onclick="toggleImage('image3', this)">Gizle
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <figure class="figure mb-0">
+                                                    <img src="{{ EnDerun.resim3.url }}"
+                                                         class="figure-img img-fluid rounded"
+                                                         alt="{{ EnDerun.title }} - 3" width="800" height="400"
+                                                         loading="lazy" id="image3">
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    <div>{{ EnDerun.icerik3|safe }}</div>
+                                {% endif %}
 
 
 
-                            {% if EnDerun.resim4 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 4" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik4 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik4|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.resim4 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim4.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 4" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik4 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik4|safe }}</div>
+                                {% endif %}
 
 
 
-                            {% if EnDerun.resim5 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim5.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 5" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik5 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik5|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.resim5 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim5.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 5" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik5 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik5|safe }}</div>
+                                {% endif %}
 
 
-                            {% if EnDerun.resim6 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim6.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 6" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik6 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik6|safe }}</div>
-                            {% endif %}
-
-
-
-
-                            {% if EnDerun.resim7 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim7.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 7" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik7 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik7|safe }}</div>
-                            {% endif %}
-
-
-                            {% if EnDerun.resim8 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim8.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 8" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik8 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik8|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.resim6 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim6.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 6" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik6 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik6|safe }}</div>
+                                {% endif %}
 
 
 
 
-                            {% if EnDerun.resim9 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim9.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 9" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik9 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik9|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.resim7 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim7.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 7" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik7 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik7|safe }}</div>
+                                {% endif %}
 
 
-                            {% if EnDerun.resim10 %}
-                                <figure class="figure">
-                                    <img src="{{ EnDerun.resim10.url }}" class="figure-img img-fluid rounded"
-                                         alt="{{ EnDerun.title }} - 10" width="800" height="400" loading="lazy">
-                                </figure>
-                            {% endif %}
-                            {% if EnDerun.icerik10 %}
-                                {% include 'system/parcali/yatayreklam.html' %}
-                                <br>
-                                <div>{{ EnDerun.icerik10|safe }}</div>
-                            {% endif %}
+                                {% if EnDerun.resim8 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim8.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 8" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik8 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik8|safe }}</div>
+                                {% endif %}
 
 
 
-                            <!-- post bottom section -->
-                            <div class="post-bottom">
-                                <div class="row d-flex align-items-center">
-                                    <div class="col-md-12 col-12 text-center">
-                                        <!-- buttons -->
-                                        <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
-                                           class="btn btn-default">Başka Masal</a>
-                                        <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
-                                           class="btn btn-default">Başka Hikaye</a>
+
+                                {% if EnDerun.resim9 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim9.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 9" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik9 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik9|safe }}</div>
+                                {% endif %}
+
+
+                                {% if EnDerun.resim10 %}
+                                    <figure class="figure">
+                                        <img src="{{ EnDerun.resim10.url }}" class="figure-img img-fluid rounded"
+                                             alt="{{ EnDerun.title }} - 10" width="800" height="400" loading="lazy">
+                                    </figure>
+                                {% endif %}
+                                {% if EnDerun.icerik10 %}
+                                    {% include 'system/parcali/yatayreklam.html' %}
+                                    <br>
+                                    <div>{{ EnDerun.icerik10|safe }}</div>
+                                {% endif %}
+
+
+
+                                <!-- post bottom section -->
+                                <div class="post-bottom">
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-md-12 col-12 text-center">
+                                            <!-- buttons -->
+                                            <a href="{% url 'masal-getir' masal_slug=BaskaMasal.slug %}"
+                                               class="btn btn-default">Başka Masal</a>
+                                            <a href="{% url 'hikaye-getir' hikaye_slug=BaskaHikaye.slug %}"
+                                               class="btn btn-default">Başka Hikaye</a>
+                                        </div>
+
+                                        {% include "system/parcali/paylas.html" %}
                                     </div>
-
-                                    {% include "system/parcali/paylas.html" %}
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
 
+                    <!-- Sağ Sidebar -->
+                    {% include 'system/parcali/sagSidebar.html' %}
+                    <!-- Sağ Sidebar -->
+
                 </div>
-
-                <!-- Sağ Sidebar -->
-                {% include 'system/parcali/sagSidebar.html' %}
-                <!-- Sağ Sidebar -->
-
             </div>
-        </div>
-    </section>
-</article>
+        </section>
+    </article>
 
-{% block extra_script %}
-    <script>
-        function toggleImage(imageId, button) {
-            const image = document.getElementById(imageId);
-            if (image.style.display === 'none') {
-                image.style.display = 'block';
-                button.textContent = 'Gizle';
-                button.classList.remove('btn-success');
-                button.classList.add('btn-warning');
-            } else {
-                image.style.display = 'none';
-                button.textContent = 'Göster';
-                button.classList.remove('btn-warning');
-                button.classList.add('btn-success');
+    {% block extra_script %}
+        <script>
+
+            function toggleImage(imageId, button) {
+                const image = document.getElementById(imageId);
+                if (image.style.display === 'none') {
+                    image.style.display = 'block';
+                    button.textContent = 'Gizle';
+                    button.classList.remove('btn-success');
+                    button.classList.add('btn-warning');
+                } else {
+                    image.style.display = 'none';
+                    button.textContent = 'Göster';
+                    button.classList.remove('btn-warning');
+                    button.classList.add('btn-success');
+                }
             }
-        }
 
-        document.querySelector('.play-button').addEventListener('click', function () {
-            var videoId = '{{ EnDerun.youtube }}'.split('/').pop();
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'autoplay; encrypted-media');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.style.position = 'absolute';
-            iframe.style.top = '0';
-            iframe.style.left = '0';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
+            document.querySelector('.play-button').addEventListener('click', function () {
+                var videoId = '{{ EnDerun.youtube }}'.split('/').pop();
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId + '?autoplay=1');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'autoplay; encrypted-media');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.position = 'absolute';
+                iframe.style.top = '0';
+                iframe.style.left = '0';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
 
-            this.parentNode.appendChild(iframe);
-            this.style.display = 'none';
-        });
-    </script>
-{% endblock extra_script %}
+                this.parentNode.appendChild(iframe);
+                this.style.display = 'none';
+            });
+        </script>
+    {% endblock extra_script %}
+
 
 
 {% endblock content %}
