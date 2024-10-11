@@ -283,7 +283,11 @@ class Animals(models.Model):
     resim4 = models.ImageField(upload_to='Hayvan-images/',
                               storage=ImageSettingStorage(),
                               null=True, blank=True)
-
-
+    resim5 = models.ImageField(upload_to='Hayvan-images/',
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
+    resim6 = models.ImageField(upload_to='Hayvan-images/',
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
 
 

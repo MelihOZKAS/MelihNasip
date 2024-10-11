@@ -924,7 +924,7 @@ def hayvanoyunu(request):
     random.shuffle(options)
 
     # Mevcut resimleri bir liste içine alalım
-    images = [animal.resim, animal.resim2, animal.resim3, animal.resim4]
+    images = [animal.resim, animal.resim2, animal.resim3, animal.resim4, animal.resim5, animal.resim6]
     # Boş olmayan resimleri filtreleyelim
     valid_images = [img for img in images if img]
     # Eğer geçerli resim varsa, rastgele birini seçelim
