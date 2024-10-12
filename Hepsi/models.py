@@ -234,8 +234,8 @@ class Blog(models.Model):
 class iletisimmodel(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=255,blank=True,null=True,help_text=HELP_TEXTS["keywords"])
-    title = models.TextField( blank=True, null=True)
-    icerik = models.TextField( blank=True, null=True, help_text=HELP_TEXTS["meta_description"])
+    title = models.TextField(blank=True, null=True)
+    icerik = models.TextField(blank=True, null=True, help_text=HELP_TEXTS["meta_description"])
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
 
 
