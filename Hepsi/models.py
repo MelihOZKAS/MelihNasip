@@ -157,6 +157,7 @@ class SiirMasal(models.Model):
     small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
     indexing = models.BooleanField(default=False, help_text="Indexlensin mi?")
     facebook = models.BooleanField(default=True, help_text="Facebook da Paylaşılsın mı ?")
+    linkedin = models.BooleanField(default=True, help_text="Linkedin de Paylaşılsın mı ?")
     twitter = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
     pinterest = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
