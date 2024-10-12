@@ -217,6 +217,7 @@ class Blog(models.Model):
     facebook = models.BooleanField(default=True, help_text="Facebook da Paylaşılsın mı ?")
     twitter = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
     pinterest = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
+    linkedin = models.BooleanField(default=True, help_text="Linkedin de Paylaşılsın mı ?")
     banner = models.BooleanField(default=False, help_text=HELP_TEXTS["banner"])
     small_banner = models.BooleanField(default=False,help_text=HELP_TEXTS["small_banner"])
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
