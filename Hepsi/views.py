@@ -700,7 +700,7 @@ def facebook_var_mi(request):
 
 @csrf_exempt
 def linkedin_var_mi(request):
-    post = SiirMasal.objects.filter(linkedin=True, aktif=True, status="Yayinda").order_by('guncelleme_tarihi').first()
+    post = SiirMasal.objects.filter(linkedin=True, aktif=True, status="Yayinda").order_by('-guncelleme_tarihi').first()
     if post is not None:
         # post'un facebook durumunu False yapayı unutmamak lazımmm dimi.
         post.linkedin = False
