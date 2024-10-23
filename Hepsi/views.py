@@ -795,7 +795,7 @@ def flutter_masal_api(request):
     page_number = request.GET.get('page', 1)
     per_page = 10  # Her sayfada 10 masal
 
-    masallar = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
+    masallar = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')
     paginator = Paginator(masallar, per_page)
     page_obj = paginator.get_page(page_number)
 
@@ -825,11 +825,11 @@ def flutter_icerik_api(request):
     sayfa_basina = 10
 
     if kategori == 'masal':
-        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-olusturma_tarihi')
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')
     elif kategori == 'hikaye':
-        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-olusturma_tarihi')
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')
     elif kategori == 'cocuk':
-        icerikler = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
+        icerikler = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-guncelleme_tarihi')
     else:
         return HttpResponse(json.dumps({"error": "Geçersiz kategori"}), content_type="application/json; charset=utf-8")
 
