@@ -1039,5 +1039,4 @@ def get_stories(request):
         'has_next': current_page.has_next(),
         'total_pages': paginator.num_pages
     }
-
     return JsonResponse(data)
