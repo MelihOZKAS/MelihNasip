@@ -50,6 +50,7 @@ urlpatterns = [
     path('api/flutter-icerikler/', views.flutter_icerik_api, name='flutter_icerik_api'),
     path('api/flutter-icerik-detay/<slug:slug>/', views.flutter_icerik_detay_api, name='flutter_icerik_detay_api'),
     path('api/stories/', views.get_stories, name='get_stories'),
+    path('api/categories/', views.get_categories, name='get_categories'),
     path('api/story-detail/<slug:slug>/', views.get_story_detail, name='get_story_detail'),
 
     path("iletisim/", views.iletisim, name="iletisim"),
