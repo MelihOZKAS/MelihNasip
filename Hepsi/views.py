@@ -989,6 +989,11 @@ from django.http import JsonResponse
 from .models import SiirMasal
 from django.core.paginator import Paginator
 
+# views.py
+from django.http import JsonResponse
+from .models import SiirMasal
+from django.core.paginator import Paginator
+
 
 def get_stories(request):
     page = request.GET.get('page', 1)
@@ -996,7 +1001,6 @@ def get_stories(request):
     category = request.GET.get('category', None)
 
     stories = SiirMasal.objects.all().order_by('-guncelleme_tarihi')
-
 
     if model_type:
         stories = stories.filter(Model=model_type)
@@ -1017,6 +1021,20 @@ def get_stories(request):
             'resim': story.resim.url if story.resim else None,
             'meta_description': story.meta_description[:100] if story.meta_description else "",
             'Model': story.Model,
+        } for story in current_page],
+        'has_next': current_page.has_next(),
+        'total_pages': paginator.num_pages
+    }
+
+    return JsonResponse(data)
+
+
+def get_story_detail(request, slug):
+    try:
+        story = SiirMasal.objects.get(slug=slug)
+        data = {
+            'id': story.id,
+            'title': story.title,
             'icerik': story.icerik,
             'icerik2': story.icerik2,
             'icerik3': story.icerik3,
@@ -1027,6 +1045,7 @@ def get_stories(request):
             'icerik8': story.icerik8,
             'icerik9': story.icerik9,
             'icerik10': story.icerik10,
+            'resim': story.resim.url if story.resim else None,
             'resim2': story.resim2.url if story.resim2 else None,
             'resim3': story.resim3.url if story.resim3 else None,
             'resim4': story.resim4.url if story.resim4 else None,
@@ -1036,8 +1055,7 @@ def get_stories(request):
             'resim8': story.resim8.url if story.resim8 else None,
             'resim9': story.resim9.url if story.resim9 else None,
             'resim10': story.resim10.url if story.resim10 else None,
-        } for story in current_page],
-        'has_next': current_page.has_next(),
-        'total_pages': paginator.num_pages
-    }
-    return JsonResponse(data)
+        }
+        return JsonResponse(data)
+    except SiirMasal.DoesNotExist:
+        return JsonResponse({'error': 'Story not found'}, status=404)
