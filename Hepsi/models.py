@@ -68,6 +68,9 @@ class HikayeKategorileri(models.Model):
     sirasi = models.IntegerField(default=100)
     Aktif = models.BooleanField(default=False)
     Banner = models.BooleanField(default=False)
+    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
 
@@ -84,10 +87,13 @@ class MasalKategorileri(models.Model):
     kisa_title = models.TextField(blank=True, null=True)
     kisa_aciklama = models.TextField(blank=True, null=True)
     Masal_meta_description = models.TextField( blank=True, help_text=HELP_TEXTS["meta_description"])
-    Masal_keywords = models.CharField( max_length=255, blank=True,  help_text=HELP_TEXTS["keywords"])
+    Masal_keywords = models.CharField(max_length=255, blank=True,  help_text=HELP_TEXTS["keywords"])
     sirasi = models.IntegerField(default=100)
     Aktif = models.BooleanField(default=False)
     Banner = models.BooleanField(default=False)
+    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+                              storage=ImageSettingStorage(),
+                              null=True, blank=True)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)
 
@@ -183,7 +189,7 @@ class Blog(models.Model):
     Model = models.CharField(max_length=40, choices=model_tipi_blog, help_text=HELP_TEXTS["Model"],  blank=True)
     icerik = RichTextField(null=True, blank=True, help_text=HELP_TEXTS["icerik"])
     icerik1 = RichTextField(null=True, blank=True)
-    froaicerik1 = FroalaField(null=True, blank=True)
+    #froaicerik1 = FroalaField(null=True, blank=True)
     icerik2 = RichTextField(null=True, blank=True)
     icerik3 = RichTextField(null=True, blank=True)
     icerik4 = RichTextField(null=True, blank=True)
