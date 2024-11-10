@@ -902,6 +902,12 @@ def flutter_icerik_detay_api(request, slug):
         data['icerik2'] = clean_content(icerik.icerik2)
         data['icerik3'] = clean_content(icerik.icerik3)
         data['icerik4'] = clean_content(icerik.icerik4)
+        data['icerik5'] = clean_content(icerik.icerik5)
+        data['icerik6'] = clean_content(icerik.icerik6)
+        data['icerik7'] = clean_content(icerik.icerik7)
+        data['icerik8'] = clean_content(icerik.icerik8)
+        data['icerik9'] = clean_content(icerik.icerik9)
+        data['icerik10'] = clean_content(icerik.icerik10)
 
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
 
@@ -976,3 +982,62 @@ def oyunlar(request):
 
     }
     return render(request, 'system/Hepsi/oyunlar-listesi.html', context)
+
+
+# views.py
+from django.http import JsonResponse
+from .models import SiirMasal
+from django.core.paginator import Paginator
+
+
+def get_stories(request):
+    page = request.GET.get('page', 1)
+    model_type = request.GET.get('model_type', None)
+    category = request.GET.get('category', None)
+
+    stories = SiirMasal.objects.all()
+
+    if model_type:
+        stories = stories.filter(Model=model_type)
+    if category:
+        if model_type == 'Masal':
+            stories = stories.filter(masalKategorisi=category)
+        elif model_type == 'Hikaye':
+            stories = stories.filter(hikayeKategorisi=category)
+
+    paginator = Paginator(stories, 10)
+    current_page = paginator.page(int(page))
+
+    data = {
+        'results': [{
+            'id': story.id,
+            'title': story.title,
+            'slug': story.slug,
+            'resim': story.resim.url if story.resim else None,
+            'meta_description': story.meta_description[:100] if story.meta_description else "",
+            'Model': story.Model,
+            'icerik': story.icerik,
+            'icerik2': story.icerik2,
+            'icerik3': story.icerik3,
+            'icerik4': story.icerik4,
+            'icerik5': story.icerik5,
+            'icerik6': story.icerik6,
+            'icerik7': story.icerik7,
+            'icerik8': story.icerik8,
+            'icerik9': story.icerik9,
+            'icerik10': story.icerik10,
+            'resim2': story.resim2.url if story.resim2 else None,
+            'resim3': story.resim3.url if story.resim3 else None,
+            'resim4': story.resim4.url if story.resim4 else None,
+            'resim5': story.resim5.url if story.resim5 else None,
+            'resim6': story.resim6.url if story.resim6 else None,
+            'resim7': story.resim7.url if story.resim7 else None,
+            'resim8': story.resim8.url if story.resim8 else None,
+            'resim9': story.resim9.url if story.resim9 else None,
+            'resim10': story.resim10.url if story.resim10 else None,
+        } for story in current_page],
+        'has_next': current_page.has_next(),
+        'total_pages': paginator.num_pages
+    }
+
+    return JsonResponse(data)

@@ -38,6 +38,7 @@ urlpatterns = [
     path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
 
+
     path("oyunlar/", views.oyunlar, name="oyunlar"),
     path("cocuklara-matematik-oyunu/", views.matematik, name="matematikoyunu"),
     path("cocuklara-hayvan-oyunu/", views.hayvanoyunu, name="hayvanoyunu"),
@@ -48,6 +49,7 @@ urlpatterns = [
     path("kadin/", views.BlogHome, name="kadin"),
     path('api/flutter-icerikler/', views.flutter_icerik_api, name='flutter_icerik_api'),
     path('api/flutter-icerik-detay/<slug:slug>/', views.flutter_icerik_detay_api, name='flutter_icerik_detay_api'),
+    path('api/stories/', views.get_stories, name='get_stories'),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("cerez-politikasi/", views.cerez, name="cerez"),
