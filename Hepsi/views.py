@@ -1061,3 +1061,32 @@ def get_stories(request):
     }
 
     return JsonResponse(data)
+
+
+# views.py'a eklenecek
+def get_categories(request):
+    masal_categories = MasalKategorileri.objects.filter(Aktif=True).values('id', 'MasalKategoriAdi', 'MasalSlug',
+                                                                           'resim', 'h1')
+    hikaye_categories = HikayeKategorileri.objects.filter(Aktif=True).values('id', 'HikayeKategoriAdi', 'HikayeSlug',
+                                                                             'resim', 'h1')
+
+    data = {
+        'masal_categories': [{
+            'id': cat['id'],
+            'name': cat['MasalKategoriAdi'],
+            'slug': cat['MasalSlug'],
+            'image': cat['resim'].url if cat['resim'] else None,
+            'h1': cat['h1'],
+            'type': 'Masal'
+        } for cat in masal_categories],
+        'hikaye_categories': [{
+            'id': cat['id'],
+            'name': cat['HikayeKategoriAdi'],
+            'slug': cat['HikayeSlug'],
+            'image': cat['resim'].url if cat['resim'] else None,
+            'h1': cat['h1'],
+            'type': 'Hikaye'
+        } for cat in hikaye_categories]
+    }
+
+    return JsonResponse(data)

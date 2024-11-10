@@ -3,7 +3,7 @@ from Masallar.custom_storages import *
 
 from django.conf import settings
 from ckeditor.fields import RichTextField
-from froala_editor.fields import FroalaField
+#from froala_editor.fields import FroalaField
 
 HELP_TEXTS = {
     "title": "Masal Hiyenin başlığını girin.",
