@@ -995,7 +995,8 @@ def get_stories(request):
     model_type = request.GET.get('model_type', None)
     category = request.GET.get('category', None)
 
-    stories = SiirMasal.objects.all()
+    stories = SiirMasal.objects.all().order_by('-guncelleme_tarihi')
+
 
     if model_type:
         stories = stories.filter(Model=model_type)
