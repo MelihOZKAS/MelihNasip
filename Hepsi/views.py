@@ -984,49 +984,15 @@ def oyunlar(request):
     return render(request, 'system/Hepsi/oyunlar-listesi.html', context)
 
 
-# views.py
-from django.http import JsonResponse
-from .models import SiirMasal
-from django.core.paginator import Paginator
-
-# views.py
-from django.http import JsonResponse
-from .models import SiirMasal
-from django.core.paginator import Paginator
-
-
-def get_stories(request):
-    page = request.GET.get('page', 1)
-    model_type = request.GET.get('model_type', None)
-    category = request.GET.get('category', None)
-
-    stories = SiirMasal.objects.all().order_by('-guncelleme_tarihi')
-
-    if model_type:
-        stories = stories.filter(Model=model_type)
-    if category:
-        if model_type == 'Masal':
-            stories = stories.filter(masalKategorisi=category)
-        elif model_type == 'Hikaye':
-            stories = stories.filter(hikayeKategorisi=category)
-
-    paginator = Paginator(stories, 10)
-    current_page = paginator.page(int(page))
-
-    data = {
-        'results': [{
-            'id': story.id,
-            'title': story.title,
-            'slug': story.slug,
-            'resim': story.resim.url if story.resim else None,
-            'meta_description': story.meta_description[:100] if story.meta_description else "",
-            'Model': story.Model,
-        } for story in current_page],
-        'has_next': current_page.has_next(),
-        'total_pages': paginator.num_pages
-    }
-
-    return JsonResponse(data)
+def clean_content(content):
+    if content:
+        # HTML taglarını temizle
+        content = strip_tags(content)
+        # HTML entityleri düzelt (örn: &ccedil; -> ç)
+        content = html.unescape(content)
+        # String'e çevir
+        content = force_str(content)
+    return content
 
 
 def get_story_detail(request, slug):
@@ -1034,17 +1000,17 @@ def get_story_detail(request, slug):
         story = SiirMasal.objects.get(slug=slug)
         data = {
             'id': story.id,
-            'title': story.title,
-            'icerik': story.icerik,
-            'icerik2': story.icerik2,
-            'icerik3': story.icerik3,
-            'icerik4': story.icerik4,
-            'icerik5': story.icerik5,
-            'icerik6': story.icerik6,
-            'icerik7': story.icerik7,
-            'icerik8': story.icerik8,
-            'icerik9': story.icerik9,
-            'icerik10': story.icerik10,
+            'title': clean_content(story.title),
+            'icerik': clean_content(story.icerik),
+            'icerik2': clean_content(story.icerik2),
+            'icerik3': clean_content(story.icerik3),
+            'icerik4': clean_content(story.icerik4),
+            'icerik5': clean_content(story.icerik5),
+            'icerik6': clean_content(story.icerik6),
+            'icerik7': clean_content(story.icerik7),
+            'icerik8': clean_content(story.icerik8),
+            'icerik9': clean_content(story.icerik9),
+            'icerik10': clean_content(story.icerik10),
             'resim': story.resim.url if story.resim else None,
             'resim2': story.resim2.url if story.resim2 else None,
             'resim3': story.resim3.url if story.resim3 else None,
@@ -1059,3 +1025,39 @@ def get_story_detail(request, slug):
         return JsonResponse(data)
     except SiirMasal.DoesNotExist:
         return JsonResponse({'error': 'Story not found'}, status=404)
+
+
+def get_stories(request):
+    page = int(request.GET.get('page', 1))
+    model_type = request.GET.get('model_type', None)
+    category = request.GET.get('category', None)
+
+    stories = SiirMasal.objects.only(
+        'id', 'title', 'slug', 'resim', 'meta_description', 'Model'
+    ).order_by('-guncelleme_tarihi')
+
+    if model_type:
+        stories = stories.filter(Model=model_type)
+    if category:
+        if model_type == 'Masal':
+            stories = stories.filter(masalKategorisi=category)
+        elif model_type == 'Hikaye':
+            stories = stories.filter(hikayeKategorisi=category)
+
+    paginator = Paginator(stories, 10)
+    current_page = paginator.page(page)
+
+    data = {
+        'results': [{
+            'id': story.id,
+            'title': clean_content(story.title),
+            'slug': story.slug,
+            'resim': story.resim.url if story.resim else None,
+            'meta_description': clean_content(story.meta_description)[:100] if story.meta_description else "",
+            'Model': story.Model,
+        } for story in current_page],
+        'has_next': current_page.has_next(),
+        'total_pages': paginator.num_pages
+    }
+
+    return JsonResponse(data)
