@@ -916,7 +916,7 @@ def flutter_icerik_detay_api(request, slug):
 def matematik(request):
     game = get_object_or_404(Oyunlar, short_name="matematik")
     game.okunma_sayisi += 1
-    game.save()
+    game.save(update_fields=['okunma_sayisi'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
 
@@ -933,7 +933,7 @@ def hayvanoyunu(request):
     animal = Animals.objects.order_by('?').first()
     game = get_object_or_404(Oyunlar, short_name="hayvan")
     game.okunma_sayisi += 1
-    game.save()
+    game.save(update_fields=['okunma_sayisi'])
 
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
@@ -998,6 +998,8 @@ def clean_content(content):
 def get_story_detail(request, slug):
     try:
         story = SiirMasal.objects.get(slug=slug)
+        story.okunma_sayisi += 1
+        story.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         data = {
             'id': story.id,
             'title': clean_content(story.title),
