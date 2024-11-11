@@ -1066,15 +1066,33 @@ def get_stories(request):
 from django.http import JsonResponse
 
 
+# views.py
 def get_categories(request):
-    masal_categories = MasalKategorileri.objects.filter(Aktif=True).values('id', 'MasalKategoriAdi', 'MasalSlug',
-                                                                           'resim', 'h1')
-    hikaye_categories = HikayeKategorileri.objects.filter(Aktif=True).values('id', 'HikayeKategoriAdi', 'HikayeSlug',
-                                                                             'resim', 'h1')
+    masal_categories = MasalKategorileri.objects.filter(Aktif=True)
+    hikaye_categories = HikayeKategorileri.objects.filter(Aktif=True)
 
-    data = {
-        'masal_categories': list(masal_categories),
-        'hikaye_categories': list(hikaye_categories)
-    }
+    categories = []
 
-    return JsonResponse(data, safe=False)
+    # Masal kategorilerini ekle
+    for category in masal_categories:
+        categories.append({
+            'id': category.id,
+            'name': category.MasalKategoriAdi,
+            'slug': category.MasalSlug,
+            'h1': category.h1 if hasattr(category, 'h1') else None,
+            'resim': category.resim.url if category.resim else None,
+            'type': 'Masal'
+        })
+
+    # Hikaye kategorilerini ekle
+    for category in hikaye_categories:
+        categories.append({
+            'id': category.id,
+            'name': category.HikayeKategoriAdi,
+            'slug': category.HikayeSlug,
+            'h1': category.h1 if hasattr(category, 'h1') else None,
+            'resim': category.resim.url if category.resim else None,
+            'type': 'Hikaye'
+        })
+
+    return JsonResponse({'categories': categories})
