@@ -1080,7 +1080,7 @@ def get_categories(request):
             'name': category.MasalKategoriAdi,
             'slug': category.MasalSlug,
             'h1': category.h1 if hasattr(category, 'h1') else None,
-            'resim': category.resim.url if category.resim else None,
+            'resim': category.resim.url if category.resim else "https://masalbucket.s3.amazonaws.com/static/images/masal/peri-masallari.webp",
             'type': 'Masal'
         })
 
