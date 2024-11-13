@@ -9,11 +9,11 @@
 {% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
 
 {% block canonical %}
-     {% if sayfa_Turu == "Masal" %}
+    {% if sayfa_Turu == "Masal" %}
         <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.MasalSlug }}/">
-      {% elif sayfa_Turu == "Hikaye" %}
+    {% elif sayfa_Turu == "Hikaye" %}
         <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.HikayeSlug }}/">
-      {% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block twaccountsite %}@Melih{% endblock %}
@@ -148,7 +148,8 @@
                                                                  loading="lazy">
                                                         {% else %}
                                                             <img src="{% static 'images/masal/'|add:alt_kategori.MasalSlug|add:'.webp' %}"
-                                                                 alt="{{ masal.title }}" loading="lazy" width="368" height="178">
+                                                                 alt="{{ masal.title }}" loading="lazy" width="368"
+                                                                 height="178">
                                                         {% endif %}
 
                                                     </div>
@@ -225,11 +226,12 @@
                                                 <a href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">
                                                     <div class="inner">
                                                         {% if masal.resim %}
-                                                        <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
-                                                             loading="lazy">
+                                                            <img src="{{ masal.resim.url }}" alt="{{ masal.title }}"
+                                                                 loading="lazy">
                                                         {% else %}
 
-                                                            <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}" alt="{{ masal.title }}"
+                                                            <img src="{% static 'images/hikaye/'|add:alt_kategori.HikayeSlug|add:'.webp' %}"
+                                                                 alt="{{ masal.title }}"
                                                                  loading="lazy" width="368"
                                                                  height="178">
 
@@ -261,8 +263,6 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-
-
                             {% endif %}
 
                             <nav>
@@ -293,8 +293,9 @@
                             </nav>
                         </div>
                     </div>
-
-
+                    <!-- Kategori Açıklaması -->
+                    <div class="category-description"><h2>{{ masal.kisa_title }}</h2>
+                        <p>{{ masal.kisa_aciklama }}</p></div>
                 </div>
 
 

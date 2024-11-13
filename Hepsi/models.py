@@ -68,6 +68,7 @@ class HikayeKategorileri(models.Model):
     HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
     HikayeSlug = models.SlugField(max_length=255, blank=True)
     Hikaye_Title = models.TextField( blank=True, null=True)
+    h1 = models.CharField(max_length=255, blank=True, null=True)
     kisa_title = models.TextField(blank=True, null=True)
     kisa_aciklama = models.TextField(blank=True, null=True)
     Hikaye_meta_description = models.TextField( blank=True, null=True, help_text=HELP_TEXTS["meta_description"])
