@@ -8,6 +8,14 @@
 {% block ogDes %}{{ description }}{% endblock %}
 {% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
 
+{% block canonical %}
+     {% if sayfa_Turu == "Masal" %}
+        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.MasalSlug }}/">
+      {% elif sayfa_Turu == "Hikaye" %}
+        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.HikayeSlug }}/">
+      {% endif %}
+{% endblock %}
+
 {% block twaccountsite %}@Melih{% endblock %}
 {% block twcreator %}@Melih{% endblock %}
 {% block twtitle %}{{ title }}{% endblock %}

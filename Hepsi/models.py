@@ -56,6 +56,13 @@ def kapak_resmi_upload_to(instance, filename):
     uzanti = filename.split('.')[-1]
     # Yeni dosya adını döndür
     return f"kapak_resimleri/{yeni_ad}.{uzanti}"
+def kategori_kapak_resmi_upload_to(instance, filename):
+    # Dosya adını değiştir
+    yeni_ad = f"{instance.MasalSlug}"
+    # Dosya uzantısını koru
+    uzanti = filename.split('.')[-1]
+    # Yeni dosya adını döndür
+    return f"masal-kategori-kapak_resimleri/{yeni_ad}.{uzanti}"
 
 class HikayeKategorileri(models.Model):
     HikayeKategoriAdi = models.CharField(max_length=255, blank=True)
@@ -84,6 +91,7 @@ class MasalKategorileri(models.Model):
     MasalKategoriAdi = models.CharField(max_length=255, unique=True)
     MasalSlug = models.SlugField(max_length=255, unique=True, blank=True)
     Masal_Title = models.TextField(blank=True, null=True)
+    h1 = models.CharField(max_length=255, blank=True, null=True)
     kisa_title = models.TextField(blank=True, null=True)
     kisa_aciklama = models.TextField(blank=True, null=True)
     Masal_meta_description = models.TextField( blank=True, help_text=HELP_TEXTS["meta_description"])
@@ -91,7 +99,7 @@ class MasalKategorileri(models.Model):
     sirasi = models.IntegerField(default=100)
     Aktif = models.BooleanField(default=False)
     Banner = models.BooleanField(default=False)
-    resim = models.ImageField(upload_to=kapak_resmi_upload_to,
+    resim = models.ImageField(upload_to=kategori_kapak_resmi_upload_to,
                               storage=ImageSettingStorage(),
                               null=True, blank=True)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)

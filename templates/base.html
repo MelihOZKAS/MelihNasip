@@ -12,7 +12,10 @@
     <!-- Robots Etiketi -->
     <meta name="robots" content="index, follow">
     <meta name="author" content="{% block yazar %}Masal Oku LTD ŞTI{% endblock %}">
-    <link rel="canonical" href="https://{{ request.get_host }}{{ request.path }}"/>
+
+    {% block canonical %}<link rel="canonical" href="https://{{ request.get_host }}{{ request.path }}"/>{% endblock %}
+
+    <!--<link rel="canonical" href="https://{{ request.get_host }}{{ request.path }}"/> -->
     <!-- Robots Etiketi -->
 
     <!-- Favicons -->
