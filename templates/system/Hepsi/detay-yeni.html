@@ -10,9 +10,9 @@
 
 {% block canonical %}
     {% if sayfa_Turu == "Masal" %}
-        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.MasalSlug }}/">
+        <link rel="canonical" href="https://{{ request.get_host }}/masal-kategori/{{ alt_kategori.MasalSlug }}/">
     {% elif sayfa_Turu == "Hikaye" %}
-        <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}/{{ alt_kategori.HikayeSlug }}/">
+        <link rel="canonical" href="https://{{ request.get_host }}/hikaye-kategori/{{ alt_kategori.HikayeSlug }}/">
     {% endif %}
 {% endblock %}
 
