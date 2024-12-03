@@ -27,6 +27,7 @@ urlpatterns = [
 
     path("saglik-add/", views.ai_add, name="saglikadd"),
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
+    path('ekle/', views.ekle, name='ekle'),
     path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
     path("Blog_Paylas/", views.Blog_oto_Paylas, name="Blog_Paylas"),
     path("index-ver/", views.indexing_var_mi, name="indexver"),
