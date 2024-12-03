@@ -701,6 +701,7 @@ def facebook_var_mi(request):
     else:
         return HttpResponse("post bulunamadı.")
 
+
 @csrf_exempt
 def linkedin_var_mi(request):
     post = SiirMasal.objects.filter(linkedin=True, aktif=True, status="Yayinda").order_by('-guncelleme_tarihi').first()
@@ -715,6 +716,7 @@ def linkedin_var_mi(request):
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz !")
     else:
         return HttpResponse("post bulunamadı.")
+
 
 @csrf_exempt
 def twitter_var_mi(request):
@@ -830,7 +832,8 @@ def flutter_icerik_api(request):
     if kategori == 'masal':
         icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')
     elif kategori == 'hikaye':
-        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')
+        icerikler = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by(
+            '-guncelleme_tarihi')
     elif kategori == 'cocuk':
         icerikler = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-guncelleme_tarihi')
     else:
@@ -915,7 +918,6 @@ def flutter_icerik_detay_api(request, slug):
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
 
 
-
 def matematik(request):
     game = get_object_or_404(Oyunlar, short_name="matematik")
     game.okunma_sayisi += 1
@@ -970,7 +972,6 @@ def hayvanoyunu(request):
         'BaskaHikaye': BaskaHikaye,
     }
     return render(request, 'system/Hepsi/yenihayvan.html', context)
-
 
 
 def oyunlar(request):
@@ -1108,7 +1109,6 @@ def ekle(request):
     if request.method != "POST":
         return HttpResponseBadRequest("Invalid request method")
 
-
     # Gelen verileri al
     title = request.POST.get('title')
     h1 = request.POST.get('h1')
@@ -1141,11 +1141,8 @@ def ekle(request):
     elif short_title == "hayvan":
         kategori = MasalKategorileri.objects.filter(MasalSlug="hayvan-masallari").first()
 
-
     if resim:
         resim = f"3D cinematic film (caricature:0 2) [[{resim}]]"
-
-
 
     # Gerekli alanların doğrulanması
     if not title or not slug:
@@ -1170,7 +1167,6 @@ def ekle(request):
             icerik8=content8,
             icerik9=content9,
             icerik10=content10,
-            masalKategorisi=kategori,  # Kategori atandı
         )
 
         # Slug çakışmalarını engelle
@@ -1183,7 +1179,12 @@ def ekle(request):
                 post.slug = f"{slugify(slug)}-{random_number}" if slug else f"{slugify(title)}-{random_number}"
 
         else:
-            return JsonResponse({"status": "error", "message": "Failed to save post after multiple attempts"}, status=400)
+            return JsonResponse({"status": "error", "message": "Failed to save post after multiple attempts"},
+                                status=400)
+
+            # Many-to-Many ilişkisi olan kategori set edilir
+        if kategori:
+            post.masalKategorisi.add(kategori)  # veya post.masalKategorisi.set([kategori])
 
         # Başarı yanıtı
         return JsonResponse({
