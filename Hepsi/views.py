@@ -1153,7 +1153,7 @@ def ekle(request):
         post = SiirMasal.objects.create(
             title=title,
             h1=h1,
-            slug=turkish_slugify(slug),  # slug oluşturulurken sorun yaşanmasın diye
+            slug=create_unique_title_slug(slug),  # slug oluşturulurken sorun yaşanmasın diye
             meta_description=description,
             keywords=keywords,
             resimText=resim,
@@ -1167,6 +1167,7 @@ def ekle(request):
             icerik8=content8,
             icerik9=content9,
             icerik10=content10,
+            Model="Masal",
         )
 
         # Slug çakışmalarını engelle
