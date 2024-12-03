@@ -1139,8 +1139,8 @@ def ekle(request):
         kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari").first()
     elif short_title == "macera":
         kategori = MasalKategorileri.objects.filter(MasalSlug="macera-masallari").first()
-
-
+    elif short_title == "hayvan":
+        kategori = MasalKategorileri.objects.filter(MasalSlug="hayvan-masallari").first()
 
 
     if resim:
