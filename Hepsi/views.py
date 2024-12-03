@@ -1108,8 +1108,6 @@ def ekle(request):
     if request.method != "POST":
         return HttpResponseBadRequest("Invalid request method")
 
-    # Varsayılan dili belirle
-    lang = "en"
 
     # Gelen verileri al
     title = request.POST.get('title')
@@ -1155,7 +1153,7 @@ def ekle(request):
 
     try:
         # Yeni bir Post oluştur
-        post = SiirMasal.objects.language(lang).create(
+        post = SiirMasal.objects.create(
             title=title,
             h1=h1,
             slug=slugify(slug),  # slug oluşturulurken sorun yaşanmasın diye
