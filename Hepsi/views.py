@@ -1174,25 +1174,20 @@ def ekle(request):
         for _ in range(5):  # 5 deneme hakkı
             try:
                 post.save()
+                if kategori:
+                    post.masalKategorisi.add(kategori)  # veya post.masalKategorisi.set([kategori])
+                    post.save()
                 break
             except IntegrityError:
                 random_number = random.randint(3, 100)
                 post.slug = f"{slugify(slug)}-{random_number}" if slug else f"{slugify(title)}-{random_number}"
 
-        else:
-            return JsonResponse({"status": "error", "message": "Failed to save post after multiple attempts"},
-                                status=400)
-
-            # Many-to-Many ilişkisi olan kategori set edilir
-        if kategori:
-            post.masalKategorisi.add(kategori)  # veya post.masalKategorisi.set([kategori])
 
         # Başarı yanıtı
         return JsonResponse({
             "status": "success",
             "message": "Post created successfully",
             "post_id": post.id,
-            "kategori": kategori.short_title if kategori else None  # Kategoriyi de döndürüyoruz
         })
 
     except Exception as e:
