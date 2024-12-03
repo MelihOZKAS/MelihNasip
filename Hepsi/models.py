@@ -165,6 +165,7 @@ class SiirMasal(models.Model):
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
     keywords = models.CharField(max_length=255,blank=True,verbose_name="Anahtar Kelimeler",help_text=HELP_TEXTS["keywords"])
+    resimText = models.TextField(blank=True,)
     yayin_tarihi = models.DateTimeField(null=True, blank=True, help_text="Postanın yayınlanacağı tarih ve saat")
     status = models.CharField(max_length=10, choices=status_cho, default="Taslak", help_text=HELP_TEXTS["status"])
     aktif = models.BooleanField(default=False, help_text=HELP_TEXTS["aktif"])

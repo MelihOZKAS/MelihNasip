@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
+from django.db.utils import IntegrityError
 import re
 import random
 from django.utils.html import strip_tags
@@ -14,7 +15,8 @@ from django.http import JsonResponse
 from django.utils.html import strip_tags
 from django.utils.encoding import smart_str, force_str
 import html
-
+from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, HttpResponseBadRequest, \
+    HttpResponseServerError
 import json
 
 
@@ -1098,3 +1100,99 @@ def get_categories(request):
         })
 
     return JsonResponse({'categories': categories})
+
+
+@csrf_exempt
+def ekle(request):
+    if request.method != "POST":
+        return HttpResponseBadRequest("Invalid request method")
+
+    # Varsayılan dili belirle
+    lang = "en"
+
+    # Gelen verileri al
+    title = request.POST.get('title')
+    h1 = request.POST.get('h1')
+    slug = request.POST.get('slug')
+    description = request.POST.get('description')
+    keywords = request.POST.get('keywords')
+    ozet = request.POST.get('ozet')
+    sss = request.POST.get('sss')
+    resim = request.POST.get('resim')
+    content1 = request.POST.get('content1')
+    content2 = request.POST.get('content2')
+    content3 = request.POST.get('content3')
+    content4 = request.POST.get('content4')
+    content5 = request.POST.get('content5')
+    content6 = request.POST.get('content6')
+    content7 = request.POST.get('content7')
+    content8 = request.POST.get('content8')
+    content9 = request.POST.get('content9')
+    content10 = request.POST.get('content10')
+
+    # short_title al ve kategori belirle
+    short_title = request.POST.get('short_title')
+    kategori = None
+    if short_title == "bedtime":
+        kategori = MasalKategorileri.objects.filter(MasalSlug="uyku-masallari").first()
+    elif short_title == "peri":
+        kategori = MasalKategorileri.objects.filter(MasalSlug="peri-masallari").first()
+    elif short_title == "macera":
+        kategori = MasalKategorileri.objects.filter(MasalSlug="macera-masallari").first()
+
+
+
+
+    if resim:
+        resim = f"3D cinematic film (caricature:0 2) [[{resim}]]"
+
+
+
+    # Gerekli alanların doğrulanması
+    if not title or not slug:
+        return HttpResponseBadRequest("Title and slug are required")
+
+    try:
+        # Yeni bir Post oluştur
+        post = SiirMasal.objects.language(lang).create(
+            title=title,
+            h1=h1,
+            slug=slugify(slug),  # slug oluşturulurken sorun yaşanmasın diye
+            meta_description=description,
+            keywords=keywords,
+            resimText=resim,
+            icerik=content1,
+            icerik2=content2,
+            icerik3=content3,
+            icerik4=content4,
+            icerik5=content5,
+            icerik6=content6,
+            icerik7=content7,
+            icerik8=content8,
+            icerik9=content9,
+            icerik10=content10,
+            masalKategorisi=kategori,  # Kategori atandı
+        )
+
+        # Slug çakışmalarını engelle
+        for _ in range(5):  # 5 deneme hakkı
+            try:
+                post.save()
+                break
+            except IntegrityError:
+                random_number = random.randint(3, 100)
+                post.slug = f"{slugify(slug)}-{random_number}" if slug else f"{slugify(title)}-{random_number}"
+
+        else:
+            return JsonResponse({"status": "error", "message": "Failed to save post after multiple attempts"}, status=400)
+
+        # Başarı yanıtı
+        return JsonResponse({
+            "status": "success",
+            "message": "Post created successfully",
+            "post_id": post.id,
+            "kategori": kategori.short_title if kategori else None  # Kategoriyi de döndürüyoruz
+        })
+
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
