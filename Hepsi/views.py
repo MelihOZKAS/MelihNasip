@@ -1046,9 +1046,9 @@ def get_stories(request):
         stories = stories.filter(Model=model_type)
     if category:
         if model_type == 'Masal':
-            stories = stories.filter(masalKategorisi=category)
+            stories = stories.filter(masalKategorisi=category, aktif=True, status="Yayında")
         elif model_type == 'Hikaye':
-            stories = stories.filter(hikayeKategorisi=category)
+            stories = stories.filter(hikayeKategorisi=category, aktif=True, status="Yayında")
 
     paginator = Paginator(stories, 10)
     current_page = paginator.page(page)
@@ -1140,6 +1140,9 @@ def ekle(request):
         kategori = MasalKategorileri.objects.filter(MasalSlug="macera-masallari").first()
     elif short_title == "hayvan":
         kategori = MasalKategorileri.objects.filter(MasalSlug="hayvan-masallari").first()
+    elif short_title == "prenses":
+        kategori = MasalKategorileri.objects.filter(MasalSlug="prenses-masallari").first()
+
 
     if resim:
         resim = f"3D cinematic film (caricature:0 2) [[{resim}]]"
