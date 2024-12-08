@@ -47,13 +47,13 @@ SECURE_HSTS_PRELOAD = True
 
 
 INSTALLED_APPS = [
-    'Hepsi.apps.HepsiConfig',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'Hepsi.apps.HepsiConfig',
     "froala_editor",
     "tinymce",
     "ckeditor",
