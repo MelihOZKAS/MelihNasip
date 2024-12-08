@@ -367,7 +367,10 @@ class CustomUser(AbstractUser):
     )
 
     class Meta:
-        db_table = 'custom_users'
+        db_table = 'custom_user'
+        verbose_name = 'Kullanıcı'
+        verbose_name_plural = 'Kullanıcılar'
+        swappable = 'AUTH_USER_MODEL'
 
 
 class FavoriteStory(models.Model):
