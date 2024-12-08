@@ -317,7 +317,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator
 
 
-class CustomUser(AbstractUser):
+class customuser(AbstractUser):
     """Özelleştirilmiş kullanıcı modeli"""
     # Sosyal login bilgileri
     google_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
