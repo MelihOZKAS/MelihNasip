@@ -332,35 +332,27 @@ class CustomUser(AbstractUser):
     # Gold (Altın) sistemi
     gold_balance = models.PositiveIntegerField(
         default=0,
-        validators=[MinValueValidator(0)],
-        help_text="Reklamlardan kazanılan altın miktarı"
+        validators=[MinValueValidator(0)]
     )
-    total_earned_gold = models.PositiveIntegerField(
-        default=0,
-        help_text="Şimdiye kadar kazanılan toplam altın"
-    )
-    last_reward_ad_time = models.DateTimeField(
-        null=True,
-        blank=True,
-        help_text="Son ödüllü reklam izleme zamanı"
-    )
+    total_earned_gold = models.PositiveIntegerField(default=0)
+    last_reward_ad_time = models.DateTimeField(null=True, blank=True)
 
     # Kullanıcının masal etkileşimleri
     favorite_stories = models.ManyToManyField(
-        'Hepsi.SiirMasal',
-        through='Hepsi.FavoriteStory',
+        'SiirMasal',
+        through='FavoriteStory',
         related_name='favorited_by',
         blank=True
     )
     will_read_stories = models.ManyToManyField(
-        'Hepsi.SiirMasal',
-        through='Hepsi.WillReadStory',
+        'SiirMasal',
+        through='WillReadStory',
         related_name='will_be_read_by',
         blank=True
     )
     read_stories = models.ManyToManyField(
-        'Hepsi.SiirMasal',
-        through='Hepsi.ReadingHistory',
+        'SiirMasal',
+        through='ReadingHistory',
         related_name='read_by',
         blank=True
     )
@@ -375,33 +367,14 @@ class CustomUser(AbstractUser):
     )
 
     class Meta:
-        app_label = 'Hepsi'
         db_table = 'users'
-
-    def add_gold(self, amount):
-        self.gold_balance += amount
-        self.total_earned_gold += amount
-        self.last_reward_ad_time = timezone.now()
-        self.save()
-
-    def spend_gold(self, amount):
-        if self.gold_balance >= amount:
-            self.gold_balance -= amount
-            self.save()
-            return True
-        return False
-
-    def can_watch_reward_ad(self, min_interval_minutes=5):
-        if not self.last_reward_ad_time:
-            return True
-        time_passed = timezone.now() - self.last_reward_ad_time
-        return time_passed.total_seconds() / 60 >= min_interval_minutes
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
 
 class FavoriteStory(models.Model):
-    """Favori masallar için ara tablo"""
-    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
-    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
 
@@ -412,9 +385,8 @@ class FavoriteStory(models.Model):
 
 
 class WillReadStory(models.Model):
-    """Okunacak masallar için ara tablo"""
-    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
-    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     planned_date = models.DateTimeField(null=True, blank=True)
     reminder = models.BooleanField(default=False)
@@ -426,9 +398,8 @@ class WillReadStory(models.Model):
 
 
 class ReadingHistory(models.Model):
-    """Okuma geçmişi"""
-    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
-    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     last_read_date = models.DateTimeField(auto_now=True)
     completed = models.BooleanField(default=False)
@@ -448,16 +419,12 @@ class ReadingHistory(models.Model):
 
     class Meta:
         db_table = 'reading_history'
-        indexes = [
-            models.Index(fields=['user', 'last_read_date']),
-        ]
         unique_together = ['user', 'story']
         ordering = ['-last_read_date']
 
 
 class PurchaseHistory(models.Model):
-    """Satın alma geçmişi"""
-    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     purchase_date = models.DateTimeField(auto_now_add=True)
     product_id = models.CharField(max_length=100)
     purchase_token = models.CharField(max_length=255)
@@ -483,7 +450,3 @@ class PurchaseHistory(models.Model):
 
     class Meta:
         db_table = 'purchase_history'
-        indexes = [
-            models.Index(fields=['user', 'purchase_date']),
-            models.Index(fields=['purchase_token']),
-        ]
