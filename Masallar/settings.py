@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "storages",
 
 ]
-AUTH_USER_MODEL = 'Hepsi.CustomUser'  # Hepsi yerine kendi app adınız
+#AUTH_USER_MODEL = 'Hepsi.CustomUser'  # Hepsi yerine kendi app adınız
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
