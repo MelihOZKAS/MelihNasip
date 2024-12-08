@@ -367,10 +367,11 @@ class CustomUser(AbstractUser):
     )
 
     class Meta:
-        db_table = 'custom_user'
+        db_table = 'users'  # Tablo adını değiştirdim
         verbose_name = 'Kullanıcı'
         verbose_name_plural = 'Kullanıcılar'
         swappable = 'AUTH_USER_MODEL'
+        app_label = 'Hepsi'  # Bu satırı ekledim
 
 
 class FavoriteStory(models.Model):
