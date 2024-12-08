@@ -253,3 +253,16 @@ class oyunlarAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Oyunlar, oyunlarAdmin)
+
+
+@admin.register(MobileUser)
+class MobileUserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'is_premium', 'is_ad_free', 'gold_balance', 'last_login_platform')
+    list_filter = ('is_premium', 'is_ad_free', 'last_login_platform')
+    search_fields = ('username', 'email', 'google_id', 'apple_id')
+
+@admin.register(FavoriteStory)
+class FavoriteStoryAdmin(admin.ModelAdmin):
+    list_display = ('user', 'story', 'added_date')
+    list_filter = ('added_date',)
+    search_fields = ('user__username', 'story__title')
