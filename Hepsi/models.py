@@ -311,14 +311,20 @@ class Animals(models.Model):
                               null=True, blank=True)
 
 
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator
 
 
-class MobilUser(AbstractUser):
-    """Özelleştirilmiş kullanıcı modeli"""
+class MobileUser(models.Model):
+    """Mobil uygulama kullanıcıları için model"""
+    # Temel kullanıcı bilgileri
+    username = models.CharField(max_length=150, unique=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+
     # Sosyal login bilgileri
     google_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
     apple_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
@@ -337,26 +343,6 @@ class MobilUser(AbstractUser):
     total_earned_gold = models.PositiveIntegerField(default=0)
     last_reward_ad_time = models.DateTimeField(null=True, blank=True)
 
-    # Kullanıcının masal etkileşimleri
-    favorite_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='FavoriteStory',
-        related_name='favorited_by',
-        blank=True
-    )
-    will_read_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='WillReadStory',
-        related_name='will_be_read_by',
-        blank=True
-    )
-    read_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='ReadingHistory',
-        related_name='read_by',
-        blank=True
-    )
-
     # Platform bilgileri
     device_token = models.CharField(max_length=255, blank=True, null=True)
     last_login_platform = models.CharField(
@@ -367,40 +353,48 @@ class MobilUser(AbstractUser):
     )
 
     class Meta:
-        db_table = 'users'  # Tablo adını değiştirdim
-        verbose_name = 'Kullanıcı'
-        verbose_name_plural = 'Kullanıcılar'
-        swappable = 'AUTH_USER_MODEL'
-        app_label = 'Hepsi'  # Bu satırı ekledim
+        db_table = 'mobile_users'
+        verbose_name = 'Mobil Kullanıcı'
+        verbose_name_plural = 'Mobil Kullanıcılar'
+
+    def __str__(self):
+        return self.username
+
+    def update_last_login(self):
+        self.last_login = timezone.now()
+        self.save()
 
 
 class FavoriteStory(models.Model):
-    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
+    """Favori masallar için model"""
+    user = models.ForeignKey(MobileUser, on_delete=models.CASCADE, related_name='favorites')
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
 
     class Meta:
-        db_table = 'favorite_stories'
+        db_table = 'mobile_favorite_stories'
         unique_together = ['user', 'story']
         ordering = ['-added_date']
 
 
 class WillReadStory(models.Model):
-    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
+    """Okunacak masallar için model"""
+    user = models.ForeignKey(MobileUser, on_delete=models.CASCADE, related_name='will_read')
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     planned_date = models.DateTimeField(null=True, blank=True)
     reminder = models.BooleanField(default=False)
 
     class Meta:
-        db_table = 'will_read_stories'
+        db_table = 'mobile_will_read_stories'
         unique_together = ['user', 'story']
         ordering = ['-added_date']
 
 
 class ReadingHistory(models.Model):
-    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
+    """Okuma geçmişi için model"""
+    user = models.ForeignKey(MobileUser, on_delete=models.CASCADE, related_name='reading_history')
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     last_read_date = models.DateTimeField(auto_now=True)
@@ -420,13 +414,14 @@ class ReadingHistory(models.Model):
     )
 
     class Meta:
-        db_table = 'reading_history'
+        db_table = 'mobile_reading_history'
         unique_together = ['user', 'story']
         ordering = ['-last_read_date']
 
 
 class PurchaseHistory(models.Model):
-    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
+    """Satın alma geçmişi için model"""
+    user = models.ForeignKey(MobileUser, on_delete=models.CASCADE, related_name='purchases')
     purchase_date = models.DateTimeField(auto_now_add=True)
     product_id = models.CharField(max_length=100)
     purchase_token = models.CharField(max_length=255)
@@ -451,4 +446,5 @@ class PurchaseHistory(models.Model):
     expiry_date = models.DateTimeField()
 
     class Meta:
-        db_table = 'purchase_history'
+        db_table = 'mobile_purchase_history'
+        ordering = ['-purchase_date']
