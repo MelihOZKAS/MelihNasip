@@ -197,6 +197,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+AUTH_USER_MODEL = 'Hepsi.CustomUser'  # Hepsi yerine kendi app adınız
+
 
 
 

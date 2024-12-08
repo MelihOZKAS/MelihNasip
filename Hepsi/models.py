@@ -318,6 +318,7 @@ from django.core.validators import MinValueValidator
 
 
 class CustomUser(AbstractUser):
+    """Özelleştirilmiş kullanıcı modeli"""
     # Sosyal login bilgileri
     google_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
     apple_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
@@ -346,20 +347,20 @@ class CustomUser(AbstractUser):
 
     # Kullanıcının masal etkileşimleri
     favorite_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='FavoriteStory',
+        'Hepsi.SiirMasal',
+        through='Hepsi.FavoriteStory',
         related_name='favorited_by',
         blank=True
     )
     will_read_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='WillReadStory',
+        'Hepsi.SiirMasal',
+        through='Hepsi.WillReadStory',
         related_name='will_be_read_by',
         blank=True
     )
     read_stories = models.ManyToManyField(
-        'SiirMasal',
-        through='ReadingHistory',
+        'Hepsi.SiirMasal',
+        through='Hepsi.ReadingHistory',
         related_name='read_by',
         blank=True
     )
@@ -381,14 +382,12 @@ class CustomUser(AbstractUser):
         ]
 
     def add_gold(self, amount):
-        """Altın ekle ve toplam kazanılan altını güncelle"""
         self.gold_balance += amount
         self.total_earned_gold += amount
         self.last_reward_ad_time = timezone.now()
         self.save()
 
     def spend_gold(self, amount):
-        """Altın harca"""
         if self.gold_balance >= amount:
             self.gold_balance -= amount
             self.save()
@@ -396,20 +395,18 @@ class CustomUser(AbstractUser):
         return False
 
     def can_watch_reward_ad(self, min_interval_minutes=5):
-        """Ödüllü reklam izleyebilir mi kontrol et"""
         if not self.last_reward_ad_time:
             return True
-
         time_passed = timezone.now() - self.last_reward_ad_time
         return time_passed.total_seconds() / 60 >= min_interval_minutes
 
 
 class FavoriteStory(models.Model):
     """Favori masallar için ara tablo"""
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
+    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
+    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
-    notes = models.TextField(blank=True, null=True, help_text="Kullanıcının masal hakkında notları")
+    notes = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'favorite_stories'
@@ -419,11 +416,11 @@ class FavoriteStory(models.Model):
 
 class WillReadStory(models.Model):
     """Okunacak masallar için ara tablo"""
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    story = models.ForeignKey('Story', on_delete=models.CASCADE)
+    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
+    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
-    planned_date = models.DateTimeField(null=True, blank=True, help_text="Planlanan okuma tarihi")
-    reminder = models.BooleanField(default=False, help_text="Hatırlatıcı aktif mi?")
+    planned_date = models.DateTimeField(null=True, blank=True)
+    reminder = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'will_read_stories'
@@ -433,16 +430,13 @@ class WillReadStory(models.Model):
 
 class ReadingHistory(models.Model):
     """Okuma geçmişi"""
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
+    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
+    story = models.ForeignKey('Hepsi.SiirMasal', on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     last_read_date = models.DateTimeField(auto_now=True)
     completed = models.BooleanField(default=False)
     last_position = models.IntegerField(default=0)
-    reading_duration = models.PositiveIntegerField(
-        default=0,
-        help_text="Toplam okuma süresi (saniye)"
-    )
+    reading_duration = models.PositiveIntegerField(default=0)
     child_reaction = models.CharField(
         max_length=20,
         choices=[
@@ -466,7 +460,7 @@ class ReadingHistory(models.Model):
 
 class PurchaseHistory(models.Model):
     """Satın alma geçmişi"""
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey('Hepsi.CustomUser', on_delete=models.CASCADE)
     purchase_date = models.DateTimeField(auto_now_add=True)
     product_id = models.CharField(max_length=100)
     purchase_token = models.CharField(max_length=255)
