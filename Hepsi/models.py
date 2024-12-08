@@ -5,7 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 from ckeditor.fields import RichTextField
-
+from django.apps import apps
 
 HELP_TEXTS = {
     "title": "Masal Hiyenin başlığını girin.",
@@ -375,11 +375,8 @@ class CustomUser(AbstractUser):
     )
 
     class Meta:
+        app_label = 'Hepsi'
         db_table = 'users'
-        indexes = [
-            models.Index(fields=['google_id']),
-            models.Index(fields=['apple_id']),
-        ]
 
     def add_gold(self, amount):
         self.gold_balance += amount
