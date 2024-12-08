@@ -1,9 +1,11 @@
 from django.db import models
 from Masallar.custom_storages import *
-
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils import timezone
 from django.conf import settings
 from ckeditor.fields import RichTextField
-#from froala_editor.fields import FroalaField
+
 
 HELP_TEXTS = {
     "title": "Masal Hiyenin başlığını girin.",
@@ -309,3 +311,188 @@ class Animals(models.Model):
                               null=True, blank=True)
 
 
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils import timezone
+from django.core.validators import MinValueValidator
+
+
+class CustomUser(AbstractUser):
+    # Sosyal login bilgileri
+    google_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    apple_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
+
+    # Abonelik durumları
+    is_premium = models.BooleanField(default=False)
+    premium_end_date = models.DateTimeField(null=True, blank=True)
+    is_ad_free = models.BooleanField(default=False)
+    ad_free_end_date = models.DateTimeField(null=True, blank=True)
+
+    # Gold (Altın) sistemi
+    gold_balance = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        help_text="Reklamlardan kazanılan altın miktarı"
+    )
+    total_earned_gold = models.PositiveIntegerField(
+        default=0,
+        help_text="Şimdiye kadar kazanılan toplam altın"
+    )
+    last_reward_ad_time = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="Son ödüllü reklam izleme zamanı"
+    )
+
+    # Kullanıcının masal etkileşimleri
+    favorite_stories = models.ManyToManyField(
+        'SiirMasal',
+        through='FavoriteStory',
+        related_name='favorited_by',
+        blank=True
+    )
+    will_read_stories = models.ManyToManyField(
+        'SiirMasal',
+        through='WillReadStory',
+        related_name='will_be_read_by',
+        blank=True
+    )
+    read_stories = models.ManyToManyField(
+        'SiirMasal',
+        through='ReadingHistory',
+        related_name='read_by',
+        blank=True
+    )
+
+    # Platform bilgileri
+    device_token = models.CharField(max_length=255, blank=True, null=True)
+    last_login_platform = models.CharField(
+        max_length=10,
+        choices=[('IOS', 'iOS'), ('ANDROID', 'Android')],
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        db_table = 'users'
+        indexes = [
+            models.Index(fields=['google_id']),
+            models.Index(fields=['apple_id']),
+        ]
+
+    def add_gold(self, amount):
+        """Altın ekle ve toplam kazanılan altını güncelle"""
+        self.gold_balance += amount
+        self.total_earned_gold += amount
+        self.last_reward_ad_time = timezone.now()
+        self.save()
+
+    def spend_gold(self, amount):
+        """Altın harca"""
+        if self.gold_balance >= amount:
+            self.gold_balance -= amount
+            self.save()
+            return True
+        return False
+
+    def can_watch_reward_ad(self, min_interval_minutes=5):
+        """Ödüllü reklam izleyebilir mi kontrol et"""
+        if not self.last_reward_ad_time:
+            return True
+
+        time_passed = timezone.now() - self.last_reward_ad_time
+        return time_passed.total_seconds() / 60 >= min_interval_minutes
+
+
+class FavoriteStory(models.Model):
+    """Favori masallar için ara tablo"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+    notes = models.TextField(blank=True, null=True, help_text="Kullanıcının masal hakkında notları")
+
+    class Meta:
+        db_table = 'favorite_stories'
+        unique_together = ['user', 'story']
+        ordering = ['-added_date']
+
+
+class WillReadStory(models.Model):
+    """Okunacak masallar için ara tablo"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('Story', on_delete=models.CASCADE)
+    added_date = models.DateTimeField(auto_now_add=True)
+    planned_date = models.DateTimeField(null=True, blank=True, help_text="Planlanan okuma tarihi")
+    reminder = models.BooleanField(default=False, help_text="Hatırlatıcı aktif mi?")
+
+    class Meta:
+        db_table = 'will_read_stories'
+        unique_together = ['user', 'story']
+        ordering = ['-added_date']
+
+
+class ReadingHistory(models.Model):
+    """Okuma geçmişi"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
+    start_date = models.DateTimeField(auto_now_add=True)
+    last_read_date = models.DateTimeField(auto_now=True)
+    completed = models.BooleanField(default=False)
+    last_position = models.IntegerField(default=0)
+    reading_duration = models.PositiveIntegerField(
+        default=0,
+        help_text="Toplam okuma süresi (saniye)"
+    )
+    child_reaction = models.CharField(
+        max_length=20,
+        choices=[
+            ('LOVED', 'Çok Sevdi'),
+            ('LIKED', 'Beğendi'),
+            ('NEUTRAL', 'Nötr'),
+            ('DISLIKED', 'Beğenmedi')
+        ],
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        db_table = 'reading_history'
+        indexes = [
+            models.Index(fields=['user', 'last_read_date']),
+        ]
+        unique_together = ['user', 'story']
+        ordering = ['-last_read_date']
+
+
+class PurchaseHistory(models.Model):
+    """Satın alma geçmişi"""
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    purchase_date = models.DateTimeField(auto_now_add=True)
+    product_id = models.CharField(max_length=100)
+    purchase_token = models.CharField(max_length=255)
+    platform = models.CharField(
+        max_length=10,
+        choices=[('IOS', 'iOS'), ('ANDROID', 'Android')]
+    )
+    subscription_type = models.CharField(
+        max_length=10,
+        choices=[('PREMIUM', 'Premium'), ('AD_FREE', 'Ad Free')]
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('ACTIVE', 'Active'),
+            ('EXPIRED', 'Expired'),
+            ('CANCELLED', 'Cancelled'),
+            ('FAILED', 'Failed')
+        ],
+        default='ACTIVE'
+    )
+    expiry_date = models.DateTimeField()
+
+    class Meta:
+        db_table = 'purchase_history'
+        indexes = [
+            models.Index(fields=['user', 'purchase_date']),
+            models.Index(fields=['purchase_token']),
+        ]

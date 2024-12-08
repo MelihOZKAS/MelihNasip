@@ -20,6 +20,8 @@ from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse, Http
 import json
 
 
+
+
 def create_unique_title_slug(title):
     slug = turkish_slugify(title)
     unique_slug = slug
