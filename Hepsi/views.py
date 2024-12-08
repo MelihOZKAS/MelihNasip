@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, reverse
-from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals, Oyunlar
+from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals, Oyunlar, MobileUser
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
@@ -1197,3 +1197,71 @@ def ekle(request):
 
     except Exception as e:
         return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+
+@csrf_exempt
+def mobile_login(request):
+    if request.method == 'POST':
+        try:
+            # JSON verisini parse et
+            data = json.loads(request.body)
+
+            # Gerekli alanları al
+            google_id = data.get('google_id')
+            email = data.get('email')
+            name = data.get('name')
+            platform = data.get('platform')
+            device_token = data.get('device_token')
+
+            # Zorunlu alanları kontrol et
+            if not all([google_id, email]):
+                return JsonResponse({
+                    'error': 'google_id ve email zorunludur'
+                }, status=400)
+
+            # Kullanıcıyı bul veya oluştur
+            user, created = MobileUser.objects.get_or_create(
+                google_id=google_id,
+                defaults={
+                    'username': name or email.split('@')[0],
+                    'email': email,
+                    'is_active': True,
+                    'device_token': device_token,
+                    'last_login_platform': platform
+                }
+            )
+
+            # Kullanıcı zaten varsa bilgilerini güncelle
+            if not created:
+                user.username = name or user.username
+                user.device_token = device_token
+                user.last_login_platform = platform
+                user.save()
+
+            # Yanıt verisini hazırla
+            response_data = {
+                'user_id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'is_premium': user.is_premium,
+                'is_ad_free': user.is_ad_free,
+                'gold_balance': user.gold_balance,
+                'premium_end_date': user.premium_end_date.isoformat() if user.premium_end_date else None,
+                'ad_free_end_date': user.ad_free_end_date.isoformat() if user.ad_free_end_date else None
+            }
+
+            return JsonResponse(response_data)
+
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'error': 'Geçersiz JSON verisi'
+            }, status=400)
+
+        except Exception as e:
+            return JsonResponse({
+                'error': str(e)
+            }, status=500)
+
+    return JsonResponse({
+        'error': 'Sadece POST metodu desteklenir'
+    }, status=405)
