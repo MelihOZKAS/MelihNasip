@@ -317,7 +317,7 @@ from django.utils import timezone
 from django.core.validators import MinValueValidator
 
 
-class customuser(AbstractUser):
+class MobilUser(AbstractUser):
     """Özelleştirilmiş kullanıcı modeli"""
     # Sosyal login bilgileri
     google_id = models.CharField(max_length=100, blank=True, null=True, unique=True)
@@ -375,7 +375,7 @@ class customuser(AbstractUser):
 
 
 class FavoriteStory(models.Model):
-    user = models.ForeignKey(customuser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     notes = models.TextField(blank=True, null=True)
@@ -387,7 +387,7 @@ class FavoriteStory(models.Model):
 
 
 class WillReadStory(models.Model):
-    user = models.ForeignKey(customuser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     added_date = models.DateTimeField(auto_now_add=True)
     planned_date = models.DateTimeField(null=True, blank=True)
@@ -400,7 +400,7 @@ class WillReadStory(models.Model):
 
 
 class ReadingHistory(models.Model):
-    user = models.ForeignKey(customuser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
     story = models.ForeignKey('SiirMasal', on_delete=models.CASCADE)
     start_date = models.DateTimeField(auto_now_add=True)
     last_read_date = models.DateTimeField(auto_now=True)
@@ -426,7 +426,7 @@ class ReadingHistory(models.Model):
 
 
 class PurchaseHistory(models.Model):
-    user = models.ForeignKey(customuser, on_delete=models.CASCADE)
+    user = models.ForeignKey(MobilUser, on_delete=models.CASCADE)
     purchase_date = models.DateTimeField(auto_now_add=True)
     product_id = models.CharField(max_length=100)
     purchase_token = models.CharField(max_length=255)
