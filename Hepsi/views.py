@@ -1203,42 +1203,26 @@ def ekle(request):
 def mobile_login(request):
     if request.method == 'POST':
         try:
-            # JSON verisini parse et
             data = json.loads(request.body)
 
-            # Gerekli alanları al
-            google_id = data.get('google_id')
-            email = data.get('email')
-            name = data.get('name')
-            platform = data.get('platform')
-            device_token = data.get('device_token')
-
-            # Zorunlu alanları kontrol et
-            if not all([google_id, email]):
-                return JsonResponse({
-                    'error': 'google_id ve email zorunludur'
-                }, status=400)
-
-            # Kullanıcıyı bul veya oluştur
             user, created = MobileUser.objects.get_or_create(
-                google_id=google_id,
+                google_id=data['google_id'],
                 defaults={
-                    'username': name or email.split('@')[0],
-                    'email': email,
+                    'username': data['name'],
+                    'email': data['email'],
                     'is_active': True,
-                    'device_token': device_token,
-                    'last_login_platform': platform
+                    'device_token': data.get('device_token'),
+                    'last_login_platform': data.get('platform')
                 }
             )
 
             # Kullanıcı zaten varsa bilgilerini güncelle
             if not created:
-                user.username = name or user.username
-                user.device_token = device_token
-                user.last_login_platform = platform
+                user.username = data['name']
+                user.device_token = data.get('device_token')
+                user.last_login_platform = data.get('platform')
                 user.save()
 
-            # Yanıt verisini hazırla
             response_data = {
                 'user_id': user.id,
                 'username': user.username,
@@ -1252,16 +1236,39 @@ def mobile_login(request):
 
             return JsonResponse(response_data)
 
-        except json.JSONDecodeError:
-            return JsonResponse({
-                'error': 'Geçersiz JSON verisi'
-            }, status=400)
-
         except Exception as e:
-            return JsonResponse({
-                'error': str(e)
-            }, status=500)
+            return JsonResponse({'error': str(e)}, status=500)
 
-    return JsonResponse({
-        'error': 'Sadece POST metodu desteklenir'
-    }, status=405)
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+# Diğer view'lar için kullanıcı kontrolü
+def get_user_from_request(request):
+    google_id = request.headers.get('X-GOOGLE-ID')
+    try:
+        return MobileUser.objects.get(google_id=google_id)
+    except MobileUser.DoesNotExist:
+        return None
+
+
+@csrf_exempt
+def add_favorite(request):
+    if request.method == 'POST':
+        user = get_user_from_request(request)
+        if not user:
+            return JsonResponse({'error': 'Unauthorized'}, status=401)
+
+        try:
+            data = json.loads(request.body)
+            story_id = data.get('story_id')
+
+            FavoriteStory.objects.create(
+                user=user,
+                story_id=story_id
+            )
+
+            return JsonResponse({'message': 'Success'})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
