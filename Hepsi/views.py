@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, reverse
-from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals, Oyunlar, MobileUser
+from .models import SiirMasal, HikayeKategorileri, MasalKategorileri, iletisimmodel, Blog, Animals, Oyunlar, MobileUser, FavoriteStory
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
