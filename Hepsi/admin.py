@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 
 
 # Register your models here.
@@ -257,9 +258,19 @@ admin.site.register(Oyunlar, oyunlarAdmin)
 
 @admin.register(MobileUser)
 class MobileUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'created_at', 'last_login', 'is_premium', 'is_ad_free', 'gold_balance', 'last_login_platform')
+    list_display = (
+    'user_photo', 'username', 'email', 'created_at', 'last_login', 'is_premium', 'is_ad_free', 'gold_balance',
+    'last_login_platform')
     list_filter = ('is_premium', 'is_ad_free', 'last_login_platform')
     search_fields = ('username', 'email', 'google_id', 'apple_id')
+
+    def user_photo(self, obj):
+        if obj.photo:
+            return mark_safe(
+                f'<img src="{obj.photo}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" />')
+        return 'No Photo'
+
+    user_photo.short_description = 'Photo'
 
 @admin.register(FavoriteStory)
 class FavoriteStoryAdmin(admin.ModelAdmin):
