@@ -1222,6 +1222,7 @@ def mobile_login(request):
                 user.username = data['name']
                 user.device_token = data.get('device_token')
                 user.last_login_platform = data.get('platform')
+                user.update_last_login()
                 user.save()
 
             response_data = {
