@@ -267,7 +267,7 @@ class MobileUserAdmin(admin.ModelAdmin):
     def user_photo(self, obj):
         if obj.photo:
             return mark_safe(
-                f'<img src="{obj.photo}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" />')
+                f'<img src="{obj.photo}" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;" />')
         return 'No Photo'
 
     user_photo.short_description = 'Photo'
