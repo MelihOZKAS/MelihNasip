@@ -257,7 +257,7 @@ admin.site.register(Oyunlar, oyunlarAdmin)
 
 @admin.register(MobileUser)
 class MobileUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'is_premium', 'is_ad_free', 'gold_balance', 'last_login_platform')
+    list_display = ('username', 'email', 'created_at', 'last_login', 'is_premium', 'is_ad_free', 'gold_balance', 'last_login_platform')
     list_filter = ('is_premium', 'is_ad_free', 'last_login_platform')
     search_fields = ('username', 'email', 'google_id', 'apple_id')
 

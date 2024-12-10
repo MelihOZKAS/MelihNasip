@@ -321,6 +321,7 @@ class MobileUser(models.Model):
     # Temel kullanıcı bilgileri
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True, null=True, blank=True)
+    photo = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)

@@ -1210,6 +1210,7 @@ def mobile_login(request):
                 defaults={
                     'username': data['name'],
                     'email': data['email'],
+                    'photo': data['photo'],
                     'is_active': True,
                     'device_token': data.get('device_token'),
                     'last_login_platform': data.get('platform')
@@ -1227,6 +1228,7 @@ def mobile_login(request):
                 'user_id': user.id,
                 'username': user.username,
                 'email': user.email,
+                'photo': user.photo,
                 'is_premium': user.is_premium,
                 'is_ad_free': user.is_ad_free,
                 'gold_balance': user.gold_balance,
