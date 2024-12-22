@@ -20,3 +20,4 @@ boto3
 pillow-avif-plugin
 django-froala-editor
 django-tinymce
+sentry-sdk[django]

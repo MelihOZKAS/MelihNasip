@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path("", views.home, name="home"),
     path("ads.txt/", views.ads, name="ads"),
     path("robots.txt/", views.robots_txt, name="robots"),
+    path('sentry-debug/', trigger_error),
     path('oto_masalkategoriekle/', views.oto_masalkategoriekle, name='oto_masalkategoriekle'),
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 

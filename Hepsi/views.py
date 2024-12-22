@@ -9,7 +9,7 @@ from django.utils import timezone
 from django.db.utils import IntegrityError
 import re
 import random
-from django.utils.html import strip_tags
+
 from html import unescape
 from django.http import JsonResponse
 from django.utils.html import strip_tags
