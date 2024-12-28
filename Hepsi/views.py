@@ -1060,7 +1060,8 @@ def get_stories(request):
 
 
 
-# views.py
+
+@csrf_exempt
 def get_categories(request):
     masal_categories = MasalKategorileri.objects.filter(Aktif=True)
     hikaye_categories = HikayeKategorileri.objects.filter(Aktif=True)
@@ -1085,11 +1086,61 @@ def get_categories(request):
             'name': category.HikayeKategoriAdi,
             'slug': category.HikayeSlug,
             'h1': category.h1 if hasattr(category, 'h1') else None,
-            'resim': category.resim.url if category.resim else None,
+            'resim': category.resim.url if category.resim else "https://masalbucket.s3.amazonaws.com/static/images/masal/peri-masallari.webp",
             'type': 'Hikaye'
         })
 
     return JsonResponse({'categories': categories})
+
+
+@csrf_exempt
+def get_category_stories(request, slug, model_type):
+    try:
+        page = int(request.GET.get('page', 1))
+
+        # Model tipine göre kategoriyi bul
+        if model_type.lower() == 'masal':
+            category = MasalKategorileri.objects.get(MasalSlug=slug)
+            stories = SiirMasal.objects.filter(
+                masalKategorisi=category,
+                Model='Masal',
+                aktif=True
+            )
+        elif model_type.lower() == 'hikaye':
+            category = HikayeKategorileri.objects.get(HikayeSlug=slug)
+            stories = SiirMasal.objects.filter(
+                hikayeKategorisi=category,
+                Model='Hikaye',
+                aktif=True
+            )
+        else:
+            return JsonResponse({'error': 'Invalid model type'}, status=400)
+
+        stories = stories.only(
+            'id', 'title', 'slug', 'resim',
+            'meta_description', 'Model', 'okunma_sayisi'
+        ).order_by('-guncelleme_tarihi')
+
+        paginator = Paginator(stories, 10)
+        current_page = paginator.page(page)
+
+        data = {
+            'results': [{
+                'id': story.id,
+                'title': clean_content(story.title),
+                'slug': story.slug,
+                'resim': story.resim.url if story.resim else None,
+                'meta_description': clean_content(story.meta_description)[:100] if story.meta_description else "",
+                'okunma': story.okunma_sayisi,
+            } for story in current_page],
+            'has_next': current_page.has_next(),
+            'total_pages': paginator.num_pages
+        }
+        return JsonResponse(data)
+    except (MasalKategorileri.DoesNotExist, HikayeKategorileri.DoesNotExist):
+        return JsonResponse({'error': 'Category not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 @csrf_exempt
