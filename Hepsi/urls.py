@@ -58,6 +58,7 @@ urlpatterns = [
     path('api/stories/', views.get_stories, name='get_stories'),
     path('api/story-detail/<slug:slug>/', views.get_story_detail, name='get_story_detail'),
     path('api/categories/', views.get_categories, name='get_categories'),
+    path('api/category-stories/<str:model_type>/<slug:slug>/', views.get_category_stories, name='get_category_stories'),
 
     path("iletisim/", views.iletisim, name="iletisim"),
     path("cerez-politikasi/", views.cerez, name="cerez"),
