@@ -178,6 +178,8 @@ class SiirMasal(models.Model):
     linkedin = models.BooleanField(default=True, help_text="Linkedin de Paylaşılsın mı ?")
     twitter = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
     pinterest = models.BooleanField(default=True, help_text="twitter da Paylaşılsın mı ?")
+    like = models.PositiveBigIntegerField(default=0)
+    dislike = models.PositiveBigIntegerField(default=0)
     okunma_sayisi = models.PositiveBigIntegerField(default=0)
     olusturma_tarihi = models.DateTimeField(auto_now_add=True)
     guncelleme_tarihi = models.DateTimeField(auto_now=True)

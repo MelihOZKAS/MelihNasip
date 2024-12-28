@@ -1034,23 +1034,12 @@ def get_story_detail(request, slug):
     except SiirMasal.DoesNotExist:
         return JsonResponse({'error': 'Story not found'}, status=404)
 
-
+@csrf_exempt
 def get_stories(request):
     page = int(request.GET.get('page', 1))
-    model_type = request.GET.get('model_type', None)
-    category = request.GET.get('category', None)
-
     stories = SiirMasal.objects.only(
         'id', 'title', 'slug', 'resim', 'meta_description', 'Model'
     ).order_by('-guncelleme_tarihi')
-
-    if model_type:
-        stories = stories.filter(Model=model_type)
-    if category:
-        if model_type == 'Masal':
-            stories = stories.filter(masalKategorisi=category, aktif=True, status="Yayında")
-        elif model_type == 'Hikaye':
-            stories = stories.filter(hikayeKategorisi=category, aktif=True, status="Yayında")
 
     paginator = Paginator(stories, 10)
     current_page = paginator.page(page)
@@ -1062,16 +1051,13 @@ def get_stories(request):
             'slug': story.slug,
             'resim': story.resim.url if story.resim else None,
             'meta_description': clean_content(story.meta_description)[:100] if story.meta_description else "",
-            'Model': story.Model,
+            'okunma': story.okunma_sayisi,
         } for story in current_page],
         'has_next': current_page.has_next(),
         'total_pages': paginator.num_pages
     }
-
     return JsonResponse(data)
 
-
-from django.http import JsonResponse
 
 
 # views.py
