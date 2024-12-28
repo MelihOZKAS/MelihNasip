@@ -1099,15 +1099,15 @@ def get_category_stories(request, model_type, slug):
         page = int(request.GET.get('page', 1))
 
         # Model tipine göre kategoriyi bul
-        if model_type.lower() == 'masal':
-            category = MasalKategorileri.objects.filter(MasalSlug=slug)
+        if slug.lower() == 'masal':
+            category = MasalKategorileri.objects.filter(MasalSlug=model_type)
             stories = SiirMasal.objects.filter(
                 masalKategorisi=category,
                 Model='Masal',
                 aktif=True
             ).first()
-        elif model_type.lower() == 'hikaye':
-            category = HikayeKategorileri.objects.filter(HikayeSlug=slug)
+        elif slug.lower() == 'hikaye':
+            category = HikayeKategorileri.objects.filter(HikayeSlug=model_type)
             stories = SiirMasal.objects.filter(
                 hikayeKategorisi=category,
                 Model='Hikaye',
