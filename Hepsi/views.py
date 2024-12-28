@@ -1039,7 +1039,7 @@ def get_stories(request):
     page = int(request.GET.get('page', 1))
     stories = SiirMasal.objects.only(
         'id', 'title', 'slug', 'resim', 'meta_description', 'Model'
-    ).order_by('-guncelleme_tarihi')
+    ).filter(aktif=True, status="Yayinda").order_by('-guncelleme_tarihi')
 
     paginator = Paginator(stories, 10)
     current_page = paginator.page(page)
