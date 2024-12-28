@@ -1105,14 +1105,14 @@ def get_category_stories(request, slug, model_type):
                 masalKategorisi=category,
                 Model='Masal',
                 aktif=True
-            )
+            ).first()
         elif model_type.lower() == 'hikaye':
             category = HikayeKategorileri.objects.get(HikayeSlug=slug)
             stories = SiirMasal.objects.filter(
                 hikayeKategorisi=category,
                 Model='Hikaye',
                 aktif=True
-            )
+            ).first()
         else:
             return JsonResponse({'error': 'Invalid model type'}, status=400)
 
