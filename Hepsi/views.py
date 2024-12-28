@@ -1100,14 +1100,14 @@ def get_category_stories(request, slug, model_type):
 
         # Model tipine göre kategoriyi bul
         if model_type.lower() == 'masal':
-            category = MasalKategorileri.objects.get(MasalSlug=slug)
+            category = MasalKategorileri.objects.filter(MasalSlug=slug)
             stories = SiirMasal.objects.filter(
                 masalKategorisi=category,
                 Model='Masal',
                 aktif=True
             ).first()
         elif model_type.lower() == 'hikaye':
-            category = HikayeKategorileri.objects.get(HikayeSlug=slug)
+            category = HikayeKategorileri.objects.filter(HikayeSlug=slug)
             stories = SiirMasal.objects.filter(
                 hikayeKategorisi=category,
                 Model='Hikaye',
