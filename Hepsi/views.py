@@ -1114,7 +1114,7 @@ def get_category_stories(request, slug, model_type):
                 aktif=True
             ).first()
         else:
-            return JsonResponse({'error': 'Invalid model type'}, status=400)
+            return JsonResponse({'error': f'Invalid model type={model_type}={slug}='}, status=400)
 
         stories = stories.only(
             'id', 'title', 'slug', 'resim',
