@@ -1094,7 +1094,7 @@ def get_categories(request):
 
 
 @csrf_exempt
-def get_category_stories(request, slug, model_type):
+def get_category_stories(request, model_type, slug):
     try:
         page = int(request.GET.get('page', 1))
 
