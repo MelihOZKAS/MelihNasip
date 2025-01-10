@@ -1041,7 +1041,7 @@ def get_stories(request):
         'id', 'title', 'slug', 'resim', 'meta_description', 'Model'
     ).filter(aktif=True, status="Yayinda").order_by('-guncelleme_tarihi')
 
-    paginator = Paginator(stories, 10)
+    paginator = Paginator(stories, 25)
     current_page = paginator.page(page)
 
     data = {
@@ -1121,7 +1121,7 @@ def get_category_stories(request, model_type, slug):
             'meta_description', 'Model', 'okunma_sayisi'
         ).order_by('-guncelleme_tarihi')
 
-        paginator = Paginator(stories, 10)
+        paginator = Paginator(stories, 25)
         current_page = paginator.page(page)
 
         data = {
