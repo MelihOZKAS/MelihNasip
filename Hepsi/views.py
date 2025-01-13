@@ -407,7 +407,7 @@ def gizlilik(request):
 
     }
 
-    return render(request, 'system/Hepsi/gilzlilik.html', context)
+    return render(request, 'system/Hepsi/eski-gilzlilik.html', context)
 
 
 def cerez(request):
