@@ -14,19 +14,10 @@
 {% block twdesc %}{{ description }}{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-            {# 1. Django Tarafında Temel Kontrol #}
-            {% with user_agent=request.META.HTTP_USER_AGENT|default:""|lower %}
-                {% if 'iphone' in user_agent or 'ipad' in user_agent or 'ipod' in user_agent %}
-                    <script>window.location.replace("https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr");</script>
-                {% elif 'android' in user_agent %}
-                    <script>window.location.replace("https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku");</script>
-                {% endif %}
-            {% endwith %}
-
-            {# 2. Gelişmiş JavaScript Kontrolü #}
+        <div class="col-md-10 text-center">
+            {# 1. Otomatik Yönlendirme Sistemi #}
             <script>
                 (function() {
                     function platformDetect() {
@@ -36,10 +27,7 @@
 
                         // iOS için özel kontrol
                         if(isIOS && !window.MSStream) {
-                            // iOS 13+ için ek kontrol
-                            const isNewApple = ('ApplePayError' in window) ||
-                                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-                            return isNewApple ? 'ios' : 'ios';
+                            return 'ios';
                         }
                         return isAndroid ? 'android' : 'other';
                     }
@@ -51,20 +39,14 @@
 
                         if(platform === 'ios') {
                             window.location.href = iosUrl;
-                            setTimeout(() => {
-                                if(document.hidden) return;
-                                document.getElementById('buttons').style.display = 'block';
-                            }, 1500);
                         }
                         else if(platform === 'android') {
-                            window.location.href = androidUrl;
-                            setTimeout(() => {
-                                if(document.hidden) return;
-                                document.getElementById('buttons').style.display = 'block';
-                            }, 1500);
-                        }
-                        else {
-                            document.getElementById('buttons').style.display = 'block';
+                            // Android için doğrudan Play Store'a yönlendirme
+                            window.location.href = "intent://details?id=com.masalokua.masalokuapp.masaloku#Intent;scheme=market;action=android.intent.action.VIEW;package=com.android.vending;end";
+                            setTimeout(function() {
+                                // Eğer Play Store açılmazsa normal linke yönlendir
+                                window.location.href = androidUrl;
+                            }, 500);
                         }
                     }
 
@@ -74,30 +56,62 @@
                 })();
             </script>
 
-            {# 3. Manuel Butonlar #}
-            <div id="buttons" style="display:none;">
-                <h2 class="mb-4">Uygulamayı Hemen İndirin</h2>
-                <div class="d-grid gap-3 col-md-8 mx-auto">
-                    <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr"
-                       class="btn btn-dark btn-lg py-3 text-start"
-                       onclick="window.open(this.href, '_blank'); return false;">
-                        <i class="bi bi-apple me-2 fs-4 align-middle"></i>
-                        <span class="align-middle">
-                            <small>iOS için indir</small><br>
-                            <strong>App Store</strong>
-                        </span>
-                    </a>
+            {# 2. Manuel İndirme Butonları #}
+            <div class="mt-4">
+                <h1 class="display-5 fw-bold mb-4">Masal Oku Uygulamasını İndirin</h1>
 
-                    <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku"
-                       class="btn btn-success btn-lg py-3 text-start"
-                       onclick="window.open(this.href, '_blank'); return false;">
-                        <i class="bi bi-google-play me-2 fs-4 align-middle"></i>
-                        <span class="align-middle">
-                            <small>Android için indir</small><br>
-                            <strong>Google Play</strong>
-                        </span>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-md-5">
+                        <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr"
+                           class="d-block text-decoration-none"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                            <img src="{% static 'images/app-store.png' %}"
+                                 alt="App Store'dan İndir"
+                                 class="img-fluid"
+                                 style="width: 200px; height: auto;">
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku"
+                           class="d-block text-decoration-none"
+                           onclick="window.open(this.href, '_blank'); return false;">
+                            <img src="{% static 'images/google-play.png' %}"
+                                 alt="Google Play'den İndir"
+                                 class="img-fluid"
+                                 style="width: 200px; height: auto;">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <a href="#" onclick="redirect()" class="btn btn-primary btn-lg">
+                        Yönlendirilmediyse Tıklayınız
                     </a>
                 </div>
+            </div>
+
+            {# 3. SEO Optimize Açıklama Metni #}
+            <div class="mt-5 text-start">
+                <h2 class="h4 mb-3">Masal Oku - Çocuklar İçin Eğitici ve Eğlenceli Masallar</h2>
+                <p class="lead">
+                    Masal Oku uygulaması, çocuklarınız için özenle seçilmiş yüzlerce masal ve hikaye sunar.
+                    Çocuk masalları, uyku masalları ve eğitici hikayelerle dolu bu uygulama,
+                    çocukların hayal gücünü geliştirirken aynı zamanda onlara değerler eğitimi verir.
+                </p>
+                <p>
+                    <strong>Neden Masal Oku?</strong><br>
+                    - Güncel ve özgün masal içerikleri<br>
+                    - Çocuk gelişimine uygun seçilmiş hikayeler<br>
+                    - Eğitici ve öğretici masallar<br>
+                    - Kolay kullanımlı arayüz<br>
+                    - Tamamen ücretsiz ve reklamsız
+                </p>
+                <p>
+                    Çocuklar için masal dinleme ve okuma deneyimini en iyi şekilde sunan Masal Oku uygulamasını
+                    hemen indirin ve çocuklarınızın gelişimine katkıda bulunun.
+                    <strong>Masal oku</strong>, <strong>çocuk masalları</strong>, <strong>çocuk hikayeleri</strong>
+                    ve daha fazlası için doğru adres!
+                </p>
             </div>
         </div>
     </div>
