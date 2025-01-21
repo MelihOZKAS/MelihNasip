@@ -26,7 +26,7 @@ urlpatterns = [
     path("ads.txt/", views.ads, name="ads"),
     path("robots.txt/", views.robots_txt, name="robots"),
     path('sentry-debug/', trigger_error),
-    path('mobil-uygulama', views.mobilapp, name='mobilapp'),
+    path('mobil-uygulama/', views.mobilapp, name='mobilapp'),
     path('oto_masalkategoriekle/', views.oto_masalkategoriekle, name='oto_masalkategoriekle'),
     path('oto_hikayekategoriekle/', views.oto_hikayekategoriekle, name='oto_hikayekategoriekle'),
 

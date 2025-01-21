@@ -773,7 +773,7 @@ def mobilapp(request):
         'keywords': keywords,
 
     }
-    return render(request, 'system/Hepsi/mobilbbapp.html', context)
+    return render(request, 'system/Hepsi/mobilapp.html', context)
 
 
 @csrf_exempt
