@@ -195,15 +195,22 @@
 
 
                             <div class="post-content clearfix">
-                                {% if EnDerun.resim %}
-                                    <figure class="figure">
-                                        <img src="https://masalbucket.s3.amazonaws.com/static/images/masal-mobil-uygulama.png" class="figure-img img-fluid rounded"
-                                             alt="Mobil uygulama indir" width="600" height="300" loading="lazy">
-                                        <figcaption class="figure-caption text-center">Ücretsiz Apple Store' da indir!</figcaption>
-                                    </figure>
+{% if EnDerun.resim %}
+    <figure class="figure text-center mb-3">
+        <img src="https://masalbucket.s3.amazonaws.com/static/images/masal-mobil-uygulama.png"
+             class="figure-img img-fluid rounded"
+             alt="Mobil uygulama indir" width="600" height="300" loading="lazy">
+        <figcaption class="figure-caption text-center" style="font-weight: bold; font-size: 18px; color: #007aff;">
+            Ücretsiz Apple Store'da indir!
+        </figcaption>
+    </figure>
 
-                                    <p>Ücretsiz Apple Store' da Hemen indirin birbirinden güzel oyun ve masallar keşfedin!</p>
-                                {% endif %}
+    <p style="font-size: 20px; font-weight: bold; color: #ff4500; text-align: center; line-height: 1.5;">
+        Ücretsiz Apple Store'da Hemen indirin, birbirinden güzel <span style="color: #007aff;">oyunlar</span> ve
+        <span style="color: #007aff;">masallar</span> keşfedin!
+    </p>
+{% endif %}
+
 
                                 {% if EnDerun.resim %}
                                     <figure class="figure">
