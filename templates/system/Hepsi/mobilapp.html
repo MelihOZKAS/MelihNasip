@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}{{ description }}{% endblock %}
+{% block keywords %}{{ keywords }}{% endblock %}
+{% block ogtitle %}{{ title }}{% endblock %}
+{% block ogDes %}{{ description }}{% endblock %}
+{% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twaccountsite %}@Melih{% endblock %}
+{% block twcreator %}@Melih{% endblock %}
+{% block twtitle %}{{ title }}{% endblock %}
+{% block twdesc %}{{ description }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            {% if request.user_agent.is_mobile %}
+                {% if request.user_agent.os.family == 'iOS' %}
+                    <h2>iOS Uygulamamızı İndirin</h2>
+                    <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr" class="btn btn-dark btn-lg mt-3">
+                        <i class="bi bi-apple"></i> App Store'dan İndir
+                    </a>
+                {% elif request.user_agent.os.family == 'Android' %}
+                    <h2>Android Uygulamamızı İndirin</h2>
+                    <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku" class="btn btn-success btn-lg mt-3">
+                        <i class="bi bi-google-play"></i> Google Play'den İndir
+                    </a>
+                {% else %}
+                    <h2>Uygulamamızı İndirin</h2>
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr">
+                                <img src="{% static 'appstore.png' %}" alt="App Store" class="img-fluid" style="max-width: 200px;">
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku">
+                                <img src="{% static 'playstore.png' %}" alt="Google Play" class="img-fluid" style="max-width: 200px;">
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% else %}
+                <h2>Mobil Uygulamamızı İndirin</h2>
+                <div class="row mt-4">
+                    <div class="col-md-6 mb-3">
+                        <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr">
+                            <img src="{% static 'images/app-store.png' %}" alt="App Store" class="img-fluid" style="max-width: 200px;">
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku">
+                            <img src="{% static 'images/google-play.png' %}" alt="Google Play" class="img-fluid" style="max-width: 200px;">
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

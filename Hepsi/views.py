@@ -762,6 +762,20 @@ def pintres_var_mi(request):
         return HttpResponse("post bulunamadı.")
 
 
+def mobilapp(request):
+    title = "Çocuk masalları ve hikayeleri mobil uygulaması indir"
+    description = "Çocuklara özel masallar, hikayeler ve oyunların olduğu süper mobil uygulama"
+    keywords = "çocuk masalları, çocuk uygulaması, masal, hikaye, eğitici masal"
+
+    context = {
+        'title': title,
+        'description': description,
+        'keywords': keywords,
+
+    }
+    return render(request, 'system/Hepsi/mobilbbapp.html', context)
+
+
 @csrf_exempt
 def ai_add(request):
     if request.method == 'POST':
