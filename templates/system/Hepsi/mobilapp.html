@@ -17,47 +17,88 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            {% if request.user_agent.is_mobile %}
-                {% if request.user_agent.os.family == 'iOS' %}
-                    <h2>iOS Uygulamamızı İndirin</h2>
-                    <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr" class="btn btn-dark btn-lg mt-3">
-                        <i class="bi bi-apple"></i> App Store'dan İndir
-                    </a>
-                {% elif request.user_agent.os.family == 'Android' %}
-                    <h2>Android Uygulamamızı İndirin</h2>
-                    <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku" class="btn btn-success btn-lg mt-3">
-                        <i class="bi bi-google-play"></i> Google Play'den İndir
-                    </a>
-                {% else %}
-                    <h2>Uygulamamızı İndirin</h2>
-                    <div class="row mt-4">
-                        <div class="col-md-6 mb-3">
-                            <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr">
-                                <img src="{% static 'appstore.png' %}" alt="App Store" class="img-fluid" style="max-width: 200px;">
-                            </a>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku">
-                                <img src="{% static 'playstore.png' %}" alt="Google Play" class="img-fluid" style="max-width: 200px;">
-                            </a>
-                        </div>
-                    </div>
+            {# 1. Django Tarafında Temel Kontrol #}
+            {% with user_agent=request.META.HTTP_USER_AGENT|default:""|lower %}
+                {% if 'iphone' in user_agent or 'ipad' in user_agent or 'ipod' in user_agent %}
+                    <script>window.location.replace("https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr");</script>
+                {% elif 'android' in user_agent %}
+                    <script>window.location.replace("https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku");</script>
                 {% endif %}
-            {% else %}
-                <h2>Mobil Uygulamamızı İndirin</h2>
-                <div class="row mt-4">
-                    <div class="col-md-6 mb-3">
-                        <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr">
-                            <img src="{% static 'images/app-store.png' %}" alt="App Store" class="img-fluid" style="max-width: 200px;">
-                        </a>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku">
-                            <img src="{% static 'images/google-play.png' %}" alt="Google Play" class="img-fluid" style="max-width: 200px;">
-                        </a>
-                    </div>
+            {% endwith %}
+
+            {# 2. Gelişmiş JavaScript Kontrolü #}
+            <script>
+                (function() {
+                    function platformDetect() {
+                        const ua = navigator.userAgent.toLowerCase();
+                        const isIOS = /iphone|ipad|ipod/.test(ua);
+                        const isAndroid = /android/.test(ua);
+
+                        // iOS için özel kontrol
+                        if(isIOS && !window.MSStream) {
+                            // iOS 13+ için ek kontrol
+                            const isNewApple = ('ApplePayError' in window) ||
+                                              (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+                            return isNewApple ? 'ios' : 'ios';
+                        }
+                        return isAndroid ? 'android' : 'other';
+                    }
+
+                    function redirect() {
+                        const platform = platformDetect();
+                        const iosUrl = "https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr";
+                        const androidUrl = "https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku";
+
+                        if(platform === 'ios') {
+                            window.location.href = iosUrl;
+                            setTimeout(() => {
+                                if(document.hidden) return;
+                                document.getElementById('buttons').style.display = 'block';
+                            }, 1500);
+                        }
+                        else if(platform === 'android') {
+                            window.location.href = androidUrl;
+                            setTimeout(() => {
+                                if(document.hidden) return;
+                                document.getElementById('buttons').style.display = 'block';
+                            }, 1500);
+                        }
+                        else {
+                            document.getElementById('buttons').style.display = 'block';
+                        }
+                    }
+
+                    // Sayfa yüklendiğinde ve 1 saniye sonra kontrol
+                    window.addEventListener('load', redirect);
+                    setTimeout(redirect, 1000);
+                })();
+            </script>
+
+            {# 3. Manuel Butonlar #}
+            <div id="buttons" style="display:none;">
+                <h2 class="mb-4">Uygulamayı Hemen İndirin</h2>
+                <div class="d-grid gap-3 col-md-8 mx-auto">
+                    <a href="https://apps.apple.com/tr/app/masal-oku/id6740011758?l=tr"
+                       class="btn btn-dark btn-lg py-3 text-start"
+                       onclick="window.open(this.href, '_blank'); return false;">
+                        <i class="bi bi-apple me-2 fs-4 align-middle"></i>
+                        <span class="align-middle">
+                            <small>iOS için indir</small><br>
+                            <strong>App Store</strong>
+                        </span>
+                    </a>
+
+                    <a href="https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku"
+                       class="btn btn-success btn-lg py-3 text-start"
+                       onclick="window.open(this.href, '_blank'); return false;">
+                        <i class="bi bi-google-play me-2 fs-4 align-middle"></i>
+                        <span class="align-middle">
+                            <small>Android için indir</small><br>
+                            <strong>Google Play</strong>
+                        </span>
+                    </a>
                 </div>
-            {% endif %}
+            </div>
         </div>
     </div>
 </div>
