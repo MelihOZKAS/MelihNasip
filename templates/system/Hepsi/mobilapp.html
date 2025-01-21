@@ -38,13 +38,16 @@
                         const androidUrl = "https://play.google.com/store/apps/details?id=com.masalokua.masalokuapp.masaloku";
 
                         if(platform === 'ios') {
+                            // iOS için direkt App Store'a yönlendirme
                             window.location.href = iosUrl;
                         }
                         else if(platform === 'android') {
-                            // Android için doğrudan Play Store'a yönlendirme
-                            window.location.href = "intent://details?id=com.masalokua.masalokuapp.masaloku#Intent;scheme=market;action=android.intent.action.VIEW;package=com.android.vending;end";
+                            // Android için Play Store'a direkt yönlendirme
+                            const intentUrl = "intent://details?id=com.masalokua.masalokuapp.masaloku#Intent;scheme=market;action=android.intent.action.VIEW;package=com.android.vending;end";
+                            window.location.href = intentUrl;
+
+                            // Eğer intent başarısız olursa normal linke yönlendir
                             setTimeout(function() {
-                                // Eğer Play Store açılmazsa normal linke yönlendir
                                 window.location.href = androidUrl;
                             }, 500);
                         }
