@@ -68,7 +68,41 @@
                 <div class="col-lg-8">
 
 
-                    <div class="section-header">
+                    <div class="section-header mb-5">
+    <figure class="figure text-center mb-3">
+        <a href="{% url 'mobilapp' %}">
+            <img src="https://masalbucket.s3.amazonaws.com/static/images/masal-mobil-uygulama.png"
+                 class="figure-img img-fluid rounded"
+                 alt="Mobil uygulama indir" width="800" height="400" loading="lazy"
+                 style="border: 2px solid #ddd; border-radius: 10px; transition: transform 0.3s;">
+        </a>
+        <figcaption class="figure-caption text-center" style="font-size: 18px; color: #333; font-weight: 600;">
+            <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
+                Ücretsiz Store'da Sınırsız Eğlence! 🌟
+            </a>
+        </figcaption>
+    </figure>
+
+    <p style="font-size: 22px; font-weight: bold; text-align: center; line-height: 1.6; color: #222;">
+        <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
+            Hem iOS hem de Android için birbirinden eğlenceli <span style="color: #007aff;">oyunlar</span>
+            ve büyüleyici <span style="color: #3ddc84;">masallar</span> sizi bekliyor!
+            Hemen keşfedin, eğlenceye katılın! 📱🎮📚
+        </a>
+    </p>
+                    </div>
+
+                    <!-- details -->
+                    <br>
+                    <div class="details">
+                        <p class="excerpt mb-0" style="color: black">Çocuklarınızın hayal dünyasını genişletmek ve
+                            onlara keyifli anlar yaşatmak için <a
+                                    href="{% url 'masal-oku' %}"><strong><span>Masal Oku</span></strong></a> sayfamızı
+                            ziyaret edin!</p>
+                    </div>
+
+
+                    <div class="section-header mb-5">
                         <h2 class="section-title">En Güzel Masallar</h2>
                         {% include 'system/parcali/vave.html' %}
                     </div>
@@ -90,7 +124,6 @@
                                     href="{% url 'masal-oku' %}"><strong><span>Masal Oku</span></strong></a> sayfamızı
                             ziyaret edin!</p>
                     </div>
-                    <br>
 
 
                     <div class="section-header">
