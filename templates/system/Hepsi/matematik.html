@@ -216,50 +216,26 @@
 {
 "@context": "https://schema.org",
   "@type": "Article",
-  "name": "{{ EnDerun.title }}",
-  "headline": "{{ EnDerun.title }}",
-  "alternateName": "{{ EnDerun.h1 }}",
-  "articleBody": "{{ articleBody }}",
-  "description": "{{ EnDerun.meta_description }}",
+  "name": "{{ game.title }}",
+  "headline": "{{ game.title }}",
+  "alternateName": "{{ game.h1 }}",
+  "description": "{{ game.meta_description }}",
   "inLanguage": "tr",
-  "genre": "{{ TumKategori }}",
   "sameAs": "{{ request.build_absolute_uri }}",
-  "datePublished": "{{ EnDerun.olusturma_tarihi.isoformat }}",
-  "dateModified": "{{ EnDerun.guncelleme_tarihi.isoformat }}",
+  "datePublished": "{{ game.olusturma_tarihi.isoformat }}",
+  "dateModified": "{{ game.guncelleme_tarihi.isoformat }}",
 
   "mainEntityOfPage": {
   "@type": "webPage",
   "id": "{{ request.build_absolute_uri }}"
 },
 
-  {% if EnDerun.youtube %}
-  "video": {
-    "@type": "VideoObject",
-    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
-    "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
-    "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
-    "thumbnailUrl": "{{ thumbnail_url }}", // Video küçük resim URL'sini
-    "embedUrl": "{{ EnDerun.youtube }}"
-    // Diğer video bilgilerini buraya ekleyin
-  },
-  {% endif %}
-
-  "keywords": "{{ EnDerun.keywords }}",
+  "keywords": "{{ game.keywords }}",
 
   "author": {
   "@type": "Person",
   "name": "Melih ÖZKAŞ"
       },
-"image": [
-  {% for resim_url in resimler %}
-    {
-      "@type": "ImageObject",
-      "url": "{{ resim_url|safe }}",
-      "width": 800,
-      "height": 400
-    }{% if not forloop.last %},{% endif %}
-  {% endfor %}
-],
 
   "publisher": {
       "@type": "Organization",
@@ -275,7 +251,7 @@
   "interactionStatistic": {
     "@type": "InteractionCounter",
     "interactionType": { "@type": "https://schema.org/ReadAction" },
-    "userInteractionCount": "{{ EnDerun.okunma_sayisi }}"
+    "userInteractionCount": "{{ game.okunma_sayisi }}"
   }
 }
 </script>
