@@ -254,17 +254,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "{% if EnDerun.Model == 'Masal' %}{{ EnDerun.masalKategorisi.first.Masal_Title }}{% else %}
-        {{ EnDerun.hikayeKategorisi.first.Hikaye_Title }}{% endif %}",
-      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-kategori/{% if EnDerun.Model == 'Masal' %}
-        {{ EnDerun.masalKategorisi.first.MasalSlug }}{% else %}
-        {{ EnDerun.hikayeKategorisi.first.HikayeSlug }}{% endif %}/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "{{ EnDerun.title }}",
-      "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-oku/{{ EnDerun.slug }}/"
+      "name": "Hayvanları Tanıyalım",
+      "item": "{{ request.build_absolute_uri }}"
     }
   ]
 
