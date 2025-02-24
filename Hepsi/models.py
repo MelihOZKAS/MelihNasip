@@ -163,6 +163,7 @@ class SiirMasal(models.Model):
     resim10 = models.ImageField(upload_to=kapak_resmi_upload_to,
                                storage=ImageSettingStorage(),
                                null=True, blank=True)
+    faq = models.JSONField(blank=True, null=True)
     uzunluk = models.CharField(max_length=25, choices=boyutu, default="Kısa", help_text=HELP_TEXTS["status"])
     youtube = models.URLField(blank=True)
     meta_description = models.TextField(blank=True,verbose_name="Meta Açıklama",help_text=HELP_TEXTS["meta_description"])
