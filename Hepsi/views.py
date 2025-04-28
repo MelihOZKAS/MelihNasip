@@ -369,7 +369,6 @@ def iletisim(request):
         'title': "Uyku Çocuk Masallarını Dinle - İletişim Sayfası | Masal Oku",
         'description': "Çocuk hiyakeleri ve Çocuk Masalları sitemizin iletişim bölümüdür bizimle irtibata geçebilirisiniz. Masal okuya bilir gönderebilir siniz.",
         'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, ingilizce hikayeler, çocuk hikayeleri, çocuklara özel hikayeler, keloğlan masalları",
-
     }
 
     if request.method == 'POST':
@@ -765,9 +764,9 @@ def pintres_var_mi(request):
         if post.Model == "Masal":
             KategoriFistName = post.masalKategorisi.first().MasalSlug
         if post.Model == "Hikaye":
-            KategoriFistName = post.hikayeKategorisi.first().HikayeSlug
+            KategoriFistName = "Çocuk Hikayeleri"
         if not icerik:
-            icerik = "Haberin devamı için tıklayın!"
+            icerik = "Çocuk Masalları"
         post.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
         return HttpResponse(
             f"https://www.cocukmasallarioku.com/{'masal-oku' if post.Model == 'Masal' else 'hikaye-oku'}/{post.slug}/!={icerik} Daha fazla çocuk masal ve çocuk hikayeleri için sitemizi ziyaret edebilirsiniz! !={post.title}!={KategoriFistName}!={image}")
