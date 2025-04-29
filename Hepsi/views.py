@@ -751,7 +751,7 @@ def twitter_var_mi(request):
 
 @csrf_exempt
 def pintres_var_mi(request):
-    post = SiirMasal.objects.filter(pinterest=True, aktif=True, Model="Masal", status="Yayinda").first()
+    post = SiirMasal.objects.filter(pinterest=True, aktif=True, status="Yayinda").first()
     if post is not None:
         # post'un facebook durumunu False yapayı unutmamak lazımmm dimi.
         post.pinterest = False
