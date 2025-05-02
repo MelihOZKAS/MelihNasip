@@ -1182,7 +1182,8 @@ def ekle(request):
     description = request.POST.get('description')
     keywords = request.POST.get('keywords')
     ozet = request.POST.get('ozet')
-    sss = request.POST.get('sss')
+    faq = request.POST.get('faq')
+    faq = json.loads(faq)
     resim = request.POST.get('resim')
     content1 = request.POST.get('content1')
     content2 = request.POST.get('content2')
@@ -1237,6 +1238,7 @@ def ekle(request):
             icerik9=content9,
             icerik10=content10,
             Model="Masal",
+            faq=faq,
         )
 
         # Slug çakışmalarını engelle
