@@ -1266,6 +1266,106 @@ def ekle(request):
 
 
 @csrf_exempt
+def guncelle(request):
+    if request.method != "POST":
+        return HttpResponseBadRequest("Invalid request method")
+
+    # Slug bilgisini al
+    slug = request.POST.get('slug')
+
+    # Slug kontrolü
+    if not slug:
+        return HttpResponseBadRequest("Slug is required")
+
+    try:
+        # Slug'a göre Post'u bul
+        post = SiirMasal.objects.get(slug=slug)
+
+        # Gelen verileri al ve güncelle
+        if 'title' in request.POST:
+            post.title = request.POST.get('title')
+
+        if 'h1' in request.POST:
+            post.h1 = request.POST.get('h1')
+
+        if 'description' in request.POST:
+            post.description = request.POST.get('description')
+
+        if 'keywords' in request.POST:
+            post.keywords = request.POST.get('keywords')
+
+        if 'ozet' in request.POST:
+            post.ozet = request.POST.get('ozet')
+
+        if 'faq' in request.POST:
+            try:
+                post.faq = json.loads(request.POST.get('faq'))
+            except:
+                pass
+
+
+        # İçerik alanlarını güncelle
+        if 'content1' in request.POST:
+            post.icerik1 = request.POST.get('content1')
+
+        if 'content2' in request.POST:
+            post.icerik2 = request.POST.get('content2')
+
+        if 'content3' in request.POST:
+            post.icerik3 = request.POST.get('content3')
+
+        if 'content4' in request.POST:
+            post.icerik4 = request.POST.get('content4')
+
+        if 'content5' in request.POST:
+            post.icerik5 = request.POST.get('content5')
+
+        if 'content6' in request.POST:
+            post.icerik6 = request.POST.get('content6')
+
+        if 'content7' in request.POST:
+            post.icerik7 = request.POST.get('content7')
+
+        if 'content8' in request.POST:
+            post.icerik8 = request.POST.get('content8')
+
+        if 'content9' in request.POST:
+            post.icerik9 = request.POST.get('content9')
+
+        if 'content10' in request.POST:
+            post.icerik10 = request.POST.get('content10')
+
+
+
+
+        post.pinterest = True
+        post.twitter = True
+        post.facebook = True
+        post.indexing = True
+        post.linkedin = True
+
+        # Değişiklikleri kaydet
+        post.save()
+
+        # Başarı yanıtı
+        return JsonResponse({
+            "status": "success",
+            "message": "Post updated successfully",
+            "post_id": post.id,
+        })
+
+    except SiirMasal.DoesNotExist:
+        return JsonResponse({"status": "error", "message": "Post not found with the given slug"}, status=404)
+
+    except IntegrityError:
+        # Slug çakışması durumunda
+        return JsonResponse({"status": "error", "message": "Slug conflict occurred"}, status=400)
+
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+
+@csrf_exempt
 def mobile_login(request):
     if request.method == 'POST':
         try:

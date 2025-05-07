@@ -32,6 +32,7 @@ urlpatterns = [
 
     path("saglik-add/", views.ai_add, name="saglikadd"),
     path("cocuk-masallari/", views.Masallar, name="MasallarHome"),
+    path('guncelle/', views.guncelle, name='guncelle'),
     path('ekle/', views.ekle, name='ekle'),
     path('mobile/login/', views.mobile_login, name='google_login'),
     path("Oto_Paylas/", views.Oto_Paylas, name="Oto_Paylas"),
