@@ -36,10 +36,10 @@
 
 {% block extra_head %}
     <script type="application/ld+json">
-{
-"@context": "https://schema.org",
-  "@type": "Article",
-  "name": "{{ EnDerun.title }}",
+        {
+        "@context": "https://schema.org",
+          "@type": "Article",
+          "name": "{{ EnDerun.title }}",
   "headline": "{{ EnDerun.title }}",
   "alternateName": "{{ EnDerun.h1 }}",
   "articleBody": "{{ articleBody }}",
@@ -55,45 +55,45 @@
   "id": "{{ request.build_absolute_uri }}"
 },
 
-  {% if EnDerun.youtube %}
-  "video": {
-    "@type": "VideoObject",
-    "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
+        {% if EnDerun.youtube %}
+            "video": {
+              "@type": "VideoObject",
+              "name": "{{ EnDerun.title }}", // Video adını buraya ekleyin
     "description": "{{ EnDerun.meta_description }}", // Video açıklamasını buraya ekleyin
     "uploadDate": "{{ EnDerun.olusturma_tarihi.isoformat }}", // Video yükleme tarihini buraya ekleyin
     "thumbnailUrl": "{{ thumbnail_url }}", // Video küçük resim URL'sini
     "embedUrl": "{{ EnDerun.youtube }}"
     // Diğer video bilgilerini buraya ekleyin
   },
-  {% endif %}
+        {% endif %}
 
-  "keywords": "{{ EnDerun.keywords }}",
+        "keywords": "{{ EnDerun.keywords }}",
 
   "author": {
   "@type": "Person",
   "name": "Melih ÖZKAŞ"
       },
 "image": [
-  {% for resim_url in resimler %}
-    {
-      "@type": "ImageObject",
-      "url": "{{ resim_url|safe }}",
+        {% for resim_url in resimler %}
+            {
+              "@type": "ImageObject",
+              "url": "{{ resim_url|safe }}",
       "width": 800,
       "height": 400
     }{% if not forloop.last %},{% endif %}
   {% endfor %}
-],
+        ],
 
-  "publisher": {
-      "@type": "Organization",
-      "name": "Masal Oku",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
-      }
-    },
+          "publisher": {
+              "@type": "Organization",
+              "name": "Masal Oku",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp"
+              }
+            },
 
-  "articleSection": "{{ TumKategori }}",
+          "articleSection": "{{ TumKategori }}",
   "isFamilyFriendly": "true",
   "interactionStatistic": {
     "@type": "InteractionCounter",
@@ -101,26 +101,26 @@
     "userInteractionCount": "{{ EnDerun.okunma_sayisi }}"
   }
 }
-</script>
+    </script>
 {% endblock %}
 
 
 {% block extra_Two_head %}
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
-      "item": "https://www.cocukmasallarioku.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "{% if EnDerun.Model == 'Masal' %}{{ EnDerun.masalKategorisi.first.Masal_Title }}{% else %}
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku",
+              "item": "https://www.cocukmasallarioku.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "{% if EnDerun.Model == 'Masal' %}{{ EnDerun.masalKategorisi.first.Masal_Title }}{% else %}
         {{ EnDerun.hikayeKategorisi.first.Hikaye_Title }}{% endif %}",
       "item": "https://www.cocukmasallarioku.com/{{ EnDerun.Model|lower }}-kategori/{% if EnDerun.Model == 'Masal' %}
         {{ EnDerun.masalKategorisi.first.MasalSlug }}{% else %}
@@ -135,7 +135,7 @@
   ]
 
 }
-</script>
+    </script>
 {% endblock %}
 
 
@@ -195,29 +195,32 @@
 
 
                             <div class="post-content clearfix">
-{% if EnDerun.resim %}
-    <figure class="figure text-center mb-3">
-        <a href="{% url 'mobilapp' %}">
-            <img src="https://masalbucket.s3.amazonaws.com/static/images/masal-mobil-uygulama.png"
-                 class="figure-img img-fluid rounded"
-                 alt="Mobil uygulama indir" width="800" height="400" loading="lazy"
-                 style="border: 2px solid #ddd; border-radius: 10px; transition: transform 0.3s;">
-        </a>
-        <figcaption class="figure-caption text-center" style="font-size: 18px; color: #333; font-weight: 600;">
-            <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
-                Ücretsiz Store'da Sınırsız Eğlence! 🌟
-            </a>
-        </figcaption>
-    </figure>
 
-    <p style="font-size: 22px; font-weight: bold; text-align: center; line-height: 1.6; color: #222;">
-        <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
-            Hem iOS hem de Android için birbirinden eğlenceli <span style="color: #CB0746FF;">oyunlar</span>
-            ve <span style="color: #AC0000FF;">büyüleyici masallar</span> sizi bekliyor!
-            Hemen keşfedin, eğlenceye katılın! 📱🎮📚
-        </a>
-    </p>
-{% endif %}
+                                <figure class="figure text-center mb-3">
+                                    <a href="https://ingilizcekonusma.com/mobil-uygulama/">
+                                        <img src="https://masalbucket.s3.eu-central-1.amazonaws.com/static/images/lingo-mobil.webp"
+                                             class="figure-img img-fluid rounded"
+                                             alt="Mobil uygulama indir" width="800" height="400" loading="lazy"
+                                             style="border: 2px solid #ddd; border-radius: 10px; transition: transform 0.3s;">
+                                    </a>
+                                    <figcaption class="figure-caption text-center"
+                                                style="font-size: 18px; color: #333; font-weight: 600;">
+                                        <a href="https://ingilizcekonusma.com/mobil-uygulama/"
+                                           style="text-decoration: none; color: inherit;">
+                                            Sınırsız İngilizce Öğren! 🌟
+                                        </a>
+                                    </figcaption>
+                                </figure>
+
+                                <p style="font-size: 22px; font-weight: bold; text-align: center; line-height: 1.6; color: #222;">
+                                    <a href="https://ingilizcekonusma.com/mobil-uygulama/" style="text-decoration: none; color: inherit;">
+                                        Hem iOS hem de Android için birbirinden eğlenceli <span
+                                            style="color: #CB0746FF;">oyunlar</span>
+                                        ve <span style="color: #AC0000FF;">büyüleyici hikayeler</span> sizi bekliyor!
+                                        Hemen keşfedin, eğlenceye katılın! 📱🎮📚
+                                    </a>
+                                </p>
+
 
 
 
@@ -534,6 +537,32 @@
                                     {% include 'system/parcali/yatayreklam.html' %}
                                 {% endif %}
 
+
+                                <!-- Mobil app başlangıç -->
+                                <figure class="figure text-center mb-3">
+                                    <a href="{% url 'mobilapp' %}">
+                                        <img src="https://masalbucket.s3.amazonaws.com/static/images/masal-mobil-uygulama.png"
+                                             class="figure-img img-fluid rounded"
+                                             alt="Mobil uygulama indir" width="800" height="400" loading="lazy"
+                                             style="border: 2px solid #ddd; border-radius: 10px; transition: transform 0.3s;">
+                                    </a>
+                                    <figcaption class="figure-caption text-center"
+                                                style="font-size: 18px; color: #333; font-weight: 600;">
+                                        <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
+                                            Ücretsiz Store'da Sınırsız Eğlence! 🌟
+                                        </a>
+                                    </figcaption>
+                                </figure>
+
+                                <p style="font-size: 22px; font-weight: bold; text-align: center; line-height: 1.6; color: #222;">
+                                    <a href="{% url 'mobilapp' %}" style="text-decoration: none; color: inherit;">
+                                        Hem iOS hem de Android için birbirinden eğlenceli <span
+                                            style="color: #CB0746FF;">oyunlar</span>
+                                        ve <span style="color: #AC0000FF;">büyüleyici masallar</span> sizi bekliyor!
+                                        Hemen keşfedin, eğlenceye katılın! 📱🎮📚
+                                    </a>
+                                </p>
+                                <!-- Mobil app sonu -->
 
 
                                 <!-- post bottom section -->
