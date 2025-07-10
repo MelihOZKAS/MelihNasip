@@ -1289,7 +1289,7 @@ def guncelle(request):
             post.h1 = request.POST.get('h1')
 
         if 'description' in request.POST:
-            post.description = request.POST.get('description')
+            post.meta_description = request.POST.get('description')
 
         if 'keywords' in request.POST:
             post.keywords = request.POST.get('keywords')
