@@ -1306,7 +1306,7 @@ def guncelle(request):
 
         # İçerik alanlarını güncelle
         if 'content1' in request.POST:
-            post.icerik1 = request.POST.get('content1')
+            post.icerik = request.POST.get('content1')
 
         if 'content2' in request.POST:
             post.icerik2 = request.POST.get('content2')
