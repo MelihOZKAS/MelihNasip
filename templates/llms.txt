@@ -1,0 +1,17 @@
+# llms.txt — Large Language Model crawler hints
+# Reference: platform OpenAI GPTBot, Google-Extended, CCBot
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
+Site: https://www.cocukmasallarioku.com/
+Owner: Masal Oku LTD ŞTİ
+Contact: iletisim@cocukmasallarioku.com
+Policy: İçeriklerimiz eğitim amaçlıdır. Tüm hakları saklıdır.

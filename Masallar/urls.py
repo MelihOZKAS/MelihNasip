@@ -1,6 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path,include
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import index, sitemap
@@ -88,4 +89,6 @@ urlpatterns = [
     path('feeds/doga-ve-cevre-onemi-hikayeleri/', CevreHikayelerFeed(), name='doga_hikayeler_feed'),
     path('feeds/ingilizce-hikayeler/', ingilizceHikayelerFeed(), name='ingilizce_hikayeler_feed'),
     path('feeds/sevimli-canavar-hikayeleri/', CanavarHikayelerFeed(), name='canavar_hikayeler_feed'),
+    # llms.txt for LLM crawlers
+    path('llms.txt', TemplateView.as_view(template_name='llms.txt', content_type='text/plain'), name='llms_txt'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
