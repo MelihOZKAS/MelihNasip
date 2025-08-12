@@ -13,8 +13,9 @@ $(document).ready(function() {
     "use strict";
 
     /*=========================================================================
-            Slick sliders
+            Slick sliders (guarded)
     =========================================================================*/
+    if (typeof $.fn.slick === 'function') {
     $('.post-carousel-lg').slick({
       dots: true,
       arrows: true,
@@ -146,6 +147,7 @@ $(document).ready(function() {
     $('.carousel-botNav-next').click(function(){ 
       $('.post-carousel-widget').slick('slickNext');
     } );
+    } // end if slick exists
 
     /*=========================================================================
             Sticky header
@@ -166,11 +168,13 @@ $(function(){
     /*=========================================================================
             Sticky Sidebar
     =========================================================================*/
-    $('.sidebar').stickySidebar({
-        topSpacing: 60,
-        bottomSpacing: 30,
-        containerSelector: '.main-content',
-    });
+    if (typeof $.fn.stickySidebar === 'function') {
+        $('.sidebar').stickySidebar({
+            topSpacing: 60,
+            bottomSpacing: 30,
+            containerSelector: '.main-content',
+        });
+    }
 
     /*=========================================================================
             Vertical Menu
