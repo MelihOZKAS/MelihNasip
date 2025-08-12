@@ -77,4 +77,7 @@ urlpatterns = [
     path('masal-kategori/<str:alt_kategori_slug>/', views.masalAltKategori, name='masalAltKategori'),
     path('hikaye-kategori/<str:alt_kategori_slug>/', views.hikayeAltKategori, name='hikayeAltKategori'),
     path('<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
+    # Cache temizleme ve okunma sayısı arttırma (SEO-friendly)
+    path('clear-cache/', views.simple_clear_cache, name='simple-clear-cache'),
+    path('read-control/', views.increase_view_count, name='okunma'),
 ]

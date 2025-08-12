@@ -4,6 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_GET
+from django.views.decorators.cache import cache_page
+from django.views.decorators.vary import vary_on_headers
+from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from django.db.utils import IntegrityError
@@ -63,6 +66,8 @@ def get_youtube_id(url):
 
 
 # Create your views here.
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def home(request):
     masal_banner = MasalKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
     hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
@@ -126,6 +131,8 @@ def oto_hikayekategoriekle(request):
     return HttpResponse('Hikayeler başarıyla eklendi.')
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def masalAltKategori(request, alt_kategori_slug):
     alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug=alt_kategori_slug)
     icerik_list = SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
@@ -156,6 +163,8 @@ def masalAltKategori(request, alt_kategori_slug):
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def MasalOkuListesi(request):
     icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')[
                   :50]
@@ -189,6 +198,8 @@ def MasalOkuListesi(request):
     return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def hikayeAltKategori(request, alt_kategori_slug):
     alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
     icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
@@ -219,6 +230,8 @@ def hikayeAltKategori(request, alt_kategori_slug):
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def hikayeOkuListesi(request):
     icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')[
                   :50]
@@ -252,6 +265,8 @@ def hikayeOkuListesi(request):
     return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def BlogHome(request):
     if request.resolver_match.url_name == 'cocuk':
         icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
@@ -295,6 +310,8 @@ def BlogHome(request):
     return render(request, 'system/Hepsi/bloghome.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def Masallar(request):
     Tum_Masallar = MasalKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
@@ -315,6 +332,8 @@ def Masallar(request):
     return render(request, 'system/Hepsi/masallar.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60 * 2)
 def Hikayeler(request):
     Tum_Hikayeler = HikayeKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
@@ -364,6 +383,8 @@ def ekle(request):
         return render(request, 'system/Hepsi/masal-ekle.html', context)  # Formun bulunduğu sayfa
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 30)
 def iletisim(request):
     context = {
         'title': "Uyku Çocuk Masallarını Dinle - İletişim Sayfası | Masal Oku",
@@ -387,6 +408,8 @@ def iletisim(request):
     return render(request, 'system/Hepsi/iletisim.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 30)
 def hakkimizda(request):
     context = {
         'title': "Uyku Çocuk Hikayeleri Dinle - Hakkımızda | Hikaye Oku",
@@ -398,6 +421,8 @@ def hakkimizda(request):
     return render(request, 'system/Hepsi/hakkimizda.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 30)
 def gizlilik(request):
     context = {
         'title': "Çocuk Hikayeleri ve Masalları Oku - Gizlilik Politikası",
@@ -409,6 +434,8 @@ def gizlilik(request):
     return render(request, 'system/Hepsi/eski-gilzlilik.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 30)
 def cerez(request):
     context = {
         'title': "Çocuk Hikayeleri ve Masalları Oku - Çerez Politikası",
@@ -419,6 +446,8 @@ def cerez(request):
     return render(request, 'system/Hepsi/cerez.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 30)
 def kullanim(request):
     context = {
         'title': "Çocuk Masallarını Dinle - Kullanım Şartları | Masal Oku",
@@ -430,6 +459,8 @@ def kullanim(request):
     return render(request, 'system/Hepsi/kullanim.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60)
 def enderunMasal(request, masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
@@ -494,6 +525,8 @@ def enderunMasal(request, masal_slug):
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60)
 def enderunBlog(request, blog_slug):
     EnDerun = get_object_or_404(Blog, slug=blog_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
@@ -541,6 +574,8 @@ def enderunBlog(request, blog_slug):
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60)
 def enderunHikaye(request, hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
@@ -637,6 +672,11 @@ def Oto_Paylas(request):
             post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
+            # Yeni içerik yayınlandı: cache'i temizle
+            try:
+                cache.clear()
+            except Exception:
+                pass
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
@@ -652,6 +692,11 @@ def Blog_oto_Paylas(request):
             # post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
+            # Yeni blog yayınlandı: cache'i temizle
+            try:
+                cache.clear()
+            except Exception:
+                pass
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
@@ -947,6 +992,8 @@ def flutter_icerik_detay_api(request, slug):
     return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json; charset=utf-8")
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60)
 def matematik(request):
     game = get_object_or_404(Oyunlar, short_name="matematik")
     game.okunma_sayisi += 1
@@ -962,6 +1009,8 @@ def matematik(request):
     return render(request, 'system/Hepsi/matematik.html', context)
 
 
+@vary_on_headers("Accept-Language")
+@cache_page(60 * 60)
 def hayvanoyunu(request):
     # Rastgele bir hayvan seçelim
     animal = Animals.objects.order_by('?').first()
@@ -1015,6 +1064,70 @@ def oyunlar(request):
 
     }
     return render(request, 'system/Hepsi/oyunlar-listesi.html', context)
+
+
+# Basit cache temizleme (her zaman 200 döner)
+@csrf_exempt
+def simple_clear_cache(request):
+    try:
+        cache.clear()
+        return JsonResponse({"status": "success", "message": "cache cleared"}, status=200)
+    except Exception:
+        # Her durumda 200
+        return JsonResponse({"status": "success", "message": "error but ok"}, status=200)
+
+
+# Okunma sayısı artırma – SEO friendly (her zaman 200)
+@csrf_exempt
+def increase_view_count(request):
+    try:
+        if request.method == 'POST':
+            try:
+                data = json.loads(request.body)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                return JsonResponse({'status': 'success', 'message': 'Ignored invalid data'}, status=200)
+
+            object_id = data.get('object_id')
+            slug = data.get('slug')
+            model = data.get('model')  # 'masal' | 'hikaye' | 'blog'
+
+            # Öncelik: slug + model
+            try:
+                if slug and model in ['masal', 'hikaye']:
+                    obj = SiirMasal.objects.get(slug=slug)
+                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.save(update_fields=['okunma_sayisi'])
+                    return JsonResponse({'status': 'success'}, status=200)
+                if slug and model == 'blog':
+                    obj = Blog.objects.get(slug=slug)
+                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.save(update_fields=['okunma_sayisi'])
+                    return JsonResponse({'status': 'success'}, status=200)
+            except (SiirMasal.DoesNotExist, Blog.DoesNotExist):
+                pass
+
+            # Alternatif: object_id ile dene
+            if object_id:
+                try:
+                    obj = SiirMasal.objects.get(id=object_id)
+                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.save(update_fields=['okunma_sayisi'])
+                    return JsonResponse({'status': 'success'}, status=200)
+                except SiirMasal.DoesNotExist:
+                    try:
+                        obj = Blog.objects.get(id=object_id)
+                        obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                        obj.save(update_fields=['okunma_sayisi'])
+                        return JsonResponse({'status': 'success'}, status=200)
+                    except Blog.DoesNotExist:
+                        return JsonResponse({'status': 'success', 'message': 'Not found but ok'}, status=200)
+
+            return JsonResponse({'status': 'success', 'message': 'No id/slug but ok'}, status=200)
+        else:
+            # GET gibi durumlarda da 200
+            return JsonResponse({'status': 'success', 'message': 'Method not POST but ok'}, status=200)
+    except Exception:
+        return JsonResponse({'status': 'success', 'message': 'General error but ok'}, status=200)
 
 
 def clean_content(content):
