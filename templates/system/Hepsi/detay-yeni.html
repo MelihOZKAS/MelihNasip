@@ -9,10 +9,12 @@
 {% block ogurl %}{{ request.build_absolute_uri }}{% endblock %}
 
 {% block canonical %}
-    {% if sayfa_Turu == "Masal" %}
-        <link rel="canonical" href="https://{{ request.get_host }}/masal-kategori/{{ alt_kategori.MasalSlug }}/">
-    {% elif sayfa_Turu == "Hikaye" %}
-        <link rel="canonical" href="https://{{ request.get_host }}/hikaye-kategori/{{ alt_kategori.HikayeSlug }}/">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    {% if icerik.has_previous %}
+        <link rel="prev" href="?sayfa={{ icerik.previous_page_number }}">
+    {% endif %}
+    {% if icerik.has_next %}
+        <link rel="next" href="?sayfa={{ icerik.next_page_number }}">
     {% endif %}
 {% endblock %}
 
@@ -26,7 +28,7 @@
     <script type="application/ld+json">
 {
   "@context": "http://schema.org",
-  "@type": "CollectionPage",
+  "@type": "ItemList",
   {% if sayfa_Turu == "Masal" %}
     "name": "{{ alt_kategori.MasalKategoriAdi }}",
   {% elif sayfa_Turu == "Hikaye" %}
@@ -36,17 +38,17 @@
   "description": "{{ description }}",
   "keywords": "{{ keywords }}",
   "url": "{{ request.build_absolute_uri }}",
-  "hasPart": [
+  "itemListElement": [
     {% for storyx in icerik %}
     {
-      "@type": "BlogPosting",
-      "headline": "{{ storyx.title }}",
+      "@type": "ListItem",
+      "position": {{ forloop.counter }},
+      "name": "{{ storyx.title|escapejs }}",
       {% if sayfa_Turu == "Masal" %}
-        "url": "{{ request.scheme }}://{{ request.get_host }}/masal-oku/{{ storyx.slug }}/"
+      "url": "{{ request.scheme }}://{{ request.get_host }}/masal-oku/{{ storyx.slug }}/"
       {% elif sayfa_Turu == "Hikaye" %}
-        "url": "{{ request.scheme }}://{{ request.get_host }}/hikaye-oku/{{ storyx.slug }}/"
+      "url": "{{ request.scheme }}://{{ request.get_host }}/hikaye-oku/{{ storyx.slug }}/"
       {% endif %}
-
     }{% if not forloop.last %},{% endif %}
     {% endfor %}
   ]
@@ -164,7 +166,7 @@
                                                         href="{% url 'masal-getir' masal_slug=masal.slug %}">{{ masal.title }}</a>
                                                 </h2>
                                                 <p class="excerpt mb-0"
-                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
 
                                             </div>
                                             <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
@@ -251,7 +253,7 @@
                                                         href="{% url 'hikaye-getir' hikaye_slug=masal.slug %}">{{ masal.title }}</a>
                                                 </h2>
                                                 <p class="excerpt mb-0"
-                                                   style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
+                                                   style="display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ masal.icerik|truncatechars:120|safe }}</p>
                                             </div>
                                             <div class="post-bottom clearfix d-flex align-items-center justify-content-center">
                                                 <div>

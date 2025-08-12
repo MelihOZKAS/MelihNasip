@@ -17,16 +17,16 @@
 
 
 {% block tt_post_image %}
-    {% if EnDerun.resim %}
-        <meta name="twitter:image" content="{{ EnDerun.resim.url }}">
+    {% if image and image.url %}
+        <meta name="twitter:image" content="{{ image.url }}">
     {% else %}
         <meta name="twitter:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">
     {% endif %}
 {% endblock %}
 
 {% block sosyal_post_image %}
-    {% if EnDerun.resim %}
-        <meta property="og:image" content="{{ EnDerun.resim.url }}">
+    {% if image and image.url %}
+        <meta property="og:image" content="{{ image.url }}">
     {% else %}
         <meta property="og:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">
     {% endif %}

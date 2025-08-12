@@ -32,18 +32,24 @@
         <meta property="og:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">{% endblock %}
     <meta property="og:url" content="{% block ogurl %}OG url{% endblock %}">
     <meta property="og:type" content="{% block ogtype %}website{% endblock %}">
+    <meta property="og:site_name" content="Çocuk Masalları Oku">
+    <meta property="og:locale" content="tr_TR">
 
 
     <!-- Twitter Card Etiketleri -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@uykumasalioku">
     <meta name="twitter:creator" content="@uykumasalioku">
     <meta name="twitter:title" content="{% block twtitle %}tw title{% endblock %}">
     <meta name="twitter:description" content="{% block twdesc %}tw description{% endblock %}">
     {% block tt_post_image %}
         <meta name="twitter:image" content="{% static 'images/Masal-Oku-Hikaye-Oku.webp' %}">{% endblock %}
-    <meta property="og:site_name" content="Çocuk Masalları Oku">
-    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Preconnect: performans/SEO yardımı -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
 
     <!-- STYLES -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css" media="all">
@@ -88,6 +94,21 @@
     <!-- schema.org -->
     {% block extra_head %}{% endblock %}
     {% block extra_Two_head %}{% endblock extra_Two_head %}
+
+    <!-- Organization JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Çocuk Masalları Oku",
+      "url": "https://{{ request.get_host }}/",
+      "logo": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp",
+      "sameAs": [
+        "https://www.youtube.com/@uykumasalioku",
+        "https://www.instagram.com/uykumasalioku"
+      ]
+    }
+    </script>
 
 
 </head>

@@ -17,24 +17,25 @@
 
 {% block extra_head %}
     <script type="application/ld+json">
-
     {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "https://www.cocukmasallarioku.com/",
-    "name": "Çocuk Masalları Oku",
-    "description": "{{ description }}",
-    "keywords": "{{ keywords }}",
-    "publisher": {
-    "@type": "Organization",
-    "name": "Çocuk Masalları Oku",
-    "logo": {
-    "@type": "ImageObject",
-    "url": "{% static 'images/hikaye-masal.webp' %}"
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://www.cocukmasallarioku.com/",
+      "name": "Çocuk Masalları Oku",
+      "description": "{{ description|escapejs }}",
+      "keywords": "{{ keywords|escapejs }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Çocuk Masalları Oku",
+        "logo": {"@type": "ImageObject", "url": "{% static 'images/hikaye-masal.webp' %}"}
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.cocukmasallarioku.com/arama/?q={query}",
+        "query-input": "required name=query"
+      }
     }
-    }
-    }
-</script>
+    </script>
 
 {% endblock extra_head %}
 
