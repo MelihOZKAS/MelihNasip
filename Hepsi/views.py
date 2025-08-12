@@ -10,6 +10,7 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from django.db.utils import IntegrityError
+from django.db.models import F
 import re
 import random
 
@@ -463,8 +464,6 @@ def kullanim(request):
 @cache_page(60 * 60)
 def enderunMasal(request, masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
@@ -529,8 +528,6 @@ def enderunMasal(request, masal_slug):
 @cache_page(60 * 60)
 def enderunBlog(request, blog_slug):
     EnDerun = get_object_or_404(Blog, slug=blog_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     category_names_str = "Çocuk Gelişimi"
@@ -578,8 +575,6 @@ def enderunBlog(request, blog_slug):
 @cache_page(60 * 60)
 def enderunHikaye(request, hikaye_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
     BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
     BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
     thumbnail_url = None
@@ -1095,12 +1090,12 @@ def increase_view_count(request):
             try:
                 if slug and model in ['masal', 'hikaye']:
                     obj = SiirMasal.objects.get(slug=slug)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.okunma_sayisi = F('okunma_sayisi') + 1
                     obj.save(update_fields=['okunma_sayisi'])
                     return JsonResponse({'status': 'success'}, status=200)
                 if slug and model == 'blog':
                     obj = Blog.objects.get(slug=slug)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.okunma_sayisi = F('okunma_sayisi') + 1
                     obj.save(update_fields=['okunma_sayisi'])
                     return JsonResponse({'status': 'success'}, status=200)
             except (SiirMasal.DoesNotExist, Blog.DoesNotExist):
@@ -1110,13 +1105,13 @@ def increase_view_count(request):
             if object_id:
                 try:
                     obj = SiirMasal.objects.get(id=object_id)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                    obj.okunma_sayisi = F('okunma_sayisi') + 1
                     obj.save(update_fields=['okunma_sayisi'])
                     return JsonResponse({'status': 'success'}, status=200)
                 except SiirMasal.DoesNotExist:
                     try:
                         obj = Blog.objects.get(id=object_id)
-                        obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
+                        obj.okunma_sayisi = F('okunma_sayisi') + 1
                         obj.save(update_fields=['okunma_sayisi'])
                         return JsonResponse({'status': 'success'}, status=200)
                     except Blog.DoesNotExist:
