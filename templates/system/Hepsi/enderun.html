@@ -650,17 +650,18 @@
             })();
         </script>
         <script>
-            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon
+            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon (tek sefer)
             (function(){
                 try {
+                    if (window.__vc_sent) return; // duplicate guard
+                    window.__vc_sent = true;
                     const url = '{% url "okunma" %}';
-                    const payload = { slug: '{{ EnDerun.slug }}', model: '{{ EnDerun.Model|lower }}' };
-                    const json = JSON.stringify(payload);
+                    const json = JSON.stringify({ slug: '{{ EnDerun.slug }}', model: '{{ EnDerun.Model|lower }}' });
                     if (navigator.sendBeacon) {
-                        const blob = new Blob([json], { type: 'application/json' });
+                        const blob = new Blob([json], { type: 'text/plain' });
                         navigator.sendBeacon(url, blob);
                     } else {
-                        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json }).catch(()=>{});
+                        fetch(url, { method: 'POST', keepalive: true, credentials: 'same-origin', headers: { 'Content-Type': 'text/plain' }, body: json }).catch(()=>{});
                     }
                 } catch (e) { /* sessiz */ }
             })();

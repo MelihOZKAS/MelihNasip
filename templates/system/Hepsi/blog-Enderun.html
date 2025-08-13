@@ -330,17 +330,18 @@
 {% endblock content %}
 {% block extra_script %}
 <script>
-// SEO-safe okunma sayısı arttırma beacon
+// SEO-safe okunma sayısı arttırma beacon (tek sefer)
 (function(){
     try {
+        if (window.__vc_sent) return;
+        window.__vc_sent = true;
         const url = '{% url "okunma" %}';
-        const payload = { slug: '{{ EnDerun.slug }}', model: 'blog' };
-        const json = JSON.stringify(payload);
+        const json = JSON.stringify({ slug: '{{ EnDerun.slug }}', model: 'blog' });
         if (navigator.sendBeacon) {
-            const blob = new Blob([json], { type: 'application/json' });
+            const blob = new Blob([json], { type: 'text/plain' });
             navigator.sendBeacon(url, blob);
         } else {
-            fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json }).catch(()=>{});
+            fetch(url, { method: 'POST', keepalive: true, credentials: 'same-origin', headers: { 'Content-Type': 'text/plain' }, body: json }).catch(()=>{});
         }
     } catch (e) { /* sessiz */ }
 })();
