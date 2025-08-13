@@ -67,23 +67,27 @@ def get_youtube_id(url):
 
 
 # Create your views here.
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def home(request):
-    masal_banner = MasalKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
-    hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
+    cache_key = 'home_context'
+    context = cache.get(cache_key)
 
-    title = "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku"
-    description = "Çocuklar için en güzel masallar, Uyku masalları, hayvan masalları, klasik masallar. Çocuğunuzun hayal gücünü geliştirecek masallarımızı keşfedin masal oku"
-    keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
+    if context is None:
+        masal_banner = MasalKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
+        hikaye_banner = HikayeKategorileri.objects.filter(Aktif=True, Banner=True).order_by('sirasi')
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': keywords,
-        'masal_banner': masal_banner,
-        'hikaye_banner': hikaye_banner,
-    }
+        title = "Çocuk Masalları | Uyku Masalı | Çocuk Hikayeleri | Masal Oku"
+        description = "Çocuklar için en güzel masallar, Uyku masalları, hayvan masalları, klasik masallar. Çocuğunuzun hayal gücünü geliştirecek masallarımızı keşfedin masal oku"
+        keywords = "Çocuk Masalları, Çocuk Masalları Oku, Masallar, Masal Dinle, Kısa Masallar, Masal Oku, Masallar, Çocuk Hikayeleri, Eğitici Hikayeler, Klasik Masallar, Öğretici Masallar, Çocuklar için Masallar, Çocuklar için Hikayeler,Uyku masalları"
+
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': keywords,
+            'masal_banner': masal_banner,
+            'hikaye_banner': hikaye_banner,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/home.html', context)
 
 
@@ -132,182 +136,205 @@ def oto_hikayekategoriekle(request):
     return HttpResponse('Hikayeler başarıyla eklendi.')
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def masalAltKategori(request, alt_kategori_slug):
-    alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug=alt_kategori_slug)
-    icerik_list = SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
-                                           Model="Masal").order_by('-guncelleme_tarihi')
-    sayfa_adi = f"En Güzel {alt_kategori.MasalKategoriAdi}"
-    sayfa_Turu = "Masal"
+    page_number = request.GET.get('sayfa') or '1'
+    cache_key = f'masal_alt_{alt_kategori_slug}_p_{page_number}'
+    context = cache.get(cache_key)
 
-    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
-    page_number = request.GET.get('sayfa')
-    icerik = paginator.get_page(page_number)
+    if context is None:
+        alt_kategori = get_object_or_404(MasalKategorileri, MasalSlug=alt_kategori_slug)
+        icerik_list = SiirMasal.objects.filter(masalKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                               Model="Masal").order_by('-guncelleme_tarihi')
+        sayfa_adi = f"En Güzel {alt_kategori.MasalKategoriAdi}"
+        sayfa_Turu = "Masal"
 
-    if page_number is None:
-        title = f"{alt_kategori.Masal_Title}"
-        description = f"{alt_kategori.Masal_meta_description}"
-    else:
-        title = f"{alt_kategori.Masal_Title} - {page_number}"
-        description = f"{alt_kategori.Masal_meta_description} - Sayfa {page_number}"
+        paginator = Paginator(icerik_list, 10)
+        icerik = paginator.get_page(page_number)
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': alt_kategori.Masal_keywords,
-        'alt_kategori': alt_kategori,
-        'icerik': icerik,
-        'sayfa_adi': sayfa_adi,
-        'sayfa_Turu': sayfa_Turu,
-    }
+        if page_number in [None, '1']:
+            title = f"{alt_kategori.Masal_Title}"
+            description = f"{alt_kategori.Masal_meta_description}"
+        else:
+            title = f"{alt_kategori.Masal_Title} - {page_number}"
+            description = f"{alt_kategori.Masal_meta_description} - Sayfa {page_number}"
+
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': alt_kategori.Masal_keywords,
+            'alt_kategori': alt_kategori,
+            'icerik': icerik,
+            'sayfa_adi': sayfa_adi,
+            'sayfa_Turu': sayfa_Turu,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def MasalOkuListesi(request):
-    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')[
-                  :50]
-    sayfa_adi = f"Çocuklara Uyku Öncesi Masal Oku"
-    sayfa_Turu = "Masal"
+    page_number = request.GET.get('sayfa') or '1'
+    cache_key = f'masal_list_p_{page_number}'
+    context = cache.get(cache_key)
 
-    paginator = Paginator(icerik_list, 14)  # 10 içerik göstermek için
-    page_number = request.GET.get('sayfa')
-    icerik = paginator.get_page(page_number)
+    if context is None:
+        icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('-guncelleme_tarihi')[:250]
+        sayfa_adi = f"Çocuklara Uyku Öncesi Masal Oku"
+        sayfa_Turu = "Masal"
 
-    title = "Çocuk Masalları | Uyku Masalları | Kısa Masal | Masal Oku"
-    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
-    Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
+        paginator = Paginator(icerik_list, 14)
+        icerik = paginator.get_page(page_number)
 
-    if page_number is None:
-        title = title
-        description = description
-    else:
-        title = f"{title} - {page_number}"
-        description = f"{description} - Sayfa {page_number}"
+        base_title = "Çocuk Masalları | Uyku Masalları | Kısa Masal | Masal Oku"
+        base_description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Masal Oku sayfamızı ziyaret edin. Uyku öncesi masallar ve kısa masal oku"
+        Keys = "Masal Oku, Çocuk Masalları, Eğitici Masallar, Eğlenceli Masallar, Öğretici Masallar, Fantastik Masallar, İlgi Çekici Masallar, En İyi Masallar, En Güzel Masallar, Popüler Masallar"
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': Keys,
-        'alt_kategori': "YOKKKKKK",
-        'icerik': icerik,
-        'sayfa_adi': sayfa_adi,
-        'sayfa_Turu': sayfa_Turu,
-    }
+        if page_number in [None, '1']:
+            title = base_title
+            description = base_description
+        else:
+            title = f"{base_title} - {page_number}"
+            description = f"{base_description} - Sayfa {page_number}"
+
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': Keys,
+            'alt_kategori': "YOKKKKKK",
+            'icerik': icerik,
+            'sayfa_adi': sayfa_adi,
+            'sayfa_Turu': sayfa_Turu,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def hikayeAltKategori(request, alt_kategori_slug):
-    alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
-    icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
-                                           Model="Hikaye").order_by('-guncelleme_tarihi')
-    sayfa_adi = f"En Güzel {alt_kategori.HikayeKategoriAdi}"
-    sayfa_Turu = "Hikaye"
+    page_number = request.GET.get('sayfa') or '1'
+    cache_key = f'hikaye_alt_{alt_kategori_slug}_p_{page_number}'
+    context = cache.get(cache_key)
 
-    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
-    page_number = request.GET.get('sayfa')
-    icerik = paginator.get_page(page_number)
+    if context is None:
+        alt_kategori = get_object_or_404(HikayeKategorileri, HikayeSlug=alt_kategori_slug)
+        icerik_list = SiirMasal.objects.filter(hikayeKategorisi=alt_kategori, aktif=True, status="Yayinda",
+                                               Model="Hikaye").order_by('-guncelleme_tarihi')
+        sayfa_adi = f"En Güzel {alt_kategori.HikayeKategoriAdi}"
+        sayfa_Turu = "Hikaye"
 
-    if page_number is None:
-        title = f"{alt_kategori.Hikaye_Title}"
-        description = f"{alt_kategori.Hikaye_meta_description}"
-    else:
-        title = f"{alt_kategori.Hikaye_Title} - {page_number}"
-        description = f"{alt_kategori.Hikaye_meta_description} - Sayfa {page_number}"
+        paginator = Paginator(icerik_list, 10)
+        icerik = paginator.get_page(page_number)
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': alt_kategori.Hikaye_keywords,
-        'alt_kategori': alt_kategori,
-        'icerik': icerik,
-        'sayfa_adi': sayfa_adi,
-        'sayfa_Turu': sayfa_Turu,
-    }
+        if page_number in [None, '1']:
+            title = f"{alt_kategori.Hikaye_Title}"
+            description = f"{alt_kategori.Hikaye_meta_description}"
+        else:
+            title = f"{alt_kategori.Hikaye_Title} - {page_number}"
+            description = f"{alt_kategori.Hikaye_meta_description} - Sayfa {page_number}"
+
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': alt_kategori.Hikaye_keywords,
+            'alt_kategori': alt_kategori,
+            'icerik': icerik,
+            'sayfa_adi': sayfa_adi,
+            'sayfa_Turu': sayfa_Turu,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/detay-yeni.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def hikayeOkuListesi(request):
-    icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')[
-                  :50]
-    sayfa_adi = f"En Güzel Çocuk Hikayeleri Oku"
-    sayfa_Turu = "Hikaye"
+    page_number = request.GET.get('sayfa') or '1'
+    cache_key = f'hikaye_list_p_{page_number}'
+    context = cache.get(cache_key)
 
-    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
-    page_number = request.GET.get('sayfa')
-    icerik = paginator.get_page(page_number)
+    if context is None:
+        icerik_list = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('-guncelleme_tarihi')[:50]
+        sayfa_adi = f"En Güzel Çocuk Hikayeleri Oku"
+        sayfa_Turu = "Hikaye"
 
-    title = "Aile Hikayeleri, Dini Hikaye En Güzel Hikayeler | Hikaye Oku"
-    description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Hikaye Oku sayfamızı ziyaret edin. Çocuklara özel  uzun hikaye oku ve dinle"
-    Keys = "Hikaye Oku, Çocuk Hikayeleri, Eğitici Hikayeleri, Eğlenceli Hikayeleri, Öğretici Hikayeleri, Fantastik Hikayeleri, ingilizce Hikayeler, En İyi hikayeler, En Güzel Hikayeler, Popüler Hikayeler"
+        paginator = Paginator(icerik_list, 10)
+        icerik = paginator.get_page(page_number)
 
-    if page_number is None:
-        title = title
-        description = description
-    else:
-        title = f"{title} - {page_number}"
-        description = f"{description} - Sayfa {page_number}"
+        base_title = "Aile Hikayeleri, Dini Hikaye En Güzel Hikayeler | Hikaye Oku"
+        base_description = "Çocuklarınızın hayal dünyasını genişletmek ve onlara keyifli anlar yaşatmak için Hikaye Oku sayfamızı ziyaret edin. Çocuklara özel  uzun hikaye oku ve dinle"
+        Keys = "Hikaye Oku, Çocuk Hikayeleri, Eğitici Hikayeleri, Eğlenceli Hikayeleri, Öğretici Hikayeleri, Fantastik Hikayeleri, ingilizce Hikayeler, En İyi hikayeler, En Güzel Hikayeler, Popüler Hikayeler"
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': Keys,
-        'alt_kategori': "YOKKKKKK",
-        'icerik': icerik,
-        'sayfa_adi': sayfa_adi,
-        'sayfa_Turu': sayfa_Turu,
-    }
+        if page_number in [None, '1']:
+            title = base_title
+            description = base_description
+        else:
+            title = f"{base_title} - {page_number}"
+            description = f"{base_description} - Sayfa {page_number}"
+
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': Keys,
+            'alt_kategori': "YOKKKKKK",
+            'icerik': icerik,
+            'sayfa_adi': sayfa_adi,
+            'sayfa_Turu': sayfa_Turu,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/oku-url-detay-yeni.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def BlogHome(request):
-    if request.resolver_match.url_name == 'cocuk':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
-        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
-        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
-        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
-        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+    page_number = request.GET.get('sayfa') or '1'
+    section = request.resolver_match.url_name or 'blog'
+    cache_key = f'blog_home_{section}_p_{page_number}'
+    context = cache.get(cache_key)
 
-    elif request.resolver_match.url_name == 'saglik':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="saglik").order_by('-olusturma_tarihi')
-        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
-        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
-        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
-        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+    if context is None:
+        if section == 'cocuk':
+            icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="cocuk").order_by('-olusturma_tarihi')
+            keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+            sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+            title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+            description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+        elif section == 'saglik':
+            icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="saglik").order_by('-olusturma_tarihi')
+            keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+            sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+            title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+            description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+        elif section == 'kadin':
+            icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="kadin").order_by('-olusturma_tarihi')
+            keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
+            sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
+            title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
+            description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+        else:
+            icerik_list = Blog.objects.filter(aktif=True, status="Yayinda").order_by('-olusturma_tarihi')
+            keywords = ""
+            sayfa_adi = "Blog"
+            title = "Blog | Masal Oku"
+            description = "Çocuk gelişimi ve ebeveynlik hakkında yazılar"
 
-    elif request.resolver_match.url_name == 'kadin':
-        icerik_list = Blog.objects.filter(aktif=True, status="Yayinda", Model="kadin").order_by('-olusturma_tarihi')
-        keywords = "Çocuk Gelişimi, Fiziksel Gelişim, Duygusal Gelişim, Zihinsel Gelişim, Çocuk Psikolojisi, Ebeveynlik İpuçları, çocuk gelişimi kitapları, çocuk gelişimi masalları, çocuk gelişimi hikayeleri",
-        sayfa_adi = f"Çocuk Gelişimi Bilimsel Araştırmalarla Desteklenen Pratik Bilgiler"
-        title = f"Çocuk Gelişimi Araştırmalar ve Pratik Bilgi | Masal Oku"
-        description = f"Çocuk gelişimindeki en son bilimsel bulguları ve pratik bilgiler. Çocuğunuzun fiziksel, duygusal ve zihinsel gelişimini destekler."
+        paginator = Paginator(icerik_list, 10)
+        icerik = paginator.get_page(page_number)
 
-    paginator = Paginator(icerik_list, 10)  # 10 içerik göstermek için
-    page_number = request.GET.get('sayfa')
-    icerik = paginator.get_page(page_number)
+        if page_number in [None, '1']:
+            title = title
+            description = description
+        else:
+            title = f"{title} - {page_number}"
+            description = f"{description} - Sayfa {page_number}"
 
-    if page_number is None:
-        title = title
-        description = description
-    else:
-        title = f"{title} - {page_number}"
-        description = f"{description} - Sayfa {page_number}"
+        context = {
+            'title': title,
+            'description': description,
+            'keywords': keywords,
+            'icerik': icerik,
+            'sayfa_adi': sayfa_adi,
+        }
+        cache.set(cache_key, context, 60 * 60)
 
-    context = {
-        'title': title,
-        'description': description,
-        'keywords': keywords,
-        'icerik': icerik,
-        'sayfa_adi': sayfa_adi,
-    }
     return render(request, 'system/Hepsi/bloghome.html', context)
 
 
@@ -316,7 +343,7 @@ def BlogHome(request):
 def Masallar(request):
     Tum_Masallar = MasalKategorileri.objects.filter(Aktif=True).order_by('sirasi')
 
-    title = "Çocuk Masallı, Çocuklara Uyku Masalları | Masal Oku"
+    title = "Çocuk Masalları, Çocuklara Uyku Masalları | Masal Oku"
     description = "En çok okunan masalları keşfedin. Çocuklara özel eğitici öğretici uyku masalı ve fazlası için masal sitemizi takip edin. En güzel masallar"
     keywords = "Çocuk Masalları, Klasik Masallar, Modern Masallar, Çocuklar için Masallar, Masal Oku, Masal Dinle, Masal Dinle, Eğitici Masallar, Öğretici Masallar, Uyku Masalları"
     sayfa_adiH1 = "Çocuk Masalları, Eğitici Masallar, Kısa Masallar ve Uyku Masalları Oku"
@@ -384,15 +411,7 @@ def ekle(request):
         return render(request, 'system/Hepsi/masal-ekle.html', context)  # Formun bulunduğu sayfa
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 30)
 def iletisim(request):
-    context = {
-        'title': "Uyku Çocuk Masallarını Dinle - İletişim Sayfası | Masal Oku",
-        'description': "Çocuk hiyakeleri ve Çocuk Masalları sitemizin iletişim bölümüdür bizimle irtibata geçebilirisiniz. Masal okuya bilir gönderebilir siniz.",
-        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, ingilizce hikayeler, çocuk hikayeleri, çocuklara özel hikayeler, keloğlan masalları",
-    }
-
     if request.method == 'POST':
         name = request.POST.get('InputName')
         email = request.POST.get('InputEmail')
@@ -406,238 +425,264 @@ def iletisim(request):
             'İletişim istediğinizi Kaydettik. <a href="{}" class="btn btn-primary">Ana Sayfaya Dönmek için Tıklayın.</a>'.format(
                 reverse('home')))
 
+    cache_key = 'iletisim_context'
+    context = cache.get(cache_key)
+    if context is None:
+        context = {
+            'title': "İletişim | Çocuk Masalları ve Hikayeleri | Masal Oku",
+            'description': "Sorularınız, önerileriniz ve iş birlikleri için bizimle iletişime geçin. Çocuk masalları ve hikayeleri hakkında her konuda hızlı dönüş yapıyoruz.",
+            'keywords': "iletişim, masal iletişim, çocuk masalları iletişim, hikaye iletişim, destek, öneri, iş birliği",
+        }
+        cache.set(cache_key, context, 60 * 60 * 12)
+
     return render(request, 'system/Hepsi/iletisim.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 30)
 def hakkimizda(request):
-    context = {
-        'title': "Uyku Çocuk Hikayeleri Dinle - Hakkımızda | Hikaye Oku",
-        'description': "Çocuk hiyakeleri ve Masalları sitemizin hakkımızda bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
-        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
-
-    }
+    cache_key = 'hakkimizda_context'
+    context = cache.get(cache_key)
+    if context is None:
+        context = {
+            'title': "Hakkımızda | Çocuk Masalları ve Hikayeleri | Masal Oku",
+            'description': "Çocuklara güvenli, eğitici ve ücretsiz masal-hikaye deneyimi sunuyoruz. Aileler için kaliteli içerikleri özenle seçip düzenli olarak yayınlıyoruz.",
+            'keywords': "hakkımızda, çocuk masalları, çocuk hikayeleri, eğitici içerik, aile dostu, ücretsiz masal",
+        }
+        cache.set(cache_key, context, 60 * 60 * 12)
 
     return render(request, 'system/Hepsi/hakkimizda.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 30)
 def gizlilik(request):
-    context = {
-        'title': "Çocuk Hikayeleri ve Masalları Oku - Gizlilik Politikası",
-        'description': "Çocuk hiyakeleri ve Masalları sitemizin Gizlilik Politikası bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
-        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
-
-    }
+    cache_key = 'gizlilik_context'
+    context = cache.get(cache_key)
+    if context is None:
+        context = {
+            'title': "Gizlilik Politikası | Çocuk Masalları ve Hikayeleri",
+            'description': "Kişisel verilerin korunması, çerez kullanımı ve üçüncü taraf hizmetleri hakkında tüm detaylar. Çocukların gizliliğini önceliklendiriyoruz.",
+            'keywords': "gizlilik politikası, KVKK, çerezler, kişisel veriler, veri güvenliği, çocuk güvenliği",
+        }
+        cache.set(cache_key, context, 60 * 60 * 12)
 
     return render(request, 'system/Hepsi/eski-gilzlilik.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 30)
 def cerez(request):
-    context = {
-        'title': "Çocuk Hikayeleri ve Masalları Oku - Çerez Politikası",
-        'description': "Çocuk hiyakeleri ve Masalları sitemizin Çerez Politikası bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
-        'keywords': "Çocuk masalları, uyku masalları, uzun uyku hikayeleri, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları, 6 yaş çocuk masalları",
-    }
+    cache_key = 'cerez_context'
+    context = cache.get(cache_key)
+    if context is None:
+        context = {
+            'title': "Çerez Politikası | Çocuk Masalları ve Hikayeleri",
+            'description': "Hangi çerezleri neden kullandığımızı, tercihlerinizi nasıl yönetebileceğinizi ve çerezleri nasıl devre dışı bırakabileceğinizi öğrenin.",
+            'keywords': "çerez politikası, cookie policy, çerez türleri, çerez ayarları, takip teknolojileri",
+        }
+        cache.set(cache_key, context, 60 * 60 * 12)
 
     return render(request, 'system/Hepsi/cerez.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 30)
 def kullanim(request):
-    context = {
-        'title': "Çocuk Masallarını Dinle - Kullanım Şartları | Masal Oku",
-        'description': "Çocuk hiyakeleri ve Masalları sitemizin Kullanım Şartları bölümüdür. Masal ve Hikayeler için iletişime geçebilirsiniz.",
-        'keywords': "Çocuk masalları, eğitici masallar, uyku masalları, uzun uyku hikayeleri, keloğlan masalları, en güzel çocuk hikayeleri, uyku getiren masallar, keloğlan masalları",
-
-    }
+    cache_key = 'kullanim_context'
+    context = cache.get(cache_key)
+    if context is None:
+        context = {
+            'title': "Kullanım Şartları | Çocuk Masalları ve Hikayeleri",
+            'description': "Site kullanım koşulları, telif hakları ve sorumluluk reddi hakkında bilgi alın. Güvenli ve şeffaf kullanım ilkeleri.",
+            'keywords': "kullanım şartları, telif, sorumluluk reddi, kullanıcı sözleşmesi, koşullar",
+        }
+        cache.set(cache_key, context, 60 * 60 * 12)
 
     return render(request, 'system/Hepsi/kullanim.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60 * 2)
 def enderunMasal(request, masal_slug):
-    EnDerun = get_object_or_404(SiirMasal, slug=masal_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
-    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
-    thumbnail_url = None
+    cache_key = f'enderun_masal_context_{masal_slug}'
+    context = cache.get(cache_key)
 
-    if EnDerun.Model == 'Masal':
-        categories = EnDerun.masalKategorisi.all()
-    elif EnDerun.Model == 'Hikaye':
-        categories = EnDerun.hikayeKategorisi.all()
+    if context is None:
+        EnDerun = get_object_or_404(SiirMasal, Model="Masal", slug=masal_slug, aktif=True, status="Yayinda")
 
-    category_names = [category.MasalKategoriAdi for category in categories]
-    category_names_str = ', '.join(category_names)
+        BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+        BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
 
-    if EnDerun.youtube:
-        youtube_id = get_youtube_id(EnDerun.youtube)
-        thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
+        thumbnail_url = None
+        if EnDerun.youtube:
+            youtube_id = get_youtube_id(EnDerun.youtube)
+            thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
-    if not category_names:
-        category_names_str = EnDerun.Model
+        if EnDerun.Model == 'Masal':
+            categories = EnDerun.masalKategorisi.all()
+            category_names = [category.MasalKategoriAdi for category in categories]
+        elif EnDerun.Model == 'Hikaye':
+            categories = EnDerun.hikayeKategorisi.all()
+            category_names = [category.HikayeKategoriAdi for category in categories]
+        else:
+            categories = []
+            category_names = []
 
-    contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
-    articleBody = ' '.join(filter(None, contents))
+        category_names_str = ', '.join(category_names) if category_names else EnDerun.Model
 
-    resimler = []
-    if EnDerun.resim:
-        resimler.append(EnDerun.resim.url)
-    if EnDerun.resim2:
-        resimler.append(EnDerun.resim2.url)
-    if EnDerun.resim3:
-        resimler.append(EnDerun.resim3.url)
-    if EnDerun.resim4:
-        resimler.append(EnDerun.resim4.url)
-    if EnDerun.resim5:
-        resimler.append(EnDerun.resim5.url)
-    if EnDerun.resim6:
-        resimler.append(EnDerun.resim6.url)
-    if EnDerun.resim7:
-        resimler.append(EnDerun.resim7.url)
-    if EnDerun.resim8:
-        resimler.append(EnDerun.resim8.url)
-    if EnDerun.resim9:
-        resimler.append(EnDerun.resim9.url)
-    if EnDerun.resim10:
-        resimler.append(EnDerun.resim10.url)
-    if not resimler:  # Eğer resimler listesi boşsa
-        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
-    context = {
-        'EnDerun': EnDerun,
-        'BaskaMasal': BaskaMasal,
-        'BaskaHikaye': BaskaHikaye,
-        'title': EnDerun.title,
-        'description': EnDerun.meta_description,
-        'keywords': EnDerun.keywords,
-        'TumKategori': category_names_str,
-        'thumbnail_url': thumbnail_url,
-        'resimler': resimler,
-        'articleBody': articleBody,
-    }
+        content_fields = ['icerik'] + [f'icerik{n}' for n in range(2, 11)]
+        contents = [getattr(EnDerun, field, None) for field in content_fields]
+        articleBody = ' '.join([c for c in contents if c])
+
+        resimler = []
+        if EnDerun.resim:
+            resimler.append(EnDerun.resim.url)
+        if EnDerun.resim2:
+            resimler.append(EnDerun.resim2.url)
+        if EnDerun.resim3:
+            resimler.append(EnDerun.resim3.url)
+        if EnDerun.resim4:
+            resimler.append(EnDerun.resim4.url)
+        if EnDerun.resim5:
+            resimler.append(EnDerun.resim5.url)
+        if EnDerun.resim6:
+            resimler.append(EnDerun.resim6.url)
+        if EnDerun.resim7:
+            resimler.append(EnDerun.resim7.url)
+        if EnDerun.resim8:
+            resimler.append(EnDerun.resim8.url)
+        if EnDerun.resim9:
+            resimler.append(EnDerun.resim9.url)
+        if EnDerun.resim10:
+            resimler.append(EnDerun.resim10.url)
+        if not resimler:
+            resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
+
+        context = {
+            'EnDerun': EnDerun,
+            'BaskaMasal': BaskaMasal,
+            'BaskaHikaye': BaskaHikaye,
+            'title': EnDerun.title,
+            'description': EnDerun.meta_description,
+            'keywords': EnDerun.keywords,
+            'TumKategori': category_names_str,
+            'thumbnail_url': thumbnail_url,
+            'resimler': resimler,
+            'articleBody': articleBody,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)  # 2 saat cache
+
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60)
 def enderunBlog(request, blog_slug):
-    EnDerun = get_object_or_404(Blog, slug=blog_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
-    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
-    category_names_str = "Çocuk Gelişimi"
-    thumbnail_url = None
+    cache_key = f'enderun_blog_context_{blog_slug}'
+    context = cache.get(cache_key)
 
-    if EnDerun.youtube:
-        youtube_id = get_youtube_id(EnDerun.youtube)
-        thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
+    if context is None:
+        EnDerun = get_object_or_404(Blog, slug=blog_slug, aktif=True, status="Yayinda")
+        BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+        BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
+        category_names_str = "Çocuk Gelişimi"
 
-    contents = [EnDerun.icerik, EnDerun.icerik1, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4, EnDerun.icerik5,
-                EnDerun.icerik6, EnDerun.icerik7, EnDerun.icerik8, EnDerun.icerik9, EnDerun.icerik10]
-    articleBody = ' '.join(filter(None, contents))
+        thumbnail_url = None
+        if EnDerun.youtube:
+            youtube_id = get_youtube_id(EnDerun.youtube)
+            thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
-    resimler = []
+        content_fields = ['icerik'] + [f'icerik{n}' for n in range(1, 11)]
+        contents = [getattr(EnDerun, field, None) for field in content_fields]
+        articleBody = ' '.join([c for c in contents if c])
 
-    if EnDerun.resim:
-        resimler.append(EnDerun.resim.url)
-    if EnDerun.resim2:
-        resimler.append(EnDerun.resim2.url)
-    if EnDerun.resim3:
-        resimler.append(EnDerun.resim3.url)
-    if EnDerun.resim4:
-        resimler.append(EnDerun.resim4.url)
+        resimler = []
+        if EnDerun.resim:
+            resimler.append(EnDerun.resim.url)
+        if EnDerun.resim2:
+            resimler.append(EnDerun.resim2.url)
+        if EnDerun.resim3:
+            resimler.append(EnDerun.resim3.url)
+        if EnDerun.resim4:
+            resimler.append(EnDerun.resim4.url)
+        if not resimler:
+            resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
 
+        context = {
+            'EnDerun': EnDerun,
+            'BaskaMasal': BaskaMasal,
+            'BaskaHikaye': BaskaHikaye,
+            'title': EnDerun.title,
+            'description': EnDerun.meta_description,
+            'keywords': EnDerun.keywords,
+            'TumKategori': category_names_str,
+            'thumbnail_url': thumbnail_url,
+            'resimler': resimler,
+            'articleBody': articleBody,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
 
-    if not resimler:  # Eğer resimler listesi boşsa
-        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
-
-    context = {
-        'EnDerun': EnDerun,
-        'BaskaMasal': BaskaMasal,
-        'BaskaHikaye': BaskaHikaye,
-        'title': EnDerun.title,
-        'description': EnDerun.meta_description,
-        'keywords': EnDerun.keywords,
-        'TumKategori': category_names_str,
-        'thumbnail_url': thumbnail_url,
-        'resimler': resimler,
-        'articleBody': articleBody,
-    }
     return render(request, 'system/Hepsi/blog-Enderun.html', context)
 
 
-@vary_on_headers("Accept-Language")
-@cache_page(60 * 60)
 def enderunHikaye(request, hikaye_slug):
-    EnDerun = get_object_or_404(SiirMasal, slug=hikaye_slug, aktif=True, status="Yayinda")
-    EnDerun.okunma_sayisi += 1  # okunma sayısını artır
-    EnDerun.save(update_fields=['okunma_sayisi', 'indexing', 'facebook', 'twitter', 'pinterest'])
-    BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
-    BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
-    thumbnail_url = None
+    cache_key = f'enderun_hikaye_context_{hikaye_slug}'
+    context = cache.get(cache_key)
 
-    if EnDerun.Model == 'Masal':
-        categories = EnDerun.masalKategorisi.all()
-    elif EnDerun.Model == 'Hikaye':
-        categories = EnDerun.hikayeKategorisi.all()
+    if context is None:
+        EnDerun = get_object_or_404(SiirMasal, Model="Hikaye", slug=hikaye_slug, aktif=True, status="Yayinda")
 
-    category_names = [category.HikayeKategoriAdi for category in categories]
-    category_names_str = ', '.join(category_names)
-    if EnDerun.youtube:
-        youtube_id = get_youtube_id(EnDerun.youtube)
-        thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
+        BaskaMasal = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Masal").order_by('?').first()
+        BaskaHikaye = SiirMasal.objects.filter(aktif=True, status="Yayinda", Model="Hikaye").order_by('?').first()
 
-    if not category_names:
-        category_names_str = EnDerun.Model
+        thumbnail_url = None
+        if EnDerun.youtube:
+            youtube_id = get_youtube_id(EnDerun.youtube)
+            thumbnail_url = f"https://img.youtube.com/vi/{youtube_id}/0.jpg"
 
-    contents = [EnDerun.icerik, EnDerun.icerik2, EnDerun.icerik3, EnDerun.icerik4]
-    articleBody = ' '.join(filter(None, contents))
+        if EnDerun.Model == 'Masal':
+            categories = EnDerun.masalKategorisi.all()
+            category_names = [category.MasalKategoriAdi for category in categories]
+        elif EnDerun.Model == 'Hikaye':
+            categories = EnDerun.hikayeKategorisi.all()
+            category_names = [category.HikayeKategoriAdi for category in categories]
+        else:
+            categories = []
+            category_names = []
 
-    resimler = []
-    if EnDerun.resim:
-        resimler.append(EnDerun.resim.url)
-    if EnDerun.resim2:
-        resimler.append(EnDerun.resim2.url)
-    if EnDerun.resim3:
-        resimler.append(EnDerun.resim3.url)
-    if EnDerun.resim4:
-        resimler.append(EnDerun.resim4.url)
-    if EnDerun.resim5:
-        resimler.append(EnDerun.resim5.url)
-    if EnDerun.resim6:
-        resimler.append(EnDerun.resim6.url)
-    if EnDerun.resim7:
-        resimler.append(EnDerun.resim7.url)
-    if EnDerun.resim8:
-        resimler.append(EnDerun.resim8.url)
-    if EnDerun.resim9:
-        resimler.append(EnDerun.resim9.url)
-    if EnDerun.resim10:
-        resimler.append(EnDerun.resim10.url)
-    if not resimler:  # Eğer resimler listesi boşsa
-        resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
+        category_names_str = ', '.join(category_names) if category_names else EnDerun.Model
 
-    context = {
-        'EnDerun': EnDerun,
-        'BaskaMasal': BaskaMasal,
-        'BaskaHikaye': BaskaHikaye,
-        'title': EnDerun.title,
-        'description': EnDerun.meta_description,
-        'keywords': EnDerun.keywords,
-        'TumKategori': category_names_str,
-        'thumbnail_url': thumbnail_url,
-        'resimler': resimler,
-        'articleBody': articleBody,
-    }
+        content_fields = ['icerik'] + [f'icerik{n}' for n in range(2, 11)]
+        contents = [getattr(EnDerun, field, None) for field in content_fields]
+        articleBody = ' '.join([c for c in contents if c])
+
+        resimler = []
+        if EnDerun.resim:
+            resimler.append(EnDerun.resim.url)
+        if EnDerun.resim2:
+            resimler.append(EnDerun.resim2.url)
+        if EnDerun.resim3:
+            resimler.append(EnDerun.resim3.url)
+        if EnDerun.resim4:
+            resimler.append(EnDerun.resim4.url)
+        if EnDerun.resim5:
+            resimler.append(EnDerun.resim5.url)
+        if EnDerun.resim6:
+            resimler.append(EnDerun.resim6.url)
+        if EnDerun.resim7:
+            resimler.append(EnDerun.resim7.url)
+        if EnDerun.resim8:
+            resimler.append(EnDerun.resim8.url)
+        if EnDerun.resim9:
+            resimler.append(EnDerun.resim9.url)
+        if EnDerun.resim10:
+            resimler.append(EnDerun.resim10.url)
+        if not resimler:
+            resimler.append("https://masalbucket.s3.amazonaws.com/static/images/Masal-Oku-Hikaye-Oku.webp")
+
+        context = {
+            'EnDerun': EnDerun,
+            'BaskaMasal': BaskaMasal,
+            'BaskaHikaye': BaskaHikaye,
+            'title': EnDerun.title,
+            'description': EnDerun.meta_description,
+            'keywords': EnDerun.keywords,
+            'TumKategori': category_names_str,
+            'thumbnail_url': thumbnail_url,
+            'resimler': resimler,
+            'articleBody': articleBody,
+        }
+        cache.set(cache_key, context, 60 * 60 * 2)
+
     return render(request, 'system/Hepsi/enderun.html', context)
 
 
