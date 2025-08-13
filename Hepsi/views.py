@@ -1080,7 +1080,6 @@ def simple_clear_cache(request):
 # Okunma sayısı artırma – SEO friendly (her zaman 200)
 @csrf_exempt
 def increase_view_count(request):
-    print(f"DEBUG: Method={request.method}, Headers={dict(request.headers)}")
     try:
         if request.method == 'POST':
             try:

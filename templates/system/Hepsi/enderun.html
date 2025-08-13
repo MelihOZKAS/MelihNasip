@@ -650,28 +650,18 @@
             })();
         </script>
         <script>
-            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon (WAF dostu)
+            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon
             (function(){
                 try {
-                    const url = '/read-control/';
-                    const payloadObj = { slug: '{{ EnDerun.slug|escapejs }}', model: '{{ EnDerun.Model|lower|escapejs }}' };
-                    const payload = JSON.stringify(payloadObj);
-
-                    // 1) sendBeacon (Content-Type: text/plain) — WAF'ler daha toleranslı
+                    const url = '{% url "okunma" %}';
+                    const payload = { slug: '{{ EnDerun.slug }}', model: '{{ EnDerun.Model|lower }}' };
+                    const json = JSON.stringify(payload);
                     if (navigator.sendBeacon) {
-                        const blob = new Blob([payload], { type: 'text/plain' });
+                        const blob = new Blob([json], { type: 'application/json' });
                         navigator.sendBeacon(url, blob);
-                        return;
+                    } else {
+                        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json }).catch(()=>{});
                     }
-
-                    // 2) fetch fallback - header'sız/raw body
-                    fetch(url, {
-                        method: 'POST',
-                        // header göndermiyoruz; bazı WAF'ler JSON'u bloklayabiliyor
-                        body: payload,
-                        keepalive: true,
-                        credentials: 'omit'
-                    }).catch(function(){/* sessiz */});
                 } catch (e) { /* sessiz */ }
             })();
         </script>
