@@ -65,6 +65,7 @@
           {% if EnDerun.resim %}
           "image": [{ "@type": "ImageObject", "url": "{{ EnDerun.resim.url }}", "width": 800, "height": 400 }]{% if EnDerun.youtube or TumKategori or EnDerun.okunma_sayisi %},{% endif %}
           {% endif %}
+          {% endif %}
           {% if EnDerun.youtube %}
           "video": {
             "@type": "VideoObject",
