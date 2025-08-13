@@ -649,24 +649,26 @@
                 });
             })();
         </script>
-        <script>
-            // Okunma sayısını cache'den bağımsız arttırmak için POST (öncelik jQuery AJAX)
-            (function(){
-                try {
-                    const url = '{% url "okunma" %}';
-                    const payload = { slug: '{{ EnDerun.slug }}', model: '{{ EnDerun.Model|lower }}' };
-                    const json = JSON.stringify(payload);
-                    if (window.jQuery && $.ajax) {
-                        $.ajax({ url: url, method: 'POST', data: json, contentType: 'application/json' });
-                    } else if (window.fetch) {
-                        fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: json }).catch(()=>{});
-                    } else if (navigator.sendBeacon) {
-                        const blob = new Blob([json], { type: 'application/json' });
-                        navigator.sendBeacon(url, blob);
-                    }
-                } catch (e) { /* sessiz */ }
-            })();
-        </script>
+            <script>
+        // SEO-friendly view count tracking
+        (function() {
+            try {
+                fetch('/read-control/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({object_id: "{{ EnDerun.id|escapejs }}"})
+                }).catch(function(error) {
+                    // Sessizce hata yönet - console'a log bile atmayalım
+                    // Google'ın crawl'ını etkilemez
+                });
+            } catch(e) {
+                // Herhangi bir JavaScript hatası durumunda sessiz kal
+            }
+        })();
+    </script>
     {% endblock extra_script %}
 
 

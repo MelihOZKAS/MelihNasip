@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 from django.db.utils import IntegrityError
 import re
+from django.db.models import Q, F
 import random
 
 from html import unescape
@@ -672,11 +673,6 @@ def Oto_Paylas(request):
             post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
-            # Yeni içerik yayınlandı: cache'i temizle
-            try:
-                cache.clear()
-            except Exception:
-                pass
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
@@ -692,11 +688,6 @@ def Blog_oto_Paylas(request):
             # post.indexing = True  # indekslendi olarak işaretle
             post.olusturma_tarihi = timezone.now()  # eklenme tarihini güncelle
             post.save()
-            # Yeni blog yayınlandı: cache'i temizle
-            try:
-                cache.clear()
-            except Exception:
-                pass
             return HttpResponse(f'Şükürler Olsun "{post.title}" Paylaşıldı.')
     else:
         return HttpResponse('Paylaşılacak Post Bulunamadı.')
@@ -1078,55 +1069,42 @@ def simple_clear_cache(request):
 
 
 # Okunma sayısı artırma – SEO friendly (her zaman 200)
-@csrf_exempt
 def increase_view_count(request):
+    """
+    SEO-friendly okuma sayısı artırma endpoint'i
+    Her durumda 200 status döner (Google için)
+    """
     try:
         if request.method == 'POST':
+            # JSON parse etmeye çalış
             try:
                 data = json.loads(request.body)
+                object_id = data.get('object_id')
             except (json.JSONDecodeError, UnicodeDecodeError):
+                # JSON parse hatası - sessizce başarılı dön
                 return JsonResponse({'status': 'success', 'message': 'Ignored invalid data'}, status=200)
 
-            object_id = data.get('object_id')
-            slug = data.get('slug')
-            model = data.get('model')  # 'masal' | 'hikaye' | 'blog'
-
-            # Öncelik: slug + model
-            try:
-                if slug and model in ['masal', 'hikaye']:
-                    obj = SiirMasal.objects.get(slug=slug)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
-                    obj.save(update_fields=['okunma_sayisi'])
-                    return JsonResponse({'status': 'success'}, status=200)
-                if slug and model == 'blog':
-                    obj = Blog.objects.get(slug=slug)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
-                    obj.save(update_fields=['okunma_sayisi'])
-                    return JsonResponse({'status': 'success'}, status=200)
-            except (SiirMasal.DoesNotExist, Blog.DoesNotExist):
-                pass
-
-            # Alternatif: object_id ile dene
             if object_id:
                 try:
                     obj = SiirMasal.objects.get(id=object_id)
-                    obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
-                    obj.save(update_fields=['okunma_sayisi'])
+                    obj.okunma_sayisi = F('okunma_sayisi') + 1  # Race condition'dan korunma
+                    obj.save(update_fields=["okunma_sayisi"])
                     return JsonResponse({'status': 'success'}, status=200)
                 except SiirMasal.DoesNotExist:
-                    try:
-                        obj = Blog.objects.get(id=object_id)
-                        obj.okunma_sayisi = obj.okunma_sayisi + 1 if obj.okunma_sayisi else 1
-                        obj.save(update_fields=['okunma_sayisi'])
-                        return JsonResponse({'status': 'success'}, status=200)
-                    except Blog.DoesNotExist:
-                        return JsonResponse({'status': 'success', 'message': 'Not found but ok'}, status=200)
-
-            return JsonResponse({'status': 'success', 'message': 'No id/slug but ok'}, status=200)
+                    # Post bulunamadı ama sessizce başarılı dön
+                    return JsonResponse({'status': 'success', 'message': 'Post not found but ok'}, status=200)
+                except Exception:
+                    # Veritabanı hatası ama yine 200 dön
+                    return JsonResponse({'status': 'success', 'message': 'DB error but ok'}, status=200)
+            else:
+                # object_id yok ama 200 dön
+                return JsonResponse({'status': 'success', 'message': 'No object_id but ok'}, status=200)
         else:
-            # GET gibi durumlarda da 200
+            # GET veya başka method - 200 dön
             return JsonResponse({'status': 'success', 'message': 'Method not POST but ok'}, status=200)
+
     except Exception:
+        # Her türlü hata durumunda bile 200 dön (Google SEO için)
         return JsonResponse({'status': 'success', 'message': 'General error but ok'}, status=200)
 
 
