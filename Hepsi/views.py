@@ -461,7 +461,7 @@ def kullanim(request):
 
 
 @vary_on_headers("Accept-Language")
-@cache_page(60 * 60)
+@cache_page(60 * 60 * 2)
 def enderunMasal(request, masal_slug):
     EnDerun = get_object_or_404(SiirMasal, slug=masal_slug, aktif=True, status="Yayinda")
     EnDerun.okunma_sayisi += 1  # okunma sayısını artır
