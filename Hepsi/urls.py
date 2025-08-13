@@ -45,6 +45,9 @@ urlpatterns = [
     path("pint-cek/", views.pintres_var_mi, name="pintcek"),
     path("masal-hikaye-ekle/", views.ekle, name="masal-hikaye-ekle"),
     path("api-masal-hikaye-ekle/", views.apiyle_ekle, name="api-masal-hikaye-ekle"),
+    # Cache temizleme ve okunma sayısı arttırma (SEO-friendly)
+    path('clear-cache/', views.simple_clear_cache, name='simple-clear-cache'),
+    path('read-control/', views.increase_view_count, name='okunma'),
 
 
     path("oyunlar/", views.oyunlar, name="oyunlar"),
@@ -77,7 +80,5 @@ urlpatterns = [
     path('masal-kategori/<str:alt_kategori_slug>/', views.masalAltKategori, name='masalAltKategori'),
     path('hikaye-kategori/<str:alt_kategori_slug>/', views.hikayeAltKategori, name='hikayeAltKategori'),
     path('<str:blog_slug>/', views.enderunBlog, name='blog-getir'),
-    # Cache temizleme ve okunma sayısı arttırma (SEO-friendly)
-    path('clear-cache/', views.simple_clear_cache, name='simple-clear-cache'),
-    path('read-control/', views.increase_view_count, name='okunma'),
+
 ]
