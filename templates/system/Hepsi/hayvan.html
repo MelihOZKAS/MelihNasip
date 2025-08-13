@@ -127,21 +127,21 @@
     </style>
 
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
+{
+"@context": "https://schema.org",
       "@type": ["Game", "VideoGame"],
       "name": "Hayvan Tanıma Oyunu",
       "headline": "Eğlenceli Hayvan Öğrenme Oyunu",
       "description": "Çocuklar için interaktif hayvan tanıma ve öğrenme oyunu. Türkçe ve İngilizce seslerle desteklenir.",
-      "inLanguage": "tr",
+  "inLanguage": "tr",
       "datePublished": "2024-01-01",
       "dateModified": "{{ "now"|date:"c" }}",
       "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ request.build_absolute_uri }}" },
       "keywords": "hayvan oyunu, çocuk eğitimi, hayvan tanıma, eğitici oyun",
       "author": { "@type": "Person", "name": "Melih ÖZKAŞ" },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Masal Oku",
+  "publisher": {
+      "@type": "Organization",
+      "name": "Masal Oku",
         "@id": "https://www.cocukmasallarioku.com",
         "logo": { "@type": "ImageObject", "url": "https://masalbucket.s3.amazonaws.com/static/images/hikaye-masal.webp" }
       },
@@ -154,8 +154,8 @@
         "suggestedMaxAge": "10"
       },
       "isFamilyFriendly": true,
-      "interactionStatistic": {
-        "@type": "InteractionCounter",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
         "interactionType": { "@type": "PlayAction" },
         "userInteractionCount": 150
       },
@@ -166,8 +166,8 @@
         "maxValue": "1"
       },
       "educationalUse": "language learning, animal recognition, vocabulary building"
-    }
-    </script>
+}
+</script>
 {% endblock %}
 
 
@@ -275,15 +275,15 @@
                                         <div class="bg-white/90 backdrop-blur-sm rounded-3xl p-6 mb-8 text-center shadow-xl relative z-10">
                                             <div class="animal-display mb-6">
                                                 {% if image.url %}
-                                                    <img src="{{ image.url }}" alt="Hayvan Resmi" 
-                                                         class="animal-image mx-auto rounded-2xl shadow-lg max-w-xs w-full h-64 object-cover animate-zoom-in">
+                                                    <img src="{{ image.url }}" alt="{{ animal.ismi|default:'Hayvan resmi' }}" 
+                                                         class="animal-image mx-auto rounded-2xl shadow-lg max-w-xs w-full h-64 object-cover animate-zoom-in" loading="lazy" width="256" height="256">
                                                 {% else %}
                                                     <div class="mx-auto rounded-2xl bg-gradient-to-br from-kid-blue to-kid-purple shadow-lg max-w-xs w-full h-64 flex items-center justify-center">
                                                         <span class="text-6xl">🐾</span>
                                                     </div>
                                                 {% endif %}
-                                            </div>
-                                            
+                                    </div>
+
                                             {% if animal.ingilizce_ismi %}
                                                 <p class="font-fredoka text-2xl font-bold text-gray-700 mb-4">
                                                     🇬🇧 {{ animal.ingilizce_ismi }}
@@ -298,7 +298,7 @@
                                                         <span class="text-2xl">🇹🇷</span>
                                                         <span>Türkçe Ses</span>
                                                         <span class="text-xl">🔊</span>
-                                                    </button>
+                                        </button>
                                                 {% endif %}
                                                 {% if animal.ingilizce_ses.url %}
                                                     <button onclick="playAnimalSound('{{ animal.ingilizce_ses.url }}')"
@@ -306,20 +306,20 @@
                                                         <span class="text-2xl">🇬🇧</span>
                                                         <span>İngilizce Ses</span>
                                                         <span class="text-xl">🔊</span>
-                                                    </button>
+                                        </button>
                                                 {% endif %}
                                             </div>
-                                        </div>
+                                    </div>
 
                                         <!-- Answer Options -->
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 relative z-10">
-                                            {% for option in options %}
+                                        {% for option in options %}
                                                 <button onclick="checkAnimalAnswer('{{ option }}', '{{ animal.ismi }}')"
                                                         class="option-button bg-kid-yellow hover:bg-yellow-400 text-gray-800 font-fredoka font-bold text-xl py-4 px-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:rotate-1 border-4 border-white/50">
                                                     🐾 {{ option }}
-                                                </button>
-                                            {% endfor %}
-                                        </div>
+                                            </button>
+                                        {% endfor %}
+                                    </div>
 
                                         <!-- Result Display -->
                                         <div id="result" class="text-center min-h-20 flex items-center justify-center relative z-10">
@@ -532,7 +532,7 @@
                                         setTimeout(() => {
                                             const turkishSoundButton = document.querySelector('.sound-button');
                                             if (turkishSoundButton) {
-                                                turkishSoundButton.click();
+                                        turkishSoundButton.click();
                                             }
                                         }, 1000);
                                     });
