@@ -330,20 +330,29 @@
 {% endblock content %}
 {% block extra_script %}
 <script>
-// SEO-safe okunma sayısı arttırma beacon (tek sefer)
+// SEO-safe okunma sayısı arttırma beacon
 (function(){
     try {
-        if (window.__vc_sent) return;
-        window.__vc_sent = true;
-        const url = '{% url "okunma" %}';
-        const json = JSON.stringify({ slug: '{{ EnDerun.slug }}', model: 'blog' });
-        if (navigator.sendBeacon) {
-            const blob = new Blob([json], { type: 'text/plain' });
-            navigator.sendBeacon(url, blob);
-        } else {
-            fetch(url, { method: 'POST', keepalive: true, credentials: 'same-origin', headers: { 'Content-Type': 'text/plain' }, body: json }).catch(()=>{});
-        }
-    } catch (e) { /* sessiz */ }
+        const url = '/read-control/';
+        const payload = { slug: '{{ EnDerun.slug|escapejs }}', model: 'blog' };
+        const json = JSON.stringify(payload);
+        
+        console.log('Blog - Sending to:', url, 'Payload:', payload);
+        
+        fetch(url, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: json 
+        })
+        .then(response => {
+            console.log('Blog response status:', response.status);
+            return response.json();
+        })
+        .then(data => console.log('Blog response data:', data))
+        .catch(error => console.error('Blog fetch error:', error));
+    } catch (e) { 
+        console.error('Blog script error:', e); 
+    }
 })();
 </script>
 {% endblock %}

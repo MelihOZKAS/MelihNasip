@@ -650,20 +650,29 @@
             })();
         </script>
         <script>
-            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon (tek sefer)
+            // Okunma sayısını cache'den bağımsız arttırmak için SEO-safe beacon
             (function(){
                 try {
-                    if (window.__vc_sent) return; // duplicate guard
-                    window.__vc_sent = true;
-                    const url = '{% url "okunma" %}';
-                    const json = JSON.stringify({ slug: '{{ EnDerun.slug }}', model: '{{ EnDerun.Model|lower }}' });
-                    if (navigator.sendBeacon) {
-                        const blob = new Blob([json], { type: 'text/plain' });
-                        navigator.sendBeacon(url, blob);
-                    } else {
-                        fetch(url, { method: 'POST', keepalive: true, credentials: 'same-origin', headers: { 'Content-Type': 'text/plain' }, body: json }).catch(()=>{});
-                    }
-                } catch (e) { /* sessiz */ }
+                    const url = '/read-control/';
+                    const payload = { slug: '{{ EnDerun.slug|escapejs }}', model: '{{ EnDerun.Model|lower|escapejs }}' };
+                    const json = JSON.stringify(payload);
+                    
+                    console.log('Sending to:', url, 'Payload:', payload);
+                    
+                    fetch(url, { 
+                        method: 'POST', 
+                        headers: { 'Content-Type': 'application/json' }, 
+                        body: json 
+                    })
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        return response.json();
+                    })
+                    .then(data => console.log('Response data:', data))
+                    .catch(error => console.error('Fetch error:', error));
+                } catch (e) { 
+                    console.error('Script error:', e); 
+                }
             })();
         </script>
     {% endblock extra_script %}
