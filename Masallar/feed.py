@@ -6,7 +6,16 @@ from django.shortcuts import render,HttpResponse,get_object_or_404,reverse
 
 
 
-class DiniMasallarFeed(Feed):
+class BaseNoIndexFeed(Feed):
+    """Tüm feed'lere noindex ve kısa süreli cache başlıkları ekler."""
+    def __call__(self, request, *args, **kwargs):
+        response = super().__call__(request, *args, **kwargs)
+        response["X-Robots-Tag"] = "noindex, follow"
+        # 30 dk cache
+        response["Cache-Control"] = "public, max-age=1800, s-maxage=1800"
+        return response
+
+class DiniMasallarFeed(BaseNoIndexFeed):
     title = "Dini Masallar"
     link = "/feeds/dini-masallar/"
     description = "En son eklenen dini masallar."
@@ -28,7 +37,7 @@ class DiniMasallarFeed(Feed):
 
 
 
-class PeriMasallariFeed(Feed):
+class PeriMasallariFeed(BaseNoIndexFeed):
     title = "Peri Masalları"
     link = "/feeds/peri-masallari/"
     description = "En son eklenen peri masalları."
@@ -49,7 +58,7 @@ class PeriMasallariFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class UykuMasallariFeed(Feed):
+class UykuMasallariFeed(BaseNoIndexFeed):
     title = "Uyku Masalları"
     link = "/feeds/uyku-masallari/"
     description = "En son eklenen uyku masalları."
@@ -69,7 +78,7 @@ class UykuMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class HayvanMasallariFeed(Feed):
+class HayvanMasallariFeed(BaseNoIndexFeed):
     title = "Sevimli Hayvan Masalları"
     link = "/feeds/hayvan-masallari/"
     description = "En son eklenen sevimli hayvan masalları."
@@ -89,7 +98,7 @@ class HayvanMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class PrensesMasallariFeed(Feed):
+class PrensesMasallariFeed(BaseNoIndexFeed):
     title = "Prenses Masalları"
     link = "/feeds/prenses-masallari/"
     description = "En son eklenen prenses masalları."
@@ -109,7 +118,7 @@ class PrensesMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class PrensMasallariFeed(Feed):
+class PrensMasallariFeed(BaseNoIndexFeed):
     title = "Prens Masalları"
     link = "/feeds/prens-masallari/"
     description = "En son eklenen prens masalları."
@@ -129,7 +138,7 @@ class PrensMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class AileMasallariFeed(Feed):
+class AileMasallariFeed(BaseNoIndexFeed):
     title = "Aile Masalları"
     link = "/feeds/aile-masallari/"
     description = "En son eklenen aile masalları."
@@ -150,7 +159,7 @@ class AileMasallariFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class MaceraMasallariFeed(Feed):
+class MaceraMasallariFeed(BaseNoIndexFeed):
     title = "Macera Masalları"
     link = "/feeds/macera-masallari/"
     description = "En son eklenen macera masalları."
@@ -172,7 +181,7 @@ class MaceraMasallariFeed(Feed):
 
 
 
-class KomikMasallariFeed(Feed):
+class KomikMasallariFeed(BaseNoIndexFeed):
     title = "Komik Masallar"
     link = "/feeds/komik-masallar/"
     description = "En son eklenen komik masalları."
@@ -193,7 +202,7 @@ class KomikMasallariFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class EgiticiMasallariFeed(Feed):
+class EgiticiMasallariFeed(BaseNoIndexFeed):
     title = "Eğitici Masallar"
     link = "/feeds/egitici-masallar/"
     description = "En son eklenen eğitici masallar."
@@ -215,7 +224,7 @@ class EgiticiMasallariFeed(Feed):
 
 
 
-class ArkadasMasallariFeed(Feed):
+class ArkadasMasallariFeed(BaseNoIndexFeed):
     title = "Arkadaş Masallar"
     link = "/feeds/arkadas-masallari/"
     description = "En son eklenen arkadaş masalları."
@@ -235,7 +244,7 @@ class ArkadasMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class KardesMasallariFeed(Feed):
+class KardesMasallariFeed(BaseNoIndexFeed):
     title = "Kardeşlik Masalları"
     link = "/feeds/kardeslik-masallari/"
     description = "En son eklenen kardeş masalları."
@@ -255,7 +264,7 @@ class KardesMasallariFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class iyilikMasallariFeed(Feed):
+class iyilikMasallariFeed(BaseNoIndexFeed):
     title = "iyilik Masalları"
     link = "/feeds/iyilik-masallari/"
     description = "En son eklenen iyilik doğruluk masalları."
@@ -276,7 +285,7 @@ class iyilikMasallariFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class KeloglanMasallariFeed(Feed):
+class KeloglanMasallariFeed(BaseNoIndexFeed):
     title = "Keloğşan Masalları"
     link = "/feeds/keloglan-masallari/"
     description = "En son eklenen keloğlan masalları."
@@ -297,7 +306,7 @@ class KeloglanMasallariFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class DiniHikayelerFeed(Feed):
+class DiniHikayelerFeed(BaseNoIndexFeed):
     title = "Dini Hikayeler"
     link = "/feeds/dini-hikayeler/"
     description = "En son eklenen dini hikayeler."
@@ -318,7 +327,7 @@ class DiniHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class SihirliDunyaHikayelerFeed(Feed):
+class SihirliDunyaHikayelerFeed(BaseNoIndexFeed):
     title = "Sihirli Dünya Hikayeleri"
     link = "/feeds/sihirli-dunya-hikayeleri/"
     description = "En son eklenen sihirli dünya hikayeleri."
@@ -339,7 +348,7 @@ class SihirliDunyaHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class SevimliHayvanHikayelerFeed(Feed):
+class SevimliHayvanHikayelerFeed(BaseNoIndexFeed):
     title = "Sevimli Hayvan Hikayeleri"
     link = "/feeds/sevimli-hayvan-hikayeleri/"
     description = "En son eklenen sevimli hayvan hikayeleri."
@@ -360,7 +369,7 @@ class SevimliHayvanHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class KahramanHikayelerFeed(Feed):
+class KahramanHikayelerFeed(BaseNoIndexFeed):
     title = "Korkusuz Kahraman Hikayeleri"
     link = "/feeds/korkusuz-kahraman-hikayeleri/"
     description = "En son eklenen korkusux kahraman hikayeleri."
@@ -380,7 +389,7 @@ class KahramanHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class AileHikayelerFeed(Feed):
+class AileHikayelerFeed(BaseNoIndexFeed):
     title = "Mutlu Aile Hikayeleri"
     link = "/feeds/mutlu-aile-hikayeleri/"
     description = "En son eklenen mutlu aile hikayeleri."
@@ -401,7 +410,7 @@ class AileHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class HazineHikayelerFeed(Feed):
+class HazineHikayelerFeed(BaseNoIndexFeed):
     title = "Hazine Hikayeleri"
     link = "/feeds/hazine-avi-hikayeleri/"
     description = "En son eklenen hazine avı hikayeleri."
@@ -422,7 +431,7 @@ class HazineHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class YolculukHikayelerFeed(Feed):
+class YolculukHikayelerFeed(BaseNoIndexFeed):
     title = "Eğlenceli Yolculuk Hikayeleri"
     link = "/feeds/eglenceli-yolculuk-hikayeleri/"
     description = "En son eklenen eğlenceli yolculuk hikayeleri."
@@ -442,7 +451,7 @@ class YolculukHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class GezikHikayelerFeed(Feed):
+class GezikHikayelerFeed(BaseNoIndexFeed):
     title = "Gezi Maceraları Hikayeleri"
     link = "/feeds/gezi-maceralari-hikayeleri/"
     description = "En son eklenen gezi maceraları hikayeleri."
@@ -462,7 +471,7 @@ class GezikHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class UzayHikayelerFeed(Feed):
+class UzayHikayelerFeed(BaseNoIndexFeed):
     title = "Uzay Maceraları Hikayeleri"
     link = "/feeds/uzay-maceralari-hikayeleri/"
     description = "En son eklenen uzay maceraları hikayeleri."
@@ -482,7 +491,7 @@ class UzayHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class BilimHikayelerFeed(Feed):
+class BilimHikayelerFeed(BaseNoIndexFeed):
     title = "Muhteşem Bilim Hikayeleri"
     link = "/feeds/muhtesem-bilim-hikayeleri/"
     description = "En son eklenen muhteşem bilim hikayeleri."
@@ -502,7 +511,7 @@ class BilimHikayelerFeed(Feed):
     def item_author_name(self, item):
         return "Melih ÖZKAŞ"
 
-class DostlukHikayelerFeed(Feed):
+class DostlukHikayelerFeed(BaseNoIndexFeed):
     title = "Muhteşem Dostluk Hikayeleri"
     link = "/feeds/dostluk-hikayeleri/"
     description = "En son eklenen muhteşem dostluk hikayeleri."
@@ -523,7 +532,7 @@ class DostlukHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class CevreHikayelerFeed(Feed):
+class CevreHikayelerFeed(BaseNoIndexFeed):
     title = "Doğa ve Çevre Önemi Hikayeleri"
     link = "/feeds/doga-ve-cevre-onemi-hikayeleri/"
     description = "En son eklenen doğa ve çevre önemi hikayeleri."
@@ -544,7 +553,7 @@ class CevreHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class ingilizceHikayelerFeed(Feed):
+class ingilizceHikayelerFeed(BaseNoIndexFeed):
     title = "ingilizce çocuk Hikayeleri"
     link = "/feeds/ingilizce-hikayeler/"
     description = "En son eklenen ingilizce çocuk hikayeleri."
@@ -565,7 +574,7 @@ class ingilizceHikayelerFeed(Feed):
         return "Melih ÖZKAŞ"
 
 
-class CanavarHikayelerFeed(Feed):
+class CanavarHikayelerFeed(BaseNoIndexFeed):
     title = "Sevimli Canavar Hikayeleri"
     link = "/feeds/sevimli-canavar-hikayeleri/"
     description = "En son eklenen sevimli canavar hikayeleri."

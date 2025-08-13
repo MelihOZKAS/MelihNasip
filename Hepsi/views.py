@@ -694,8 +694,10 @@ def robots_txt(request):
 robots_txt_content = """
 User-agent: *
 Disallow: /static/
-Disallow: /media/
+Allow: /media/
 Sitemap: https://www.cocukmasallarioku.com/sitemap.xml
+
+Disallow: /feeds/
 """
 
 
